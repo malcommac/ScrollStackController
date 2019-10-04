@@ -51,18 +51,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-339" y="160"/>
+            <point key="canvasLocation" x="-383" y="29"/>
         </scene>
         <!--VC1-->
         <scene sceneID="F2C-MH-Lwo">
             <objects>
                 <viewController storyboardIdentifier="VC1" id="hnx-R5-b6N" customClass="VC1" customModule="ScrollStackControllerDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aW5-uU-IfU">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yVI-0r-6fw">
-                                <rect key="frame" x="182.5" y="432.5" width="51" height="31"/>
+                                <rect key="frame" x="182.5" y="134.5" width="51" height="31"/>
                             </switch>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -72,10 +72,41 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mC8-c9-Zzg"/>
                     </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="414" height="300"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i09-Qc-wUC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="355" y="29"/>
+            <point key="canvasLocation" x="259" y="-171"/>
+        </scene>
+        <!--VC2-->
+        <scene sceneID="W0p-QS-jfS">
+            <objects>
+                <viewController storyboardIdentifier="VC2" id="1Ap-wi-SGJ" customClass="VC2" customModule="ScrollStackControllerDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dZN-dE-Enp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PXE-1E-oq8">
+                                <rect key="frame" x="20" y="20" width="374" height="25.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="PXE-1E-oq8" firstAttribute="leading" secondItem="N9x-T6-Cli" secondAttribute="leading" constant="20" id="lCR-B8-Ec4"/>
+                            <constraint firstItem="N9x-T6-Cli" firstAttribute="trailing" secondItem="PXE-1E-oq8" secondAttribute="trailing" constant="20" id="tad-L3-w90"/>
+                            <constraint firstItem="PXE-1E-oq8" firstAttribute="top" secondItem="dZN-dE-Enp" secondAttribute="top" constant="20" id="ufn-3x-2ZS"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="N9x-T6-Cli"/>
+                    </view>
+                    <size key="freeformSize" width="414" height="300"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XEK-KL-pKN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="257.97101449275362" y="76.339285714285708"/>
         </scene>
     </scenes>
 </document>

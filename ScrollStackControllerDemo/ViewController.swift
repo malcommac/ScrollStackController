@@ -38,8 +38,10 @@ class ViewController: UIViewController {
     }
 
     @IBAction public func toggleAxis() {
-        let otherVC = VC1.create(backColor: .blue)
-        stackController.stackView.replaceRowAtIndex(1, withRow: otherVC, animated: true)
+        let otherVC = VC2.create(backColor: .white)
+      
+        stackController.stackView.setRowHidden(index: 0, isHidden: true, animated: true)
+        //  stackController.stackView.replaceRowAtIndex(1, withRow: otherVC, animated: true)
  //       stackController.stackView.moveRowAtIndex(1, to: 2, animated: true)
         //stackController.stackView.axis = (stackController.stackView.axis == .horizontal ? .vertical : .horizontal)
     }

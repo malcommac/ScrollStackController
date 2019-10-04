@@ -257,20 +257,8 @@ open class ScrollStack: UIScrollView {
     /// - Parameter animated: `true` to perform animated removeal, by default is `false`.
     open func removeAllRows(animated: Bool = false) {
         rows.forEach {
-            removeRow($0, animated: animated)
+            removeRowFromStackView($0, animated: animated)
         }
-    }
-    
-    /// Remove row at given index and return removed managed controller (if any).
-    ///
-    /// - Parameter index: index of the row to remove.
-    /// - Parameter animated: `true` to perform animation to remove item, by default is `false`.
-    @discardableResult
-    open func removeRowAtIndex(_ index: Int, animated: Bool = false) -> UIViewController? {
-        guard index >= 0, index < rows.count else {
-            return nil
-        }
-        return removeRow(rows[index])
     }
     
     /// Remove specified row.
@@ -278,18 +266,21 @@ open class ScrollStack: UIScrollView {
     /// - Parameter row: row instance to remove.
     /// - Parameter animated: `true` to perform animation to remove item, by default is `false`.
     @discardableResult
-    open func removeRow(_ row: ScrollStackRow, animated: Bool = false) -> UIViewController? {
+    open func removeRow(index: Int, animated: Bool = false) -> UIViewController? {
+        guard let row = safeRowAtIndex(index) else {
+            return nil
+        }
         return removeRowFromStackView(row, animated: animated)
     }
     
     /// Remove passed rows.
     ///
-    /// - Parameter rows: rows to remove.
+    /// - Parameter rowIndexes: indexes of the row to remove.
     /// - Parameter animated: `true` to animate the removeal, by default is `false`.
     @discardableResult
-    open func removeRows(_ rows: [ScrollStackRow], animated: Bool = false) -> [UIViewController]? {
-        return rows.compactMap {
-            return removeRowFromStackView($0, animated: animated)
+    open func removeRows(indexes rowIndexes: [Int], animated: Bool = false) -> [UIViewController]? {
+        return rowIndexes.compactMap {
+            return removeRowFromStackView(safeRowAtIndex($0), animated: animated)
         }
     }
     
@@ -299,7 +290,7 @@ open class ScrollStack: UIScrollView {
     /// - Parameter controller: view controller to replace.
     /// - Parameter animated: `true` to animate the transition.
     /// - Parameter completion: optional callback called at the end of the transition.
-    open func replaceRowAtIndex(_ sourceIndex: Int, withRow controller: UIViewController, animated: Bool = false, completion: (() -> Void)? = nil) {
+    open func replaceRow(index sourceIndex: Int, withRow controller: UIViewController, animated: Bool = false, completion: (() -> Void)? = nil) {
         guard sourceIndex >= 0, sourceIndex < rows.count else {
             return
         }
@@ -307,7 +298,7 @@ open class ScrollStack: UIScrollView {
         let sourceRow = rows[sourceIndex]
         
         guard animated else {
-            removeRow(sourceRow)
+            removeRow(index: sourceRow.index!)
             createRowForController(controller, insertAt: sourceIndex, animated: false)
             return
         }
@@ -332,7 +323,7 @@ open class ScrollStack: UIScrollView {
     /// - Parameter destIndex: destination index.
     /// - Parameter animated: `true` to animate the transition.
     /// - Parameter completion: optional callback called at the end of the transition.
-    open func moveRowAtIndex(_ sourceIndex: Int, to destIndex: Int, animated: Bool = false, completion: (() -> Void)? = nil) {
+    open func moveRow(index sourceIndex: Int, to destIndex: Int, animated: Bool = false, completion: (() -> Void)? = nil) {
         guard sourceIndex >= 0, sourceIndex < rows.count, destIndex < rows.count else {
             return
         }
@@ -361,11 +352,15 @@ open class ScrollStack: UIScrollView {
     /// Hide/Show row from the stack.
     /// Row is always on stack and it's returned from the `rows` property.
     ///
-    /// - Parameter row: target row.
+    /// - Parameter rowIndex: target row index.
     /// - Parameter isHidden: `true` to hide the row, `false` to make it visible.
     /// - Parameter animated: `true` to perform animated transition.
     /// - Parameter completion: completion callback called once the operation did finish.
-    open func setRowHidden(_ row: ScrollStackRow, isHidden: Bool, animated: Bool, completion: (() -> Void)? = nil) {
+    open func setRowHidden(index rowIndex: Int, isHidden: Bool, animated: Bool, completion: (() -> Void)? = nil) {
+        guard let row = safeRowAtIndex(rowIndex) else {
+            return
+        }
+        
         guard animated else {
             row.isHidden = isHidden
             return
@@ -384,13 +379,13 @@ open class ScrollStack: UIScrollView {
     /// Hide/Show selected rows.
     /// Rows is always on stack and it's returned from the `rows` property.
     ///
-    /// - Parameter rows: target rows.
+    /// - Parameter rowIndexes: indexes of the row to hide or show.
     /// - Parameter isHidden: `true` to hide the row, `false` to make it visible.
     /// - Parameter animated: `true` to perform animated transition.
     /// - Parameter completion: completion callback called once the operation did finish.
-    open func setRowsHidden(_ rows: [ScrollStackRow], isHidden: Bool, animated: Bool, completion: (() -> Void)? = nil) {
-        rows.forEach {
-            setRowHidden($0, isHidden: isHidden, animated: animated)
+    open func setRowsHidden(indexes rowIndexes: [Int], isHidden: Bool, animated: Bool, completion: (() -> Void)? = nil) {
+        rowIndexes.forEach {
+            setRowHidden(index: $0, isHidden: isHidden, animated: animated)
         }
     }
     
@@ -427,25 +422,25 @@ open class ScrollStack: UIScrollView {
     ///
     /// - Parameter row: target row.
     /// - Parameter insets: new insets.
-    open func setRowInsets(_ row: ScrollStackRow, insets: UIEdgeInsets) {
-        row.rowInsets = insets
+    open func setRowInsets(index rowIndex: Int, insets: UIEdgeInsets) {
+        safeRowAtIndex(rowIndex)?.rowInsets = insets
     }
     
     /// Set the ints of the row's content related to the parent row cell.
     ///
     /// - Parameter row: target rows.
     /// - Parameter insets: new insets.
-    open func setRowsInsets(_ row: [ScrollStackRow], insets: UIEdgeInsets) {
-        row.forEach {
-            setRowInsets($0, insets: insets)
+    open func setRowsInsets(indexes rowIndexes: [Int], insets: UIEdgeInsets) {
+        rowIndexes.forEach {
+            setRowInsets(index: $0, insets: insets)
         }
     }
     
     /// Return the visibility status of a row.
     ///
-    /// - Parameter row: row to check.
-    open func isRowVisible(_ row: ScrollStackRow) -> RowVisibility {
-        guard row.isHidden == false else {
+    /// - Parameter index: index of the row to check.
+    open func isRowVisible(index: Int) -> RowVisibility {
+        guard let row = safeRowAtIndex(index), row.isHidden == false else {
             return .hidden
         }
         
@@ -460,18 +455,22 @@ open class ScrollStack: UIScrollView {
     /// Return `true` if row is currently hidden.
     ///
     /// - Parameter row: row to check.
-    open func isRowHidden(_ row: ScrollStackRow) -> Bool {
-        return row.isHidden
+    open func isRowHidden(index: Int) -> Bool {
+        return safeRowAtIndex(index)?.isHidden ?? false
     }
     
     // MARK: - Scroll
     
     /// Scroll to the passed row.
     ///
-    /// - Parameter row: row to make visible.
+    /// - Parameter rowIndex: index of the row to make visible.
     /// - Parameter location: visibility of the row, location of the center point.
     /// - Parameter animated: `true` to perform animated transition.
-    open func scrollToRow(_ row: ScrollStackRow, at position: ScrollPosition = .automatic,  animated: Bool = true) {
+    open func scrollToRow(index rowIndex: Int, at position: ScrollPosition = .automatic,  animated: Bool = true) {
+        guard let row = safeRowAtIndex(rowIndex) else {
+            return
+        }
+        
         let rowFrame = convert(row.frame, to: self)
         
         if case .automatic = position {
@@ -521,6 +520,14 @@ open class ScrollStack: UIScrollView {
         
         didChangeAxis(axis)
     }
+    
+    private func safeRowAtIndex(_ index: Int) -> ScrollStackRow? {
+        guard index >= 0, index < rows.count else {
+            return nil
+        }
+        return rows[index]
+    }
+    
     
     /// Remove passed row from stack view.
     ///

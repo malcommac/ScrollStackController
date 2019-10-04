@@ -36,6 +36,7 @@
 		64C0228623475A0E00A6D844 /* ScrollStack+Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C0228523475A0E00A6D844 /* ScrollStack+Support.swift */; };
 		64C0228723475A0E00A6D844 /* ScrollStack+Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C0228523475A0E00A6D844 /* ScrollStack+Support.swift */; };
 		64C0228823475A0E00A6D844 /* ScrollStack+Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C0228523475A0E00A6D844 /* ScrollStack+Support.swift */; };
+		64C0228A2347834300A6D844 /* VC2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C022892347834300A6D844 /* VC2.swift */; };
 		DD7502921C690C7A006590AF /* ScrollStackController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D6D9F01BEFFFBE002C0205 /* ScrollStackController.framework */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +77,7 @@
 		64C022752347360900A6D844 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		64C0227C234753A100A6D844 /* VC1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VC1.swift; sourceTree = "<group>"; };
 		64C0228523475A0E00A6D844 /* ScrollStack+Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScrollStack+Support.swift"; sourceTree = "<group>"; };
+		64C022892347834300A6D844 /* VC2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VC2.swift; sourceTree = "<group>"; };
 		AD2FAA261CD0B6D800659CF4 /* ScrollStackController.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ScrollStackController.plist; sourceTree = "<group>"; };
 		AD2FAA281CD0B6E100659CF4 /* ScrollStackControllerTests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ScrollStackControllerTests.plist; sourceTree = "<group>"; };
 		DD75028D1C690C7A006590AF /* ScrollStackController-tvOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ScrollStackController-tvOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -182,6 +184,7 @@
 				64C022692347360800A6D844 /* SceneDelegate.swift */,
 				64C0226B2347360800A6D844 /* ViewController.swift */,
 				64C0227C234753A100A6D844 /* VC1.swift */,
+				64C022892347834300A6D844 /* VC2.swift */,
 				64C0226D2347360800A6D844 /* Main.storyboard */,
 				64C022702347360900A6D844 /* Assets.xcassets */,
 				64C022722347360900A6D844 /* LaunchScreen.storyboard */,
@@ -454,6 +457,7 @@
 				64C0228823475A0E00A6D844 /* ScrollStack+Support.swift in Sources */,
 				64C0227F2347582D00A6D844 /* ScrollStackRow.swift in Sources */,
 				64C022802347582D00A6D844 /* ScrollStackRowHighlightable.swift in Sources */,
+				64C0228A2347834300A6D844 /* VC2.swift in Sources */,
 				64C022822347582D00A6D844 /* ScrollStackViewController.swift in Sources */,
 				64C0226C2347360800A6D844 /* ViewController.swift in Sources */,
 				64C022812347582D00A6D844 /* ScrollStackSeparator.swift in Sources */,
