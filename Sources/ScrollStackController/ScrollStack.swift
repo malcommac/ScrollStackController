@@ -335,6 +335,7 @@ open class ScrollStack: UIScrollView {
                 sourceRow.removeFromSuperview()
             }
             stackView.insertArrangedSubview(sourceRow, at: destIndex)
+            postInsertRow(sourceRow, animated: false)
         }
         
         guard animated else {
@@ -577,18 +578,22 @@ open class ScrollStack: UIScrollView {
         // Remove any duplicate cell with the same view
         removeRowFromStackView(cellToRemove)
         
+        postInsertRow(newRow, animated: animated, completion: completion)
+        
+        return newRow
+    }
+    
+    private func postInsertRow(_ row: ScrollStackRow, animated: Bool, completion: (() -> Void)? = nil) {
         // Setup separator visibility for the new cell
-        updateRowSeparatorVisibility(newRow)
+        updateRowSeparatorVisibility(row)
         
         // A cell can affect the visibility of the cell before it, e.g. if
         // `automaticallyHidesLastSeparator` is true and a new cell is added as the last cell, so update
         // the previous cell's separator visibility as well.
-        updateRowSeparatorVisibility(rowBeforeRow(newRow))
+        updateRowSeparatorVisibility(rowBeforeRow(row))
         
         // Animate visibility
-        animateCellVisibility(newRow, animated: animated, hide: false, completion: completion)
-        
-        return newRow
+        animateCellVisibility(row, animated: animated, hide: false, completion: completion)
     }
     
     private func updateRowSeparatorVisibility(_ row: ScrollStackRow?) {
