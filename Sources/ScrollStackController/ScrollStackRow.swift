@@ -166,6 +166,13 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         self.translatesAutoresizingMaskIntoConstraints = false
         
+        layoutUI()
+    }
+    
+    internal func layoutUI() {
+        contentView.removeFromSuperview()
+        contentView.removeFromSuperview()
+        
         addSubview(contentView)
         addSubview(separatorView)
         
@@ -260,6 +267,8 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         default:
             break
         }
+        
+        print("")
     }
     
     // MARK: - Handle Touch

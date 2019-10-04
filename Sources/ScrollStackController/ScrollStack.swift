@@ -627,11 +627,12 @@ open class ScrollStack: UIScrollView {
             break
             
         }
-        axisConstraint?.isActive = true
         
         rows.forEach {
-            $0.askForCutomizedSizeOfContentView()
+            $0.layoutUI()
         }
+        
+        axisConstraint?.isActive = true
     }
     
     private func didUpdateCellAxisTo(_ axis: NSLayoutConstraint.Axis) {
