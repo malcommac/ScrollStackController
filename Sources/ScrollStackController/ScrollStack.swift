@@ -298,12 +298,64 @@ open class ScrollStack: UIScrollView {
     /// - Parameter row: row to replace.
     /// - Parameter controller: view controller to replace.
     /// - Parameter animated: `true` to animate the transition.
-    open func replaceRow(_ row: ScrollStackRow, withRow controller: UIViewController, animated: Bool = false) -> ScrollStackRow? {
-        guard let index = rows.firstIndex(of: row) else {
-            return nil
+    open func replaceRowAtIndex(_ sourceIndex: Int, withRow controller: UIViewController, animated: Bool = false) {
+        guard sourceIndex >= 0, sourceIndex < rows.count else {
+            return
         }
-        removeRow(row, animated: animated)
-        return addRow(controller: controller, at: .atIndex(index), animated: animated)
+        
+        let sourceRow = rows[sourceIndex]
+        
+        stackView.setNeedsLayout()
+        UIView.animate(withDuration: 0.3, animations: {
+            sourceRow.isHidden = true
+            
+        }, completion: { isFinished in
+            guard isFinished else {
+                return
+            }
+ 
+            let newRow = self.createRowForController(controller, insertAt: sourceIndex, animated: false)
+            newRow.isHidden = true
+            UIView.animate(withDuration: 0.3, animations: {
+                newRow.isHidden = false
+            })
+        })
+    }
+    
+    /// Move the row at given index to another index.
+    /// If one of the indexes is not valid nothing is made.
+    ///
+    /// - Parameter sourceIndex: source index.
+    /// - Parameter destIndex: destination index.
+    /// - Parameter animated: `true` to animate the transition.
+    /// - Parameter completion: optional callback called at the end of the transition.
+    open func moveRowAtIndex(_ sourceIndex: Int, to destIndex: Int, animated: Bool = false, completion: (() -> Void)? = nil) {
+        guard sourceIndex >= 0, sourceIndex < rows.count, destIndex < rows.count else {
+            return
+        }
+        
+        let sourceRow = rows[sourceIndex]
+        
+        func executeMoveRow() {
+            if sourceRow == stackView.arrangedSubviews.first {
+                sourceRow.removeFromSuperview()
+            }
+            stackView.insertArrangedSubview(sourceRow, at: destIndex)
+        }
+        
+        guard animated else {
+            executeMoveRow()
+            completion?()
+            return
+        }
+        
+        stackView.setNeedsLayout()
+        UIView.animate(withDuration: 0.3, animations: executeMoveRow, completion: { isFinished in
+            if isFinished {
+                completion?()
+            }
+        })
+        
     }
     
     // MARK: Show/Hide Rows
@@ -328,7 +380,7 @@ open class ScrollStack: UIScrollView {
         row.layoutIfNeeded()
         UIView.animate(withDuration: 0.3, animations: {
             row.isHidden = isHidden
-            row.layoutIfNeeded()
+            //row.layoutIfNeeded()
         }) { isFinished in
             if isFinished {
                 completion?()
@@ -454,7 +506,6 @@ open class ScrollStack: UIScrollView {
         }
     }
     
-    
     // MARK: - Private Functions
     
     /// Initial configuration of the control.
@@ -464,7 +515,7 @@ open class ScrollStack: UIScrollView {
         // Create stack view and add it to the scrollview
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        backgroundColor = UIColor.yellow
+        backgroundColor = UIColor.lightGray
         addSubview(stackView)
         
         // Configure constraints for stackview
@@ -522,7 +573,7 @@ open class ScrollStack: UIScrollView {
         let newRow = ScrollStackRow(controller: controller, stackView: self)
         onChangeRow?(newRow, false)
         stackView.insertArrangedSubview(newRow, at: index)
-        
+                
         // Remove any duplicate cell with the same view
         removeRowFromStackView(cellToRemove)
         

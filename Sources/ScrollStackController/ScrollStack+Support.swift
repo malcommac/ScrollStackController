@@ -34,7 +34,7 @@ import UIKit
 
 public protocol ScrollStackContainableController: UIViewController {
     
-    /// If you implement this method you can manage the size of the controller
+    /// If you implement this protocol you can manage the size of the controller
     /// when is placed inside a `ScrollStackView`.
     /// This method is also called when scroll stack change the orientation.
     /// You can return `nil` to leave the opportunity to change the size to the

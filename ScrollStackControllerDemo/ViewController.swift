@@ -14,6 +14,13 @@ class ViewController: UIViewController {
 
     private var stackController = ScrollStackViewController()
     
+    private var listVCs = [
+        VC1.create(backColor: .red),
+        VC1.create(backColor: .orange),
+        VC1.create(backColor: .yellow),
+        VC1.create(backColor: .purple)
+    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -24,11 +31,17 @@ class ViewController: UIViewController {
         stackController.view.frame = contentView.bounds
         contentView.addSubview(stackController.view)
         
-        stackController.stackView.addRow(controller: VC1.create())
+        listVCs.forEach {
+            stackController.stackView.addRow(controller: $0)
+        }
+        
     }
 
     @IBAction public func toggleAxis() {
-        stackController.stackView.axis = (stackController.stackView.axis == .horizontal ? .vertical : .horizontal)
+        let otherVC = VC1.create(backColor: .blue)
+        stackController.stackView.replaceRowAtIndex(1, withRow: otherVC, animated: true)
+ //       stackController.stackView.moveRowAtIndex(1, to: 2, animated: true)
+        //stackController.stackView.axis = (stackController.stackView.axis == .horizontal ? .vertical : .horizontal)
     }
     
 }
