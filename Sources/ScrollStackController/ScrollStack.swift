@@ -607,43 +607,41 @@ open class ScrollStack: UIScrollView {
         return stackView.arrangedSubviews[index - 1] as? ScrollStackRow
     }
     
-    // MARK: - Animated Transition
+    // MARK: - Row Animated Transitions
     
     private func animateCellVisibility(_ cell: ScrollStackRow, animated: Bool, hide: Bool, completion: (() -> Void)? = nil) {
-        
-        func transitionToVisible() {
-            guard animated else {
-                cell.alpha = 1.0
-                cell.isHidden = false
-                completion?()
-                return
-            }
-            
-            cell.alpha = 0.0
-            layoutIfNeeded()
-            UIView.animate({
-                cell.alpha = 1.0
-            }, completion: completion)
-        }
-        
-        func transitionToInvisible() {
-            guard animated else {
-                cell.isHidden = true
-                completion?()
-                return
-            }
-            
-            UIView.animate({
-                cell.isHidden = true
-            }, completion: completion)
-        }
-        
         if hide {
-            transitionToInvisible()
+            animateCellToInvisibleState(cell, animated: animated, hide: hide, completion: completion)
         } else {
-            transitionToVisible()
+            animateCellToVisibleState(cell, animated: animated, hide: hide, completion: completion)
+        }
+    }
+    
+    private func animateCellToVisibleState(_ cell: ScrollStackRow, animated: Bool, hide: Bool, completion: (() -> Void)? = nil) {
+        guard animated else {
+            cell.alpha = 1.0
+            cell.isHidden = false
+            completion?()
+            return
         }
         
+        cell.alpha = 0.0
+        layoutIfNeeded()
+        UIView.animate({
+            cell.alpha = 1.0
+        }, completion: completion)
+    }
+    
+    private func animateCellToInvisibleState(_ cell: ScrollStackRow, animated: Bool, hide: Bool, completion: (() -> Void)? = nil) {
+        guard animated else {
+            cell.isHidden = true
+            completion?()
+            return
+        }
+        
+        UIView.animate({
+            cell.isHidden = true
+        }, completion: completion)
     }
     
     // MARK: - Axis Change Events
