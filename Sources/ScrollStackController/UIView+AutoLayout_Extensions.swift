@@ -34,11 +34,11 @@ import UIKit
 
 extension UIView {
     
-    public func height(constant: CGFloat) {
+    public func height(constant: CGFloat?) {
         setConstraint(value: constant, attribute: .height)
     }
     
-    public func width(constant: CGFloat) {
+    public func width(constant: CGFloat?) {
         setConstraint(value: constant, attribute: .width)
     }
     
@@ -50,17 +50,19 @@ extension UIView {
         }
     }
     
-    private func setConstraint(value: CGFloat, attribute: NSLayoutConstraint.Attribute) {
+    private func setConstraint(value: CGFloat?, attribute: NSLayoutConstraint.Attribute) {
         removeConstraint(attribute: attribute)
-        let constraint =
-            NSLayoutConstraint(item: self,
-                               attribute: attribute,
-                               relatedBy: NSLayoutConstraint.Relation.equal,
-                               toItem: nil,
-                               attribute: NSLayoutConstraint.Attribute.notAnAttribute,
-                               multiplier: 1,
-                               constant: value)
-        self.addConstraint(constraint)
+        if let value = value {
+            let constraint =
+                NSLayoutConstraint(item: self,
+                                   attribute: attribute,
+                                   relatedBy: NSLayoutConstraint.Relation.equal,
+                                   toItem: nil,
+                                   attribute: NSLayoutConstraint.Attribute.notAnAttribute,
+                                   multiplier: 1,
+                                   constant: value)
+            self.addConstraint(constraint)
+        }
     }
     
 }

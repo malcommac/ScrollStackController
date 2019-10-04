@@ -72,6 +72,11 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
     
     // MARK: Public Properties
     
+    /// Return the index of the row into the parent stack.
+    public var index: Int? {
+        return self.stackView?.indexOfRow(self)
+    }
+    
     /// Row highlight color.
     open var rowHighlightColor = ScrollStack.defaultRowColor
     
@@ -164,6 +169,8 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         addSubview(contentView)
         addSubview(separatorView)
         
+        askForCutomizedSizeOfContentView()
+        
         didUpdateContentViewContraints()
         didUpdateSeparatorViewContraintsIfNeeded()
         didUpdateSeparatorAxis()
@@ -229,6 +236,30 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         separatorConstraints?.bottom.constant = (separatorAxis == .horizontal ? 0 : -separatorInsets.bottom)
         separatorConstraints?.leading.constant = separatorInsets.left
         separatorConstraints?.trailing.constant = (separatorAxis == .vertical ? 0 : -separatorInsets.right)
+    }
+    
+    internal func askForCutomizedSizeOfContentView() {
+        guard let customizableController = controller as? ScrollStackContainableController else {
+            return // ignore, it's not implemented, use autolayout.
+        }
+        
+        let currentAxis = stackView!.axis
+        guard let bestSize = customizableController.sizeForAxis(currentAxis, row: self, in: self.stackView!) else {
+            return // ignore, use autolayout in place for content view.
+        }
+        
+        switch currentAxis {
+        case .horizontal:
+            contentView.width(constant: bestSize)
+            contentView.height(constant: nil)
+            
+        case .vertical:
+            contentView.width(constant: nil)
+            contentView.height(constant: bestSize)
+            
+        default:
+            break
+        }
     }
     
     // MARK: - Handle Touch
