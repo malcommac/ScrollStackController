@@ -298,28 +298,31 @@ open class ScrollStack: UIScrollView {
     /// - Parameter row: row to replace.
     /// - Parameter controller: view controller to replace.
     /// - Parameter animated: `true` to animate the transition.
-    open func replaceRowAtIndex(_ sourceIndex: Int, withRow controller: UIViewController, animated: Bool = false) {
+    /// - Parameter completion: optional callback called at the end of the transition.
+    open func replaceRowAtIndex(_ sourceIndex: Int, withRow controller: UIViewController, animated: Bool = false, completion: (() -> Void)? = nil) {
         guard sourceIndex >= 0, sourceIndex < rows.count else {
             return
         }
         
         let sourceRow = rows[sourceIndex]
         
+        guard animated else {
+            removeRow(sourceRow)
+            createRowForController(controller, insertAt: sourceIndex, animated: false)
+            return
+        }
+        
         stackView.setNeedsLayout()
-        UIView.animate(withDuration: 0.3, animations: {
+        
+        UIView.animate({
             sourceRow.isHidden = true
-            
-        }, completion: { isFinished in
-            guard isFinished else {
-                return
-            }
- 
+        }) {
             let newRow = self.createRowForController(controller, insertAt: sourceIndex, animated: false)
             newRow.isHidden = true
-            UIView.animate(withDuration: 0.3, animations: {
+            UIView.animate({
                 newRow.isHidden = false
-            })
-        })
+            }, completion: completion)
+        }
     }
     
     /// Move the row at given index to another index.
@@ -350,12 +353,7 @@ open class ScrollStack: UIScrollView {
         }
         
         stackView.setNeedsLayout()
-        UIView.animate(withDuration: 0.3, animations: executeMoveRow, completion: { isFinished in
-            if isFinished {
-                completion?()
-            }
-        })
-        
+        UIView.animate(executeMoveRow, completion: completion)
     }
     
     // MARK: Show/Hide Rows
@@ -378,14 +376,9 @@ open class ScrollStack: UIScrollView {
         }
         
         row.layoutIfNeeded()
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate({
             row.isHidden = isHidden
-            //row.layoutIfNeeded()
-        }) { isFinished in
-            if isFinished {
-                completion?()
-            }
-        }
+        }, completion: completion)
     }
     
     /// Hide/Show selected rows.
@@ -628,12 +621,9 @@ open class ScrollStack: UIScrollView {
             
             cell.alpha = 0.0
             layoutIfNeeded()
-            UIView.animate(withDuration: 0.3, animations: {
+            UIView.animate({
                 cell.alpha = 1.0
-            }) { isFinished in
-                if isFinished { completion?() }
-            }
-            
+            }, completion: completion)
         }
         
         func transitionToInvisible() {
@@ -643,11 +633,9 @@ open class ScrollStack: UIScrollView {
                 return
             }
             
-            UIView.animate(withDuration: 0.3, animations: {
+            UIView.animate({
                 cell.isHidden = true
-            }) { isFinished in
-                if isFinished { completion?() }
-            }
+            }, completion: completion)
         }
         
         if hide {

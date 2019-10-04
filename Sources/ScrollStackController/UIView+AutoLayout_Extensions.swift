@@ -64,5 +64,13 @@ extension UIView {
             self.addConstraint(constraint)
         }
     }
+ 
+    public static func animate(_ callback: @escaping (() -> Void), completion: (() -> Void)? = nil) {
+        UIView.animate(withDuration: 0.3, animations: callback) { isFinished in
+            if isFinished {
+                completion?()
+            }
+        }
+    }
     
 }
