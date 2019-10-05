@@ -36,23 +36,36 @@ class ViewController: UIViewController {
         tagsVC = TagsVC.create(delegate: self)
         stackView.addRow(controller: tagsVC, at: .top, animated: false)
     }
-
-    @IBAction public func toggleAxis() {
-        
-//        (stackView.rows[0].controller as! VC1).bestSize = 50
-//        (stackView.rows[1].controller as! VC1).bestSize = 30
-//        stackController.stackView.reloadRows(indexes: [0,1], animated: true)
-        
-        
-//        stackController.stackView.setRowHidden(index: 0, isHidden: true, animated: true)
-        //  stackController.stackView.replaceRowAtIndex(1, withRow: otherVC, animated: true)
- //       stackController.stackView.moveRowAtIndex(1, to: 2, animated: true)
-        //stackController.stackView.axis = (stackController.stackView.axis == .horizontal ? .vertical : .horizontal)
-    }
     
     @IBAction public func addNewRow() {
         let galleryVC = GalleryVC.create()
         stackView.addRow(controller: galleryVC, at: .bottom, animated: true)
+    }
+    
+    @IBAction public func hideOrShowRandomRow() {
+        let randomRow = Int.random(in: 0..<stackView.rows.count)
+        let newRowStatus = !stackView.rows[randomRow].isHidden
+        stackView.setRowHidden(index: randomRow, isHidden: newRowStatus, animated: true)
+    }
+    
+    @IBAction public func moveRowToRandom() {
+        let randomSrc = Int.random(in: 0..<stackView.rows.count)
+        let randomDst = Int.random(in: 0..<stackView.rows.count)
+        stackView.moveRow(index: randomSrc, to: randomDst, animated: true, completion: nil)
+    }
+    
+    @IBAction public func removeRow() {
+        let randomRow = Int.random(in: 0..<stackView.rows.count)
+        stackView.removeRow(index: randomRow, animated: true)
+    }
+    
+    @IBAction public func toggleAxis() {
+        stackView.toggleAxis(animated: true)
+    }
+    
+    @IBAction public func scrollToRandom() {
+        let randomRow = Int.random(in: 0..<stackView.rows.count)
+        stackView.scrollToRow(index: randomRow, at: .middle, animated: true)
     }
 }
 

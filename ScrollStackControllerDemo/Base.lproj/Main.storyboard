@@ -21,28 +21,117 @@
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a7Q-tz-rI1">
-                                <rect key="frame" x="20" y="64" width="153" height="30"/>
+                                <rect key="frame" x="20" y="64" width="100" height="30"/>
                                 <color key="backgroundColor" red="0.1333333333" green="0.31372549020000001" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="153" id="eZt-64-3CB"/>
+                                    <constraint firstAttribute="width" constant="100" id="eZt-64-3CB"/>
                                     <constraint firstAttribute="height" constant="30" id="uxI-ig-f5J"/>
                                 </constraints>
-                                <state key="normal" title="Add Random Row">
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="Add Row">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="addNewRow" destination="BYZ-38-t0r" eventType="touchUpInside" id="O6D-J0-3dz"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ljg-R8-0k8">
+                                <rect key="frame" x="128" y="64" width="100" height="30"/>
+                                <color key="backgroundColor" red="0.1333333333" green="0.31372549020000001" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="huO-0H-rxs"/>
+                                    <constraint firstAttribute="height" constant="30" id="tRQ-JP-7ZS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="Hide/Show Row">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="hideOrShowRandomRow" destination="BYZ-38-t0r" eventType="touchUpInside" id="RIt-EZ-Kgx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a8U-7G-txi">
+                                <rect key="frame" x="234" y="64" width="100" height="30"/>
+                                <color key="backgroundColor" red="0.1333333333" green="0.31372549020000001" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="HwD-9V-Np7"/>
+                                    <constraint firstAttribute="height" constant="30" id="z3X-Ls-g0O"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="Toggle Axis">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="toggleAxis" destination="BYZ-38-t0r" eventType="touchUpInside" id="lTz-Zf-aGb"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1E4-jE-O3H">
+                                <rect key="frame" x="20" y="102" width="100" height="30"/>
+                                <color key="backgroundColor" red="0.1333333333" green="0.31372549020000001" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="rPh-35-aIt"/>
+                                    <constraint firstAttribute="height" constant="30" id="stZ-Fb-Grb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="Remove Row">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="removeRow" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ew3-2d-JtQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fOH-Lh-1KN">
+                                <rect key="frame" x="128" y="102" width="100" height="30"/>
+                                <color key="backgroundColor" red="0.1333333333" green="0.31372549020000001" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="cCH-ma-tnV"/>
+                                    <constraint firstAttribute="height" constant="30" id="cEJ-WA-VDZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="Move Row">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="moveRowToRandom" destination="BYZ-38-t0r" eventType="touchUpInside" id="Idy-re-ZnJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RgW-dD-Pae">
+                                <rect key="frame" x="236" y="102" width="100" height="30"/>
+                                <color key="backgroundColor" red="0.1333333333" green="0.31372549020000001" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="OkB-g1-BxM"/>
+                                    <constraint firstAttribute="height" constant="30" id="Yvg-In-cn5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="Scroll Random">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="scrollToRandom" destination="BYZ-38-t0r" eventType="touchUpInside" id="MCK-YZ-Rfh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="O4f-A9-7JM" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="0Rg-6l-Mie"/>
+                            <constraint firstItem="1E4-jE-O3H" firstAttribute="top" secondItem="a7Q-tz-rI1" secondAttribute="bottom" constant="8" id="3Oj-iN-93f"/>
+                            <constraint firstItem="1E4-jE-O3H" firstAttribute="leading" secondItem="a7Q-tz-rI1" secondAttribute="leading" id="3Vd-Dh-zJV"/>
+                            <constraint firstItem="a8U-7G-txi" firstAttribute="leading" secondItem="Ljg-R8-0k8" secondAttribute="trailing" constant="6" id="3nd-oJ-x2R"/>
+                            <constraint firstItem="a8U-7G-txi" firstAttribute="centerY" secondItem="Ljg-R8-0k8" secondAttribute="centerY" id="9XS-mQ-jl2"/>
+                            <constraint firstItem="Ljg-R8-0k8" firstAttribute="leading" secondItem="a7Q-tz-rI1" secondAttribute="trailing" constant="8" id="9oc-yh-5NS"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="O4f-A9-7JM" secondAttribute="trailing" constant="20" id="AZR-eI-SfX"/>
                             <constraint firstItem="a7Q-tz-rI1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="QI2-1l-xUr"/>
+                            <constraint firstItem="Ljg-R8-0k8" firstAttribute="centerY" secondItem="a7Q-tz-rI1" secondAttribute="centerY" id="aAx-iH-qTe"/>
+                            <constraint firstItem="fOH-Lh-1KN" firstAttribute="leading" secondItem="Ljg-R8-0k8" secondAttribute="leading" id="agR-VU-Bya"/>
+                            <constraint firstItem="Ljg-R8-0k8" firstAttribute="height" secondItem="a7Q-tz-rI1" secondAttribute="height" id="cf3-CR-loY"/>
+                            <constraint firstItem="fOH-Lh-1KN" firstAttribute="trailing" secondItem="Ljg-R8-0k8" secondAttribute="trailing" id="ew0-ea-gOG"/>
                             <constraint firstItem="a7Q-tz-rI1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="hNF-QF-Cti"/>
                             <constraint firstItem="O4f-A9-7JM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="jiX-gL-rHy"/>
+                            <constraint firstItem="fOH-Lh-1KN" firstAttribute="centerY" secondItem="1E4-jE-O3H" secondAttribute="centerY" id="ma9-he-lTe"/>
+                            <constraint firstItem="1E4-jE-O3H" firstAttribute="trailing" secondItem="a7Q-tz-rI1" secondAttribute="trailing" id="ndi-rV-8Yu"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="O4f-A9-7JM" secondAttribute="bottom" constant="20" id="pEb-ou-B47"/>
+                            <constraint firstItem="RgW-dD-Pae" firstAttribute="centerY" secondItem="fOH-Lh-1KN" secondAttribute="centerY" id="y1e-Cv-LRW"/>
+                            <constraint firstItem="RgW-dD-Pae" firstAttribute="leading" secondItem="fOH-Lh-1KN" secondAttribute="trailing" constant="8" id="ysb-Fy-Val"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

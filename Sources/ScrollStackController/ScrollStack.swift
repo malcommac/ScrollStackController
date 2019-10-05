@@ -380,6 +380,7 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
             }
             stackView.insertArrangedSubview(sourceRow, at: destIndex)
             postInsertRow(sourceRow, animated: false)
+            stackView.setNeedsLayout()
         }
         
         guard animated else {
@@ -388,7 +389,6 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
             return
         }
         
-        stackView.setNeedsLayout()
         UIView.execute(executeMoveRow, completion: completion)
     }
     
@@ -536,6 +536,16 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         if bottomOffset.y > 0 {
             setContentOffset(bottomOffset, animated: animated)
         }
+    }
+    
+    /// Invert axis of scroll.
+    ///
+    /// - Parameter animated: `true` to animate operation.
+    /// - Parameter completion: completion callback.
+    open func toggleAxis(animated: Bool = false, completion: (() -> Void)? = nil) {
+        UIView.execute(animated: animated, {
+            self.axis = (self.axis == .horizontal ? .vertical : .horizontal)
+        }, completion: completion)
     }
     
     // MARK: - Private Functions
