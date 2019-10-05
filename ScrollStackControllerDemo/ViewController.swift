@@ -50,6 +50,10 @@ class ViewController: UIViewController {
         //stackController.stackView.axis = (stackController.stackView.axis == .horizontal ? .vertical : .horizontal)
     }
     
+    @IBAction public func addNewRow() {
+        let galleryVC = GalleryVC.create()
+        stackView.addRow(controller: galleryVC, at: .bottom, animated: true)
+    }
 }
 
 extension ViewController: TagsVCProtocol {
