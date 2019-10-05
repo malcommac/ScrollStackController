@@ -80,8 +80,9 @@ class ViewController: UIViewController {
 extension ViewController: TagsVCProtocol {
     
     func toggleTags() {
+        let index = stackView.rowForController(tagsVC)!.index
         tagsVC.isExpanded = !tagsVC.isExpanded
-        stackView.reloadRow(index: 0, animated: true)
+        stackView.reloadRow(index: index, animated: true)
     }
     
 }
@@ -92,7 +93,7 @@ extension ViewController: PricingVCProtocol {
         let otherFee = PricingTag(title: "Another fee", subtitle: "Some spare taxes", price: "$50.00")
         pricingVC.addFee(otherFee)
         let index = stackView.rowForController(pricingVC)!.index
-        stackView.reloadRow(index: index)
+        stackView.reloadRow(index: index, animated: true)
     }
     
 }

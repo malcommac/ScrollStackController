@@ -18,13 +18,13 @@ public class PricingVC: UIViewController, ScrollStackContainableController {
     
     @IBOutlet public var pricingTable: UITableView!
     @IBOutlet public var pricingTableHeightConstraint: NSLayoutConstraint!
-
+        
     public var pricingTags: [PricingTag] = [
         PricingTag(title: "Night fee", subtitle: "$750 x 3 nights", price: "$2,250.00"),
         PricingTag(title: "Hospitality fees", subtitle: "This fee covers services that come with the room", price: "$10.00"),
         PricingTag(title: "Property use taxes", subtitle: "Taxes the cost pays to rent their room", price: "$200.00")
     ]
-
+    
     public static func create(delegate: PricingVCProtocol) -> PricingVC {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "PricingVC") as! PricingVC
@@ -33,14 +33,20 @@ public class PricingVC: UIViewController, ScrollStackContainableController {
     }
     
     public func scrollStackRowSizeForAxis(_ axis: NSLayoutConstraint.Axis, row: ScrollStackRow, in stackView: ScrollStack) -> CGFloat? {
-                let size = CGSize(width: stackView.bounds.size.width, height: 9000)
+        let size = CGSize(width: stackView.bounds.size.width, height: 9000)
         let best = self.view.systemLayoutSizeFitting(size, withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow)
         // it's important to set both the height constraint and bottom safe area for table bottom
         return best.height
     }
     
+    override public func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+       // pricingTableHeightConstraint.constant = pricingTable.contentSize.height
+    }
+    
     override public func updateViewConstraints() {
-        pricingTableHeightConstraint.constant = pricingTable.contentSize.height
+       pricingTableHeightConstraint.constant = pricingTable.contentSize.height
+        view.height(constant: nil)
         super.updateViewConstraints()
     }
     
@@ -58,6 +64,7 @@ public class PricingVC: UIViewController, ScrollStackContainableController {
         pricingTags.append(otherFee)
         pricingTable.reloadData()
         updateViewConstraints()
+        viewDidLayoutSubviews()
     }
     
     public func reloadContentFromStackViewRow() {
@@ -101,7 +108,7 @@ public class PricingCell: UITableViewCell {
     @IBOutlet public var titleLabel: UILabel!
     @IBOutlet public var subtitleLabel: UILabel!
     @IBOutlet public var priceLabel: UILabel!
-
+    
     public var priceTag: PricingTag? {
         didSet {
             titleLabel.text = priceTag?.title ?? ""

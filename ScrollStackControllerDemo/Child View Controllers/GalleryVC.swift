@@ -79,6 +79,7 @@ extension GalleryVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
         pageControl.currentPage = indexPath.item
     }
     
+    
 }
 
 public class GalleryCell: UICollectionViewCell {

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "PricingVC.updateViewConstraints():PricingVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "pricingTable.contentSize.height">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "PricingVC.viewDidLayoutSubviews():PricingVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "pricingTable.contentSize.height">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
