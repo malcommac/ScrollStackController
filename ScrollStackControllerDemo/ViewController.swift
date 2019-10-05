@@ -14,12 +14,12 @@ class ViewController: UIViewController {
 
     private var stackController = ScrollStackViewController()
     
-    private var listVCs = [
-        VC1.create(backColor: .red),
-        VC1.create(backColor: .orange),
-        VC1.create(backColor: .yellow),
-        VC1.create(backColor: .purple)
-    ]
+    public var stackView: ScrollStack {
+        return stackController.stackView
+    }
+    
+    
+    private var tagsVC: TagsVC!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,22 +31,17 @@ class ViewController: UIViewController {
         stackController.view.frame = contentView.bounds
         contentView.addSubview(stackController.view)
         
-        listVCs.forEach {
-            stackController.stackView.addRow(controller: $0)
-        }
+        // Prepare content
         
+        tagsVC = TagsVC.create(delegate: self)
+        stackView.addRow(controller: tagsVC, at: .top, animated: false)
     }
 
     @IBAction public func toggleAxis() {
-        let stackView = stackController.stackView
         
-//        let randomVC = VC2.create(backColor: UIColor.random())
-//        let position = Int.random(in: 0..<stackView.rows.count)
-//        stackView.addRow(controller: randomVC, at: .atIndex(position), animated: true)
-        
-        (stackView.rows[0].controller as! VC1).bestSize = 50
-        (stackView.rows[1].controller as! VC1).bestSize = 30
-        stackController.stackView.reloadRows(indexes: [0,1], animated: true)
+//        (stackView.rows[0].controller as! VC1).bestSize = 50
+//        (stackView.rows[1].controller as! VC1).bestSize = 30
+//        stackController.stackView.reloadRows(indexes: [0,1], animated: true)
         
         
 //        stackController.stackView.setRowHidden(index: 0, isHidden: true, animated: true)
@@ -57,3 +52,11 @@ class ViewController: UIViewController {
     
 }
 
+extension ViewController: TagsVCProtocol {
+    
+    func toggleTags() {
+        tagsVC.isExpanded = !tagsVC.isExpanded
+        stackView.reloadRow(index: 0, animated: true)
+    }
+    
+}
