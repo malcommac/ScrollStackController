@@ -40,9 +40,13 @@ class ViewController: UIViewController {
     @IBAction public func toggleAxis() {
         let stackView = stackController.stackView
         
-        let randomVC = VC2.create(backColor: UIColor.random())
-        let position = Int.random(in: 0..<stackView.rows.count)
-        stackView.addRow(controller: randomVC, at: .atIndex(position), animated: true)
+//        let randomVC = VC2.create(backColor: UIColor.random())
+//        let position = Int.random(in: 0..<stackView.rows.count)
+//        stackView.addRow(controller: randomVC, at: .atIndex(position), animated: true)
+        
+        (stackView.rows[0].controller as! VC1).bestSize = 50
+        (stackView.rows[1].controller as! VC1).bestSize = 30
+        stackController.stackView.reloadRows(indexes: [0,1], animated: true)
         
         
 //        stackController.stackView.setRowHidden(index: 0, isHidden: true, animated: true)

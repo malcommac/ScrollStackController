@@ -10,7 +10,7 @@ import UIKit
 
 public class VC1: UIViewController, ScrollStackContainableController {
     
-    private var bestSize = CGFloat.random(in: 100..<500)
+    public var bestSize = CGFloat.random(in: 100..<500)
     
     public static func create(backColor: UIColor) -> VC1 {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -19,8 +19,12 @@ public class VC1: UIViewController, ScrollStackContainableController {
         return vc
     }
     
-    public func sizeForAxis(_ axis: NSLayoutConstraint.Axis, row: ScrollStackRow, in stackView: ScrollStack) -> CGFloat? {
+    public func scrollStackRowSizeForAxis(_ axis: NSLayoutConstraint.Axis, row: ScrollStackRow, in stackView: ScrollStack) -> CGFloat? {
         return bestSize
+    }
+    
+    public func reloadContentFromStackViewRow() {
+        
     }
     
 }

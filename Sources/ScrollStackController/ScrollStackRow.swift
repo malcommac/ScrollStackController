@@ -251,7 +251,7 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         }
         
         let currentAxis = stackView!.axis
-        guard let bestSize = customizableController.sizeForAxis(currentAxis, row: self, in: self.stackView!) else {
+        guard let bestSize = customizableController.scrollStackRowSizeForAxis(currentAxis, row: self, in: self.stackView!) else {
             return // ignore, use autolayout in place for content view.
         }
         

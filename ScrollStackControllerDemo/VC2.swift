@@ -10,6 +10,7 @@ import UIKit
 
 public class VC2: UIViewController, ScrollStackContainableController {
     
+    
     public static func create(backColor: UIColor) -> VC2 {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "VC2") as! VC2
@@ -17,8 +18,12 @@ public class VC2: UIViewController, ScrollStackContainableController {
         return vc
     }
     
-    public func sizeForAxis(_ axis: NSLayoutConstraint.Axis, row: ScrollStackRow, in stackView: ScrollStack) -> CGFloat? {
+    public func scrollStackRowSizeForAxis(_ axis: NSLayoutConstraint.Axis, row: ScrollStackRow, in stackView: ScrollStack) -> CGFloat? {
         return 140
+    }
+    
+    public func reloadContentFromStackViewRow() {
+        
     }
     
 }

@@ -65,7 +65,13 @@ extension UIView {
         }
     }
  
-    public static func animate(_ callback: @escaping (() -> Void), completion: (() -> Void)? = nil) {
+    public static func execute(animated: Bool = true, _ callback: @escaping (() -> Void), completion: (() -> Void)? = nil) {
+        guard animated else {
+            callback()
+            completion?()
+            return
+        }
+        
         UIView.animate(withDuration: 0.3, animations: callback) { isFinished in
             if isFinished {
                 completion?()

@@ -49,7 +49,10 @@ public protocol ScrollStackContainableController: UIViewController {
     /// - Parameter axis: axis of the stackview.
     /// - Parameter row: row where the controller is placed.
     /// - Parameter stackView: stackview where the row is placed.
-    func sizeForAxis(_ axis: NSLayoutConstraint.Axis, row: ScrollStackRow, in stackView: ScrollStack) -> CGFloat?
+    func scrollStackRowSizeForAxis(_ axis: NSLayoutConstraint.Axis, row: ScrollStackRow, in stackView: ScrollStack) -> CGFloat?
+    
+    /// Method is called when you call a `reloadRow` function on a row where this controller is contained in.
+    func reloadContentFromStackViewRow()
     
 }
 

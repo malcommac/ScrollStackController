@@ -262,6 +262,37 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
             
         }
     }
+    
+    // MARK: - Reload Rows
+    
+    /// Perform a reload method by updating any constraint of the stack view's row.
+    /// If row's managed controller implements `ScrollStackContainableController` it also call
+    /// the reload event.
+    ///
+    /// - Parameter index: index of the row to reload.
+    /// - Parameter animated: `true` to animate reload (any constraint change).
+    /// - Parameter completion: optional completion callback to call.
+    open func reloadRow(index: Int, animated: Bool = false, completion: (() -> Void)? = nil) {
+        reloadRows(indexes: [index], animated: animated, completion: completion)
+    }
+    
+    /// Perform a reload method on multiple rows.
+    ///
+    /// - Parameter indexes: indexes of the rows to reload.
+    /// - Parameter animated: `true` to animate reload (any constraint change).
+    /// - Parameter completion:  optional completion callback to call.
+    open func reloadRows(indexes: [Int], animated: Bool = false, completion: (() -> Void)? = nil) {
+        let selectedRows = safeRowsAtIndexes(indexes)
+        reloadRows(selectedRows, animated: animated, completion: completion)
+    }
+    
+    /// Reload all rows of the stack view.
+    ///
+    /// - Parameter animated: `true` to animate reload (any constraint change).
+    /// - Parameter completion: optional completion callback to call.
+    open func reloadAllRows(animated: Bool = false, completion: (() -> Void)? = nil) {
+        reloadRows(rows, animated: animated, completion: completion)
+    }
 
     // MARK: - Remove Rows
     
@@ -318,12 +349,12 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         
         stackView.setNeedsLayout()
         
-        UIView.animate({
+        UIView.execute({
             sourceRow.isHidden = true
         }) {
             let newRow = self.createRowForController(controller, insertAt: sourceIndex, animated: false)
             newRow.isHidden = true
-            UIView.animate({
+            UIView.execute({
                 newRow.isHidden = false
             }, completion: completion)
         }
@@ -358,7 +389,7 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         }
         
         stackView.setNeedsLayout()
-        UIView.animate(executeMoveRow, completion: completion)
+        UIView.execute(executeMoveRow, completion: completion)
     }
     
     // MARK: Show/Hide Rows
@@ -385,7 +416,7 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         }
         
         row.layoutIfNeeded()
-        UIView.animate({
+        UIView.execute({
             row.isHidden = isHidden
         }, completion: completion)
     }
@@ -458,7 +489,7 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
             return .hidden
         }
         
-        return isRowVisible(row: row)
+        return rowVisibilityType(row: row)
     }
     
     /// Return `true` if row is currently hidden.
@@ -530,14 +561,48 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         didChangeAxis(axis)
     }
     
-    private func safeRowAtIndex(_ index: Int) -> ScrollStackRow? {
-        guard index >= 0, index < rows.count else {
-            return nil
+    /// Reload selected rows of the stackview.
+    ///
+    /// - Parameter rows: rows to reload.
+    /// - Parameter animated: `true` to animate reload.
+    /// - Parameter completion: completion callback to call at the end of the reload.
+    private func reloadRows(_ rows: [ScrollStackRow], animated: Bool = false, completion: (() -> Void)? = nil) {
+        guard rows.isEmpty == false else {
+            return
         }
-        return rows[index]
+        
+        rows.forEach {
+            $0.askForCutomizedSizeOfContentView()
+        }
+        
+        UIView.execute(animated: animated, {
+            self.layoutIfNeeded()
+        }, completion: completion)
     }
     
-    private func isRowVisible(row: ScrollStackRow) -> RowVisibility {
+    /// Get the row at specified index; if index is invalid `nil` is returned.
+    ///
+    /// - Parameter index: index of the row to get.
+    private func safeRowAtIndex(_ index: Int) -> ScrollStackRow? {
+        return safeRowsAtIndexes([index]).first
+    }
+    
+    /// Get the rows at specified indexes, invalid indexes are ignored.
+    ///
+    /// - Parameter indexes: indexes of the rows to get.
+    private func safeRowsAtIndexes(_ indexes: [Int]) -> [ScrollStackRow] {
+        return indexes.compactMap { index in
+            guard index >= 0, index < rows.count else {
+                return nil
+            }
+            return rows[index]
+        }
+    }
+    
+    /// Get the row visibility type for a specific row.
+    ///
+    /// - Parameter row: row to get.
+    private func rowVisibilityType(row: ScrollStackRow) -> RowVisibility {
         let rowFrame = convert(row.frame, to: self)
         guard bounds.intersects(rowFrame) else {
             return .offscreen
@@ -597,7 +662,7 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         postInsertRow(newRow, animated: animated, completion: completion)
         
         if animated {
-            UIView.animate({
+            UIView.execute({
                 self.layoutIfNeeded()
             }, completion: nil)
         }
@@ -620,6 +685,9 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         animateCellVisibility(row, animated: animated, hide: false, completion: completion)
     }
     
+    /// Update the separator visibility.
+    ///
+    /// - Parameter row: row target.
     private func updateRowSeparatorVisibility(_ row: ScrollStackRow?) {
         guard let row = row, row === stackView.arrangedSubviews.last else {
             return
@@ -653,6 +721,7 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         }
     }
     
+    /// Animate transition of the cell to visible state.
     private func animateCellToVisibleState(_ row: ScrollStackRow, animated: Bool, hide: Bool, completion: (() -> Void)? = nil) {
         guard animated else {
             row.alpha = 1.0
@@ -663,28 +732,26 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         
         row.alpha = 0.0
         layoutIfNeeded()
-        UIView.animate({
+        UIView.execute({
             row.alpha = 1.0
         }, completion: completion)
     }
     
+    /// Animate transition of the cell to invisibile state.
     private func animateCellToInvisibleState(_ row: ScrollStackRow, animated: Bool, hide: Bool, completion: (() -> Void)? = nil) {
-        guard animated else {
-            row.isHidden = true
-            completion?()
-            return
-        }
-        
-        UIView.animate({
+        UIView.execute(animated: animated, {
             row.isHidden = true
         }, completion: completion)
     }
     
     // MARK: - Axis Change Events
     
+    /// Update the constraint due to axis change of the stack view.
+    ///
+    /// - Parameter axis: new axis.
     private func didChangeAxis(_ axis: NSLayoutConstraint.Axis) {
         didUpdateStackViewAxisTo(axis)
-        didUpdateCellAxisTo(axis)
+        didReflectAxisChangeToRows(axis)
     }
     
     private func didUpdateStackViewAxisTo(_ axis: NSLayoutConstraint.Axis) {
@@ -708,7 +775,7 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         axisConstraint?.isActive = true
     }
     
-    private func didUpdateCellAxisTo(_ axis: NSLayoutConstraint.Axis) {
+    private func didReflectAxisChangeToRows(_ axis: NSLayoutConstraint.Axis) {
         rows.forEach {
             $0.separatorAxis = (axis == .horizontal ? .vertical : .horizontal)
         }
