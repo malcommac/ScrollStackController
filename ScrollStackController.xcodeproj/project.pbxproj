@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		52D6D9871BEFF229002C0205 /* ScrollStackController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D6D97C1BEFF229002C0205 /* ScrollStackController.framework */; };
 		6402E1F22347A8540087963C /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6402E1F12347A8540087963C /* Extension.swift */; };
+		647C77B32348EA1600CAEB9F /* PricingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647C77B22348EA1600CAEB9F /* PricingVC.swift */; };
+		64A8E8B32348CCCE00E893FB /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A8E8B02348CCCE00E893FB /* WelcomeVC.swift */; };
 		64C02255234735A800A6D844 /* ScrollStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C0224F234735A800A6D844 /* ScrollStackViewController.swift */; };
 		64C02256234735A800A6D844 /* ScrollStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C0224F234735A800A6D844 /* ScrollStackViewController.swift */; };
 		64C02257234735A800A6D844 /* ScrollStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C02250234735A800A6D844 /* ScrollStack.swift */; };
@@ -60,6 +62,8 @@
 		52D6D9861BEFF229002C0205 /* ScrollStackController-iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ScrollStackController-iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D6D9F01BEFFFBE002C0205 /* ScrollStackController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ScrollStackController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6402E1F12347A8540087963C /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		647C77B22348EA1600CAEB9F /* PricingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PricingVC.swift; sourceTree = "<group>"; };
+		64A8E8B02348CCCE00E893FB /* WelcomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeVC.swift; sourceTree = "<group>"; };
 		64C0224F234735A800A6D844 /* ScrollStackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollStackViewController.swift; sourceTree = "<group>"; };
 		64C02250234735A800A6D844 /* ScrollStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollStack.swift; sourceTree = "<group>"; };
 		64C02251234735A800A6D844 /* ScrollStackRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollStackRow.swift; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 			children = (
 				64C0227C234753A100A6D844 /* GalleryVC.swift */,
 				64C022892347834300A6D844 /* TagsVC.swift */,
+				64A8E8B02348CCCE00E893FB /* WelcomeVC.swift */,
+				647C77B22348EA1600CAEB9F /* PricingVC.swift */,
 			);
 			path = "Child View Controllers";
 			sourceTree = "<group>";
@@ -470,10 +476,12 @@
 				64C0227F2347582D00A6D844 /* ScrollStackRow.swift in Sources */,
 				64C0228A2347834300A6D844 /* TagsVC.swift in Sources */,
 				64C022822347582D00A6D844 /* ScrollStackViewController.swift in Sources */,
+				64A8E8B32348CCCE00E893FB /* WelcomeVC.swift in Sources */,
 				64C0226C2347360800A6D844 /* ViewController.swift in Sources */,
 				64C022812347582D00A6D844 /* ScrollStackSeparator.swift in Sources */,
 				64C0227E2347582D00A6D844 /* ScrollStack.swift in Sources */,
 				64C022682347360800A6D844 /* AppDelegate.swift in Sources */,
+				647C77B32348EA1600CAEB9F /* PricingVC.swift in Sources */,
 				6402E1F22347A8540087963C /* Extension.swift in Sources */,
 				64C022832347582D00A6D844 /* UIView+AutoLayout_Extensions.swift in Sources */,
 				64C0227D234753A100A6D844 /* GalleryVC.swift in Sources */,

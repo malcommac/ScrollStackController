@@ -20,7 +20,10 @@ class ViewController: UIViewController {
     
     
     private var tagsVC: TagsVC!
-    
+    private var welcomeVC: WelcomeVC!
+    private var galleryVC: GalleryVC!
+    private var pricingVC: PricingVC!
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -33,8 +36,13 @@ class ViewController: UIViewController {
         
         // Prepare content
         
+        welcomeVC = WelcomeVC.create()
         tagsVC = TagsVC.create(delegate: self)
-        stackView.addRow(controller: tagsVC, at: .top, animated: false)
+        galleryVC = GalleryVC.create()
+        pricingVC = PricingVC.create(delegate: self)
+        
+        stackView.addRows(controllers: [welcomeVC, tagsVC, galleryVC,pricingVC], animated: false)
+
     }
     
     @IBAction public func addNewRow() {
@@ -74,6 +82,17 @@ extension ViewController: TagsVCProtocol {
     func toggleTags() {
         tagsVC.isExpanded = !tagsVC.isExpanded
         stackView.reloadRow(index: 0, animated: true)
+    }
+    
+}
+
+extension ViewController: PricingVCProtocol {
+    
+    func addFee() {
+        let otherFee = PricingTag(title: "Another fee", subtitle: "Some spare taxes", price: "$50.00")
+        pricingVC.addFee(otherFee)
+        let index = stackView.rowForController(pricingVC)!.index
+        stackView.reloadRow(index: index)
     }
     
 }
