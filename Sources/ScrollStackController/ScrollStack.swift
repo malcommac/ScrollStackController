@@ -32,7 +32,7 @@
 
 import UIKit
 
-open class ScrollStack: UIScrollView {
+open class ScrollStack: UIScrollView, UIScrollViewDelegate {
     
     // MARK: Default Properties
     
@@ -170,8 +170,22 @@ open class ScrollStack: UIScrollView {
     /// By default is set to (rgb:0.85,0.85,0.85).
     open var rowHighlightColor = ScrollStack.defaultRowHighlightColor
     
+    // MARK: Delegates
+    
+    /// Delegate event.
+    /// If you set it to non `nil` value class will take the `UIScrollViewDelegate` events
+    /// for its own.
+    public weak var stackDelegate: ScrollStackControllerDelegate? {
+        didSet {
+            self.delegate = (stackDelegate != nil ? self : nil)
+        }
+    }
+    
     // MARK: Private Properties
     
+    /// Store the previous visibility state of the rows.
+    private var prevVisibilityState = [ScrollStackRow: RowVisibility]()
+
     /// Event to monitor row changes
     internal var onChangeRow: ((_ row: ScrollStackRow, _ isRemoved: Bool) -> Void)?
        
@@ -185,7 +199,6 @@ open class ScrollStack: UIScrollView {
     
     public init() {
         super.init(frame: .zero)
-        
         setupUI()
     }
     
@@ -445,12 +458,7 @@ open class ScrollStack: UIScrollView {
             return .hidden
         }
         
-        let rowFrame = convert(row.frame, to: self)
-        guard bounds.intersects(rowFrame) else {
-            return .offscreen
-        }
-        
-        return (bounds.contains(rowFrame) ? .entire : .partial)
+        return isRowVisible(row: row)
     }
     
     /// Return `true` if row is currently hidden.
@@ -529,6 +537,14 @@ open class ScrollStack: UIScrollView {
         return rows[index]
     }
     
+    private func isRowVisible(row: ScrollStackRow) -> RowVisibility {
+        let rowFrame = convert(row.frame, to: self)
+        guard bounds.intersects(rowFrame) else {
+            return .offscreen
+        }
+        
+        return (bounds.contains(rowFrame) ? .entire : .partial)
+    }
     
     /// Remove passed row from stack view.
     ///
@@ -580,6 +596,14 @@ open class ScrollStack: UIScrollView {
         
         postInsertRow(newRow, animated: animated, completion: completion)
         
+        if animated {
+            UIView.animate({
+                self.layoutIfNeeded()
+            }, completion: nil)
+        }
+        
+        scrollViewDidScroll(self)
+        
         return newRow
     }
     
@@ -629,30 +653,30 @@ open class ScrollStack: UIScrollView {
         }
     }
     
-    private func animateCellToVisibleState(_ cell: ScrollStackRow, animated: Bool, hide: Bool, completion: (() -> Void)? = nil) {
+    private func animateCellToVisibleState(_ row: ScrollStackRow, animated: Bool, hide: Bool, completion: (() -> Void)? = nil) {
         guard animated else {
-            cell.alpha = 1.0
-            cell.isHidden = false
+            row.alpha = 1.0
+            row.isHidden = false
             completion?()
             return
         }
         
-        cell.alpha = 0.0
+        row.alpha = 0.0
         layoutIfNeeded()
         UIView.animate({
-            cell.alpha = 1.0
+            row.alpha = 1.0
         }, completion: completion)
     }
     
-    private func animateCellToInvisibleState(_ cell: ScrollStackRow, animated: Bool, hide: Bool, completion: (() -> Void)? = nil) {
+    private func animateCellToInvisibleState(_ row: ScrollStackRow, animated: Bool, hide: Bool, completion: (() -> Void)? = nil) {
         guard animated else {
-            cell.isHidden = true
+            row.isHidden = true
             completion?()
             return
         }
         
         UIView.animate({
-            cell.isHidden = true
+            row.isHidden = true
         }, completion: completion)
     }
     
@@ -687,6 +711,33 @@ open class ScrollStack: UIScrollView {
     private func didUpdateCellAxisTo(_ axis: NSLayoutConstraint.Axis) {
         rows.forEach {
             $0.separatorAxis = (axis == .horizontal ? .vertical : .horizontal)
+        }
+    }
+    
+    private func dispatchRowsVisibilityChangesTo(_ delegate: ScrollStackControllerDelegate) {
+        delegate.scrollStackDidScroll(self, offset: contentOffset)
+        
+        rows.enumerated().forEach { (idx, row) in
+            let current = isRowVisible(index: idx)
+            if let previous = prevVisibilityState[row] {
+                switch (previous, current) {
+                case (.offscreen, .partial), // row will become invisible
+                     (.hidden, .partial),
+                     (.hidden, .entire):
+                    delegate.scrollStackRowDidBecomeVisible(self, row: row, index: idx, state: current)
+                    
+                case (.partial, .offscreen), // row will become visible
+                     (.partial, .hidden),
+                     (.entire, .hidden):
+                    delegate.scrollStackRowDidBecomeHidden(self, row: row, index: idx, state: current)
+
+                default:
+                    break
+                }
+            }
+            
+            // store previous state
+            prevVisibilityState[row] = current
         }
     }
     
@@ -739,6 +790,16 @@ open class ScrollStack: UIScrollView {
         }
         
         return adjustedPoint
+    }
+    
+    // MARK: UIScrollViewDelegate
+    
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let stackDelegate = stackDelegate else {
+            return
+        }
+        
+        dispatchRowsVisibilityChangesTo(stackDelegate)
     }
     
 }

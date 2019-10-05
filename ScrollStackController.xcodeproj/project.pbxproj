@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		52D6D9871BEFF229002C0205 /* ScrollStackController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D6D97C1BEFF229002C0205 /* ScrollStackController.framework */; };
+		6402E1F22347A8540087963C /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6402E1F12347A8540087963C /* Extension.swift */; };
 		64C02255234735A800A6D844 /* ScrollStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C0224F234735A800A6D844 /* ScrollStackViewController.swift */; };
 		64C02256234735A800A6D844 /* ScrollStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C0224F234735A800A6D844 /* ScrollStackViewController.swift */; };
 		64C02257234735A800A6D844 /* ScrollStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C02250234735A800A6D844 /* ScrollStack.swift */; };
@@ -18,8 +19,6 @@
 		64C0225C234735A800A6D844 /* ScrollStackSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C02252234735A800A6D844 /* ScrollStackSeparator.swift */; };
 		64C0225D234735A800A6D844 /* UIView+AutoLayout_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C02253234735A800A6D844 /* UIView+AutoLayout_Extensions.swift */; };
 		64C0225E234735A800A6D844 /* UIView+AutoLayout_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C02253234735A800A6D844 /* UIView+AutoLayout_Extensions.swift */; };
-		64C0225F234735A800A6D844 /* ScrollStackRowHighlightable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C02254234735A800A6D844 /* ScrollStackRowHighlightable.swift */; };
-		64C02260234735A800A6D844 /* ScrollStackRowHighlightable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C02254234735A800A6D844 /* ScrollStackRowHighlightable.swift */; };
 		64C022682347360800A6D844 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C022672347360800A6D844 /* AppDelegate.swift */; };
 		64C0226A2347360800A6D844 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C022692347360800A6D844 /* SceneDelegate.swift */; };
 		64C0226C2347360800A6D844 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C0226B2347360800A6D844 /* ViewController.swift */; };
@@ -29,13 +28,12 @@
 		64C0227D234753A100A6D844 /* VC1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C0227C234753A100A6D844 /* VC1.swift */; };
 		64C0227E2347582D00A6D844 /* ScrollStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C02250234735A800A6D844 /* ScrollStack.swift */; };
 		64C0227F2347582D00A6D844 /* ScrollStackRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C02251234735A800A6D844 /* ScrollStackRow.swift */; };
-		64C022802347582D00A6D844 /* ScrollStackRowHighlightable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C02254234735A800A6D844 /* ScrollStackRowHighlightable.swift */; };
 		64C022812347582D00A6D844 /* ScrollStackSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C02252234735A800A6D844 /* ScrollStackSeparator.swift */; };
 		64C022822347582D00A6D844 /* ScrollStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C0224F234735A800A6D844 /* ScrollStackViewController.swift */; };
 		64C022832347582D00A6D844 /* UIView+AutoLayout_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C02253234735A800A6D844 /* UIView+AutoLayout_Extensions.swift */; };
-		64C0228623475A0E00A6D844 /* ScrollStack+Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C0228523475A0E00A6D844 /* ScrollStack+Support.swift */; };
-		64C0228723475A0E00A6D844 /* ScrollStack+Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C0228523475A0E00A6D844 /* ScrollStack+Support.swift */; };
-		64C0228823475A0E00A6D844 /* ScrollStack+Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C0228523475A0E00A6D844 /* ScrollStack+Support.swift */; };
+		64C0228623475A0E00A6D844 /* ScrollStack+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C0228523475A0E00A6D844 /* ScrollStack+Protocols.swift */; };
+		64C0228723475A0E00A6D844 /* ScrollStack+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C0228523475A0E00A6D844 /* ScrollStack+Protocols.swift */; };
+		64C0228823475A0E00A6D844 /* ScrollStack+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C0228523475A0E00A6D844 /* ScrollStack+Protocols.swift */; };
 		64C0228A2347834300A6D844 /* VC2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C022892347834300A6D844 /* VC2.swift */; };
 		DD7502921C690C7A006590AF /* ScrollStackController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D6D9F01BEFFFBE002C0205 /* ScrollStackController.framework */; };
 /* End PBXBuildFile section */
@@ -61,12 +59,12 @@
 		52D6D97C1BEFF229002C0205 /* ScrollStackController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ScrollStackController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D6D9861BEFF229002C0205 /* ScrollStackController-iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ScrollStackController-iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D6D9F01BEFFFBE002C0205 /* ScrollStackController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ScrollStackController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6402E1F12347A8540087963C /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		64C0224F234735A800A6D844 /* ScrollStackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollStackViewController.swift; sourceTree = "<group>"; };
 		64C02250234735A800A6D844 /* ScrollStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollStack.swift; sourceTree = "<group>"; };
 		64C02251234735A800A6D844 /* ScrollStackRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollStackRow.swift; sourceTree = "<group>"; };
 		64C02252234735A800A6D844 /* ScrollStackSeparator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollStackSeparator.swift; sourceTree = "<group>"; };
 		64C02253234735A800A6D844 /* UIView+AutoLayout_Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+AutoLayout_Extensions.swift"; sourceTree = "<group>"; };
-		64C02254234735A800A6D844 /* ScrollStackRowHighlightable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollStackRowHighlightable.swift; sourceTree = "<group>"; };
 		64C022652347360800A6D844 /* ScrollStackControllerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScrollStackControllerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64C022672347360800A6D844 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		64C022692347360800A6D844 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,7 +74,7 @@
 		64C022732347360900A6D844 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		64C022752347360900A6D844 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		64C0227C234753A100A6D844 /* VC1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VC1.swift; sourceTree = "<group>"; };
-		64C0228523475A0E00A6D844 /* ScrollStack+Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScrollStack+Support.swift"; sourceTree = "<group>"; };
+		64C0228523475A0E00A6D844 /* ScrollStack+Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScrollStack+Protocols.swift"; sourceTree = "<group>"; };
 		64C022892347834300A6D844 /* VC2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VC2.swift; sourceTree = "<group>"; };
 		AD2FAA261CD0B6D800659CF4 /* ScrollStackController.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ScrollStackController.plist; sourceTree = "<group>"; };
 		AD2FAA281CD0B6E100659CF4 /* ScrollStackControllerTests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ScrollStackControllerTests.plist; sourceTree = "<group>"; };
@@ -155,6 +153,15 @@
 			path = Configs;
 			sourceTree = "<group>";
 		};
+		64A8E8AE2348933C00E893FB /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				64C0228523475A0E00A6D844 /* ScrollStack+Protocols.swift */,
+				64C02253234735A800A6D844 /* UIView+AutoLayout_Extensions.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
 		64C0224A2347358400A6D844 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,10 +176,8 @@
 				64C0224F234735A800A6D844 /* ScrollStackViewController.swift */,
 				64C02250234735A800A6D844 /* ScrollStack.swift */,
 				64C02251234735A800A6D844 /* ScrollStackRow.swift */,
-				64C02254234735A800A6D844 /* ScrollStackRowHighlightable.swift */,
 				64C02252234735A800A6D844 /* ScrollStackSeparator.swift */,
-				64C0228523475A0E00A6D844 /* ScrollStack+Support.swift */,
-				64C02253234735A800A6D844 /* UIView+AutoLayout_Extensions.swift */,
+				64A8E8AE2348933C00E893FB /* Support */,
 			);
 			path = ScrollStackController;
 			sourceTree = "<group>";
@@ -183,6 +188,7 @@
 				64C022672347360800A6D844 /* AppDelegate.swift */,
 				64C022692347360800A6D844 /* SceneDelegate.swift */,
 				64C0226B2347360800A6D844 /* ViewController.swift */,
+				6402E1F12347A8540087963C /* Extension.swift */,
 				64C0227C234753A100A6D844 /* VC1.swift */,
 				64C022892347834300A6D844 /* VC2.swift */,
 				64C0226D2347360800A6D844 /* Main.storyboard */,
@@ -419,13 +425,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64C0228623475A0E00A6D844 /* ScrollStack+Support.swift in Sources */,
+				64C0228623475A0E00A6D844 /* ScrollStack+Protocols.swift in Sources */,
 				64C02259234735A800A6D844 /* ScrollStackRow.swift in Sources */,
 				64C02255234735A800A6D844 /* ScrollStackViewController.swift in Sources */,
 				64C02257234735A800A6D844 /* ScrollStack.swift in Sources */,
 				64C0225D234735A800A6D844 /* UIView+AutoLayout_Extensions.swift in Sources */,
 				64C0225B234735A800A6D844 /* ScrollStackSeparator.swift in Sources */,
-				64C0225F234735A800A6D844 /* ScrollStackRowHighlightable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,13 +445,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64C0228723475A0E00A6D844 /* ScrollStack+Support.swift in Sources */,
+				64C0228723475A0E00A6D844 /* ScrollStack+Protocols.swift in Sources */,
 				64C0225A234735A800A6D844 /* ScrollStackRow.swift in Sources */,
 				64C02256234735A800A6D844 /* ScrollStackViewController.swift in Sources */,
 				64C02258234735A800A6D844 /* ScrollStack.swift in Sources */,
 				64C0225E234735A800A6D844 /* UIView+AutoLayout_Extensions.swift in Sources */,
 				64C0225C234735A800A6D844 /* ScrollStackSeparator.swift in Sources */,
-				64C02260234735A800A6D844 /* ScrollStackRowHighlightable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,15 +458,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64C0228823475A0E00A6D844 /* ScrollStack+Support.swift in Sources */,
+				64C0228823475A0E00A6D844 /* ScrollStack+Protocols.swift in Sources */,
 				64C0227F2347582D00A6D844 /* ScrollStackRow.swift in Sources */,
-				64C022802347582D00A6D844 /* ScrollStackRowHighlightable.swift in Sources */,
 				64C0228A2347834300A6D844 /* VC2.swift in Sources */,
 				64C022822347582D00A6D844 /* ScrollStackViewController.swift in Sources */,
 				64C0226C2347360800A6D844 /* ViewController.swift in Sources */,
 				64C022812347582D00A6D844 /* ScrollStackSeparator.swift in Sources */,
 				64C0227E2347582D00A6D844 /* ScrollStack.swift in Sources */,
 				64C022682347360800A6D844 /* AppDelegate.swift in Sources */,
+				6402E1F22347A8540087963C /* Extension.swift in Sources */,
 				64C022832347582D00A6D844 /* UIView+AutoLayout_Extensions.swift in Sources */,
 				64C0227D234753A100A6D844 /* VC1.swift in Sources */,
 				64C0226A2347360800A6D844 /* SceneDelegate.swift in Sources */,

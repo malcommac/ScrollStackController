@@ -32,6 +32,11 @@
 
 import UIKit
 
+// MARK: - ScrollStackContainableController
+
+/// You can implement the following protocol in your view controller in order
+/// to specify explictely (without using autolayout constraints) the best size (width/height depending
+/// by the axis) of the controller when inside a scroll stack view.
 public protocol ScrollStackContainableController: UIViewController {
     
     /// If you implement this protocol you can manage the size of the controller
@@ -45,6 +50,67 @@ public protocol ScrollStackContainableController: UIViewController {
     /// - Parameter row: row where the controller is placed.
     /// - Parameter stackView: stackview where the row is placed.
     func sizeForAxis(_ axis: NSLayoutConstraint.Axis, row: ScrollStackRow, in stackView: ScrollStack) -> CGFloat?
+    
+}
+
+// MARK: - ScrollStackControllerDelegate
+
+/// You can implement the following delegate to receive events about row visibility changes during scroll of the stack.
+/// NOTE: No events are currently sent at the time of add/remove/move. A PR about is is accepted :-)
+public protocol ScrollStackControllerDelegate: class {
+    
+    /// Tells the delegate when the user scrolls the content view within the receiver.
+    ///
+    /// - Parameter stackView: target stack view.
+    /// - Parameter offset: current scroll offset.
+    func scrollStackDidScroll(_ stackView: ScrollStack, offset: CGPoint)
+    
+    /// Row did become partially or entirely visible.
+    ///
+    /// - Parameter row: target row.
+    /// - Parameter index: index of the row.
+    /// - Parameter state: state of the row.
+    func scrollStackRowDidBecomeVisible(_ stackView: ScrollStack, row: ScrollStackRow, index: Int, state: ScrollStack.RowVisibility)
+    
+    /// Row did become partially or entirely invisible.
+    ///
+    /// - Parameter row: target row.
+    /// - Parameter index: index of the row.
+    /// - Parameter state: state of the row.
+    func scrollStackRowDidBecomeHidden(_ stackView: ScrollStack, row: ScrollStackRow, index: Int, state: ScrollStack.RowVisibility)
+    
+}
+
+// MARK: - ScrollStackRowHighlightable
+
+/// Indicates that a row into the stackview should be highlighted when the user touches it.
+public protocol ScrollStackRowHighlightable {
+    
+    /// Checked when the user touches down on a row to determine if the row should be highlighted.
+    ///
+    /// The default implementation of this method always returns `true`.
+    var isHighlightable: Bool { get }
+    
+    /// Called when the highlighted state of the row changes.
+    /// Override this method to provide custom highlighting behavior for the row.
+    ///
+    /// The default implementation of this method changes the background color of the row to the `rowHighlightColor`.
+    func setIsHighlighted(_ isHighlighted: Bool)
+    
+}
+
+extension ScrollStackRowHighlightable where Self: UIView {
+    
+    public var isHighlightable: Bool {
+        return true
+    }
+    
+    public func setIsHighlighted(_ isHighlighted: Bool) {
+        guard let row = superview as? ScrollStackRow else {
+            return
+        }
+        row.backgroundColor = (isHighlighted ? row.rowHighlightColor : row.rowBackgroundColor)
+    }
     
 }
 
