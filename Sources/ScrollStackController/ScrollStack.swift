@@ -44,7 +44,7 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
     )
     
     public static let defaultSeparatorInset: UIEdgeInsets = UITableView().separatorInset
-    public static let defaultSeparatorColor = UIColor.red//(UITableView().separatorColor ?? .clear)
+    public static let defaultSeparatorColor = (UITableView().separatorColor ?? .clear)
     public static let defaultRowColor = UIColor.clear
     public static let defaultRowHighlightColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
 
@@ -557,7 +557,7 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         // Create stack view and add it to the scrollview
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        backgroundColor = UIColor.lightGray
+        backgroundColor = .white
         addSubview(stackView)
         
         // Configure constraints for stackview

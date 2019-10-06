@@ -23,6 +23,7 @@ class ViewController: UIViewController {
     private var welcomeVC: WelcomeVC!
     private var galleryVC: GalleryVC!
     private var pricingVC: PricingVC!
+    private var notesVC: NotesVC!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,35 +41,37 @@ class ViewController: UIViewController {
         tagsVC = TagsVC.create(delegate: self)
         galleryVC = GalleryVC.create()
         pricingVC = PricingVC.create(delegate: self)
+        notesVC = NotesVC.create(delegate: self)
         
-        stackView.addRows(controllers: [welcomeVC, tagsVC, galleryVC,pricingVC], animated: false)
+        stackView.addRows(controllers: [welcomeVC, notesVC, tagsVC, galleryVC,pricingVC], animated: false)
 
     }
     
     @IBAction public func addNewRow() {
         let galleryVC = GalleryVC.create()
-        stackView.addRow(controller: galleryVC, at: .bottom, animated: true)
+        stackView.scrollToTop()
+        stackView.addRow(controller: galleryVC, at: .top, animated: true)
     }
     
     @IBAction public func hideOrShowRandomRow() {
-        let randomRow = Int.random(in: 0..<stackView.rows.count)
-        let newRowStatus = !stackView.rows[randomRow].isHidden
-        stackView.setRowHidden(index: randomRow, isHidden: newRowStatus, animated: true)
+        //let randomRow = Int.random(in: 0..<stackView.rows.count)
+        let newRowStatus = !stackView.rows[0].isHidden
+        stackView.setRowHidden(index: 0, isHidden: newRowStatus, animated: true)
     }
     
     @IBAction public func moveRowToRandom() {
-        let randomSrc = Int.random(in: 0..<stackView.rows.count)
-        let randomDst = Int.random(in: 0..<stackView.rows.count)
-        stackView.moveRow(index: randomSrc, to: randomDst, animated: true, completion: nil)
+       // let randomSrc = Int.random(in: 0..<stackView.rows.count)
+        let randomDst = Int.random(in: 1..<stackView.rows.count)
+        stackView.moveRow(index: 0, to: randomDst, animated: true, completion: nil)
     }
     
     @IBAction public func removeRow() {
-        let randomRow = Int.random(in: 0..<stackView.rows.count)
-        stackView.removeRow(index: randomRow, animated: true)
+      //  let randomRow = Int.random(in: 0..<stackView.rows.count)
+        stackView.removeRow(index: 0, animated: true)
     }
     
     @IBAction public func toggleAxis() {
-        stackView.toggleAxis(animated: true)
+        stackView.toggleAxis(animated: false)
     }
     
     @IBAction public func scrollToRandom() {
@@ -95,5 +98,9 @@ extension ViewController: PricingVCProtocol {
         let index = stackView.rowForController(pricingVC)!.index
         stackView.reloadRow(index: index, animated: true)
     }
+    
+}
+
+extension ViewController: NotesVCProtocol {
     
 }

@@ -14,10 +14,10 @@ public class GalleryVC: UIViewController, ScrollStackContainableController {
     @IBOutlet public var pageControl: UIPageControl!
 
     public var urls: [URL] = [
-        URL(string: "https://www.telegraph.co.uk/content/dam/Travel/2019/February/fuji.jpg?imwidth=450")!,
-        URL(string: "https://japan-magazine.jnto.go.jp/jnto2wm/wp-content/uploads/1608_special_TOTO_main.jpg")!,
-        URL(string: "https://millionmilesecrets.com/wp-content/uploads/Japan-Kyoto.jpg")!,
-        URL(string: "https://media.cntraveller.in/wp-content/uploads/2019/07/Japan-leadraw-and-fine-866x487.jpg")!
+        URL(string: "http://cdn.luxuo.com/2011/05/Aerial-view-luxury-Burj-Al-Arab.jpg")!,
+        URL(string: "https://mediastream.jumeirah.com/webimage/heroactual//globalassets/global/hotels-and-resorts/dubai/burj-al-arab/rooms/new-royal-two-berdoom-suite/burj-al-arab-royal-suite-staircase-5-hero.jpg")!,
+        URL(string: "https://mediastream.jumeirah.com/webimage/image1152x648//globalassets/global/hotels-and-resorts/dubai/burj-al-arab/rooms/new-sky-one-bedroom-suite/2019/burj-al-arab-jumeirah-sky-one-bedroom-suite-living-room-desktop.jpeg")!,
+        URL(string: "https://q-xx.bstatic.com/xdata/images/hotel/max500/200178877.jpg?k=229a02237c3998ac6e8b11daae254113268e779e49ab2d18964f2e97bdc947a0&o=")!
     ]
         
     public static func create() -> GalleryVC {

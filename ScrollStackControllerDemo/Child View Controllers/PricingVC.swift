@@ -39,11 +39,6 @@ public class PricingVC: UIViewController, ScrollStackContainableController {
         return best.height
     }
     
-    override public func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-       // pricingTableHeightConstraint.constant = pricingTable.contentSize.height
-    }
-    
     override public func updateViewConstraints() {
        pricingTableHeightConstraint.constant = pricingTable.contentSize.height
         view.height(constant: nil)

@@ -44,7 +44,6 @@ public class TagsVC: UIViewController, ScrollStackContainableController {
     public static func create(delegate: TagsVCProtocol) -> TagsVC {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "TagsVC") as! TagsVC
-        vc.view.backgroundColor = UIColor.random()
         vc.delegate = delegate
         return vc
     }
