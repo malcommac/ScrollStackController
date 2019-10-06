@@ -207,37 +207,38 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
     }
     
     // MARK: - Insert Rows
-    
     /// Insert a new row to manage passed controller instance.
     ///
     /// - Parameter controller: controller to manage; it's `view` will be added as contentView of the row.
     /// - Parameter location: location inside the stack of the new row.
     /// - Parameter animated: `true` to animate operation, by default is `false`.
+    /// - Parameter completion: optional completion callback to call at the end of insertion.
     @discardableResult
-    open func addRow(controller: UIViewController, at location: InsertLocation = .bottom, animated: Bool = false) -> ScrollStackRow? {
+    open func addRow(controller: UIViewController, at location: InsertLocation = .bottom, animated: Bool = false, completion: (() -> Void)? = nil) -> ScrollStackRow? {
         switch location {
         case .top:
-            return createRowForController(controller, insertAt: 0, animated: animated)
+            return createRowForController(controller, insertAt: 0, animated: animated, completion: completion)
             
         case .bottom:
-            return createRowForController(controller, insertAt: rows.count, animated: animated)
+            return createRowForController(controller, insertAt: rows.count, animated: animated, completion: completion)
             
         case .atIndex(let index):
-            return createRowForController(controller, insertAt: index, animated: animated)
+            return createRowForController(controller, insertAt: index, animated: animated, completion: completion)
             
         case .after(let afterController):
             guard let index = rowForController(afterController)?.index else {
                 return nil
             }
             
-            return createRowForController(controller, insertAt: ((index + 1) >= rows.count ? rows.count : (index + 1)), animated: animated)
+            let finalIndex = ((index + 1) >= rows.count ? rows.count : (index + 1))
+            return createRowForController(controller, insertAt: finalIndex, animated: animated, completion: completion)
             
         case .before(let beforeController):
             guard let index = rowForController(beforeController)?.index else {
                 return nil
             }
             
-            return createRowForController(controller, insertAt: index, animated: animated)
+            return createRowForController(controller, insertAt: index, animated: animated, completion: completion)
             
         }
     }
