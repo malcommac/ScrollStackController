@@ -38,6 +38,10 @@ You can think of it as `UITableView` but with several differences:
 		- [Working with dynamic UICollectionView/UITableView/UITextView](#workingwithdynamicuicollectionviewuitableviewuitextview)
 	- [Rows Separator](#rowsseparator)
 	- [Tap On Rows](#taponrows)
+	- [Get the row/controller](#utilsmethods)
+	- [Set Row Insets](#setrowinsets)
+	- [Change ScrollStack scrolling axis](#changescrollaxis)
+	- [Subscribe to Events](#rowevents)
 - [Installation](#installation)
 - [Author & License](#authorlicense)
 
@@ -478,6 +482,83 @@ class GalleryVC: UIViewController, ScrollStackRowHighlightable {
 Transition between highlights state will be animated automatically.
 
 [↑ Back To Top](#index)
+
+<a name="utilsmethods"/>
+
+### Get the row/controller
+
+**Get the (first) row which manage a specific view controller type**
+You can get the first row which manage a specific view controller class using `firstRowForControllerOfType<T: UIViewController>(:) -> ScrollStackRow?` function.
+
+```swift
+let tagsVC = scrollStack.firstRowForControllerOfType(TagsVC.self) // TagsVC instance
+```
+
+**Get the row which manage a specific controller instance**
+To get the row associated with a specific controller you can use `rowForController()` function:
+
+```swift
+let row = scrollStack.rowForController(tagsVC) // ScrollStackRow
+```
+
+<a name="setrowinsets"/>
+
+### Set Row Insets
+
+To set an insets for a specific row you can use `setRowInsets()` function:
+
+```example
+let newInsets: UIEdgeInsets = ...
+scrollStack.setRowInsets(index: 0, insets: newInsets)
+```
+
+You can also use `setRowsInsets()` to set multiple rows.
+
+Moreover by setting `.rowInsets` in your `ScrollStack` class you can set a default insets value for new row added.
+
+<a name="changescrollaxis"/>
+
+### Change ScrollStack scrolling axis
+
+In order to change the axis of scroll for your `ScrollStack` instances you can set the `axis` property to `horizontal` or `vertical.
+
+<a name="rowevents"/>
+
+### Subscribe to Row Events
+
+You can listen when a row is removed or added into the stack view by subscribing the `onChangeRow` property.
+
+```swift
+scrollStackView.onChangeRow = { (row, isRemoved) in
+	if isRemoved {
+		print("Row \(row.index) was removed"
+	} else {
+		print("A new row is added at index: \(row.index)")
+	}
+}
+```
+
+You can also subscribe events for events about row visibility state changes by setting the `stackDelegate`. Your destination object must therefore conforms to the `ScrollStackControllerDelegate ` protocol:
+
+Example:
+
+```swift
+class ViewController: UIViewController, ScrollStackControllerDelegate {
+	
+	 func scrollStackDidScroll(_ stackView: ScrollStack, offset: CGPoint) {
+	 	// stack did scroll
+	 }
+    
+    func scrollStackRowDidBecomeVisible(_ stackView: ScrollStack, row: ScrollStackRow, index: Int, state: ScrollStack.RowVisibility) {
+    	// Row did become partially or entirely visible.
+    }
+    
+    func scrollStackRowDidBecomeHidden(_ stackView: ScrollStack, row: ScrollStackRow, index: Int, state: ScrollStack.RowVisibility) {
+		// Row did become partially or entirely invisible.
+	}
+	
+}
+```
 
 <a name="installation"/>
 
