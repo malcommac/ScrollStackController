@@ -245,6 +245,8 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         separatorConstraints?.trailing.constant = (separatorAxis == .vertical ? 0 : -separatorInsets.right)
     }
     
+    // MARK: - Sizing the Controller
+    
     internal func askForCutomizedSizeOfContentView() {
         guard let customizableController = controller as? ScrollStackContainableController else {
             return // ignore, it's not implemented, use autolayout.
@@ -255,20 +257,40 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
             return // ignore, use autolayout in place for content view.
         }
         
-        switch currentAxis {
-        case .horizontal:
-            contentView.width(constant: bestSize)
-            contentView.height(constant: nil)
+        switch bestSize {
+        case .fixed(let value):
+            setupRowToFixedValue(value)
             
-        case .vertical:
+        case .fitLayoutForAxis:
+            setupRowSizeToFitLayout()
+        }
+    }
+    
+    private func setupRowToFixedValue(_ value: CGFloat) {
+        guard let stackView = stackView else { return }
+
+        if stackView.axis == .vertical {
             contentView.width(constant: nil)
-            contentView.height(constant: bestSize)
-            
-        default:
-            break
+            contentView.height(constant: value)
+        } else {
+            contentView.width(constant: value)
+            contentView.height(constant: nil)
+        }
+    }
+    
+    private func setupRowSizeToFitLayout()  {
+        guard let stackView = stackView else { return }
+        
+        var bestSize: CGSize!
+        if stackView.axis == .vertical {
+            let maxAllowedSize = CGSize(width: stackView.bounds.size.width, height: CGFloat.greatestFiniteMagnitude)
+            bestSize = contentView.systemLayoutSizeFitting(maxAllowedSize, withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow)
+        } else {
+            let maxAllowedSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: stackView.bounds.size.height)
+            bestSize = contentView.systemLayoutSizeFitting(maxAllowedSize, withHorizontalFittingPriority: .defaultLow, verticalFittingPriority: .required)
         }
         
-        print("")
+        setupRowToFixedValue(bestSize.height)
     }
     
     // MARK: - Handle Touch

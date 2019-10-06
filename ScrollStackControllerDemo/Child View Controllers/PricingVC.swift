@@ -32,11 +32,14 @@ public class PricingVC: UIViewController, ScrollStackContainableController {
         return vc
     }
     
-    public func scrollStackRowSizeForAxis(_ axis: NSLayoutConstraint.Axis, row: ScrollStackRow, in stackView: ScrollStack) -> CGFloat? {
-        let size = CGSize(width: stackView.bounds.size.width, height: 9000)
-        let best = self.view.systemLayoutSizeFitting(size, withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow)
-        // it's important to set both the height constraint and bottom safe area for table bottom
-        return best.height
+    public func scrollStackRowSizeForAxis(_ axis: NSLayoutConstraint.Axis, row: ScrollStackRow, in stackView: ScrollStack) -> ScrollStack.ControllerSize? {
+        return .fitLayoutForAxis
+//        let size = CGSize(width: stackView.bounds.size.width, height: 9000)
+//        let best = self.view.systemLayoutSizeFitting(size, withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow)
+//        // NOTE:
+//        // it's important to set both the height constraint and bottom safe constraints to safe area for tableview,
+//        // otherwise growing does not work.
+//        return best.height
     }
     
     override public func updateViewConstraints() {

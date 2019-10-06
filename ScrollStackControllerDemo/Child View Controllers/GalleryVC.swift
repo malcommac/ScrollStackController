@@ -26,8 +26,8 @@ public class GalleryVC: UIViewController, ScrollStackContainableController {
         return vc
     }
     
-    public func scrollStackRowSizeForAxis(_ axis: NSLayoutConstraint.Axis, row: ScrollStackRow, in stackView: ScrollStack) -> CGFloat? {
-        return 300
+    public func scrollStackRowSizeForAxis(_ axis: NSLayoutConstraint.Axis, row: ScrollStackRow, in stackView: ScrollStack) -> ScrollStack.ControllerSize? {
+        return .fixed(300)
     }
     
     public override func viewDidAppear(_ animated: Bool) {
