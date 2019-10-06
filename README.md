@@ -94,8 +94,8 @@ This is an overview of the architecture:
 
 ![](./architecture.png)
 
-- `ScrollStackContainer`: is a subclass of `UIViewController`. You would to use it and add as a child controller of your view controller. This allows you to manage any child-controllers related events for each row you will add to the stack controller.
-- `ScrollStack`: the view of the `ScrollStackContainer` is a `ScrollStack`, a subclass of `UIScrollView` with an `UIStackView` which allows you to manage the layout of the stack.
+- `ScrollStackController `: is a subclass of `UIViewController`. You would to use it and add as a child controller of your view controller. This allows you to manage any child-controllers related events for each row you will add to the stack controller.
+- `ScrollStack`: the view of the `ScrollStackController ` is a `ScrollStack`, a subclass of `UIScrollView` with an `UIStackView` which allows you to manage the layout of the stack.
 - Each row is a `ScrollStackRow`, which is a subclass of `UIView`. Inside there are two views, the `contentView` (a reference to managed `UIViewController`'s `view`) and the `separatorView`. A row strongly reference managed view controller, so you don't need to keep a strong reference by your own.
 - Separator view are subclass of `ScrollStackSeparator` class.
 
@@ -192,7 +192,7 @@ An example:
 
 ```swift
 let newVC: UIViewController = ...
-stackView.replaceRow(index: 1, withRow: galleryVC, animated: true) {
+stackView.replaceRow(index: 1, withRow: newVC, animated: true) {
 	print("Gallery controller is now in place!!")
 }
 ```
@@ -483,10 +483,10 @@ Transition between highlights state will be animated automatically.
 
 ### Installation
 
-`ScrollStackContainer` can be installed with CocoaPods by adding pod 'ScrollStackContainer' to your Podfile.
+`ScrollStackController` can be installed with CocoaPods by adding pod 'ScrollStackController' to your Podfile.
 
 ```ruby
-pod 'ScrollStackContainer'
+pod 'ScrollStackController'
 ```
 
 It also supports `Swift Package Maneger` aka SPM.
@@ -497,13 +497,13 @@ It also supports `Swift Package Maneger` aka SPM.
 
 ### Author & License
 
-`ScrollStackContainer` is developed and maintained by:
+`ScrollStackController` is developed and maintained by:
 
 - Daniele Margutti ([danielemargutti.com](http://www.danielemargutti.com) - [@danielemargutti](http://www.twitter.com/danielemargutti) on twitter)
 
 I fully welcome contributions, new features, feature requests, bug reports, and fixes. Also PR are accepted!
 
-`ScrollStackContainer` is released under the MIT License.
+`ScrollStackController` is released under the MIT License.
 
 It was originally inspired by [`AloeStackView`](https://github.com/airbnb/AloeStackView) by Airbnb.
 
