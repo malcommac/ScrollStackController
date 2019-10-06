@@ -99,7 +99,7 @@ This is an overview of the architecture:
 ![](./architecture.png)
 
 - `ScrollStackController `: is a subclass of `UIViewController`. You would to use it and add as a child controller of your view controller. This allows you to manage any child-controllers related events for each row you will add to the stack controller.
-- `ScrollStack`: the view of the `ScrollStackController ` is a `ScrollStack`, a subclass of `UIScrollView` with an `UIStackView` which allows you to manage the layout of the stack.
+- `ScrollStack`: the view of the `ScrollStackController ` is a `ScrollStack`, a subclass of `UIScrollView` with an `UIStackView` which allows you to manage the layout of the stack. You can access to it via `scrollStack` property of the controller.
 - Each row is a `ScrollStackRow`, which is a subclass of `UIView`. Inside there are two views, the `contentView` (a reference to managed `UIViewController`'s `view`) and the `separatorView`. A row strongly reference managed view controller, so you don't need to keep a strong reference by your own.
 - Separator view are subclass of `ScrollStackSeparator` class.
 
@@ -115,6 +115,8 @@ class MyViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        stackController.view.frame = contentView.bounds
         contentView.addSubview(stackController.view)
     }
     
@@ -548,7 +550,7 @@ class ViewController: ScrollStackController, ScrollStackControllerDelegate {
   func viewDidLoad() {
     super.viewDidLoad()
     
-    self.stackView.stackDelegate = self
+    self.scrollStack.stackDelegate = self
   }
 	
   func scrollStackDidScroll(_ stackView: ScrollStack, offset: CGPoint) {

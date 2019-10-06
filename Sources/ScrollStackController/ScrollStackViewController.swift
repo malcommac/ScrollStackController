@@ -37,7 +37,7 @@ open class ScrollStackViewController: UIViewController {
     // MARK: Public Properties
     
     /// Inner stack view control.
-    public let stackView = ScrollStack()
+    public let scrollStack = ScrollStack()
     
     /// Displays the scroll indicators momentarily.
     open var automaticallyFlashScrollIndicators = false
@@ -55,9 +55,9 @@ open class ScrollStackViewController: UIViewController {
     // MARK: View Lifecycle
     
     open override func loadView() {
-        view = stackView
+        view = scrollStack
         // monitor remove or add of a row to manage the view controller's hierarchy
-        stackView.onChangeRow = { [weak self] (row, isRemoved) in
+        scrollStack.onChangeRow = { [weak self] (row, isRemoved) in
             guard let `self` = self else {
                 return
             }
@@ -69,7 +69,7 @@ open class ScrollStackViewController: UIViewController {
       super.viewDidAppear(animated)
         
       if automaticallyFlashScrollIndicators {
-          stackView.flashScrollIndicators()
+          scrollStack.flashScrollIndicators()
       }
     }
     

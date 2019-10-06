@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     private var stackController = ScrollStackViewController()
     
     public var stackView: ScrollStack {
-        return stackController.stackView
+        return stackController.scrollStack
     }
     
     
