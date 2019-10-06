@@ -75,7 +75,7 @@ If you have a long list of rows you may experience delays.
 
 So, `ScrollStackController` is generally not appropriate for screens that contain many views of the same type, all showing similar data (in these cases you should use `UITableView` or `UICollectionView`).
 
-<video src="./Resources/demomovie.mp4" width="278" height="568" controls preload></video>
+![Demo Project](https://media.giphy.com/media/fAi3hyXNalzd4SkVgI/giphy.gif)
 
 [↑ Back To Top](#index)
 
