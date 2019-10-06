@@ -7,7 +7,7 @@ Create complex scrollable layout using UIViewController and simplify your code!
 [![CI Status](https://travis-ci.org/malcommac/OwlKit.svg)](https://travis-ci.org/malcommac/ScrollStackController) 
 ![Twitter Follow](https://img.shields.io/twitter/follow/danielemargutti.svg?label=Follow&style=flat-square)
 
-ScrollStackController was created and maintaned by [Daniele Margutti](https://github.com/malcommac) - My home site [www.danielemargutti.com](https://www.danielemargutti.com).
+ScrollStackController was created and maintaned by [Daniele Margutti](https://twitter.com/danielemargutti) › [Web Site](https://www.danielemargutti.com)
 
 ## Introduction
 ScrollStackController is a class you can use to create complex layouts using scrollable `UIStackView` but where each row is handled by a separate `UIViewController`; this allows you to keep a great separation of concerns.
@@ -495,6 +495,7 @@ It also supports `Swift Package Maneger` aka SPM.
 I fully welcome contributions, new features, feature requests, bug reports, and fixes. Also PR are accepted!
 
 `ScrollStackContainer` is released under the MIT License.
+
 It was originally inspired by [`AloeStackView`](https://github.com/airbnb/AloeStackView) by Airbnb.
 
 [↑ Back To Top](#index)
