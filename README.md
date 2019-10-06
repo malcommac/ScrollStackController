@@ -1,11 +1,13 @@
 # ScrollStackController
 Create complex scrollable layout using `UIViewController` and simplify your code!
 
-[![Version](https://img.shields.io/cocoapods/v/OwlKit.svg?style=flat)](http://cocoadocs.org/docsets/ScrollStackController) 
-[![License](https://img.shields.io/cocoapods/l/OwlKit.svg?style=flat)](http://cocoadocs.org/docsets/ScrollStackController) 
-[![Platform](https://img.shields.io/cocoapods/p/OwlKit.svg?style=flat)](http://cocoadocs.org/docsets/ScrollStackController)
-[![CI Status](https://travis-ci.org/malcommac/OwlKit.svg)](https://travis-ci.org/malcommac/ScrollStackController) 
-![Twitter Follow](https://img.shields.io/twitter/follow/danielemargutti.svg?label=Follow&style=flat-square)
+[![Version](https://img.shields.io/cocoapods/v/ScrollStackController.svg?style=flat)](http://cocoadocs.org/docsets/ScrollStackController) 
+[![License](https://img.shields.io/cocoapods/l/ScrollStackController.svg?style=flat)](http://cocoadocs.org/docsets/ScrollStackController) 
+[![Platform](https://img.shields.io/cocoapods/p/ScrollStackController.svg?style=flat)](http://cocoadocs.org/docsets/ScrollStackController)
+[![CI Status](https://travis-ci.org/malcommac/ScrollStackController.svg)](https://travis-ci.org/malcommac/ScrollStackController) 
+[![danielemargutti.com](https://img.shields.io/badge/HomePage-danielemargutti.com-brightgreen)
+](https://www.danielemargutti.com)
+![Twitter Follow](https://img.shields.io/twitter/follow/danielemargutti?label=Follow%20Me&style=social)
 
 ScrollStackController was created and maintaned by [Daniele Margutti](https://twitter.com/danielemargutti) › [Web Site](https://www.danielemargutti.com)
 
