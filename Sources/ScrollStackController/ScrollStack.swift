@@ -72,6 +72,25 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         } as! [ScrollStackRow]
     }
     
+    /// Return all visible (partially or enterly) rows.
+    public var visibleRows: [ScrollStackRow]? {
+        return rows.enumerated().compactMap { (idx, item) in
+            return (isRowVisible(index: idx).isVisible ? item : nil)
+        }
+    }
+    
+    /// Return only entirly visible rows.
+    public var enterlyVisibleRows: [ScrollStackRow]? {
+        return rows.enumerated().compactMap { (idx, item) in
+            return (isRowVisible(index: idx) == .entire ? item : nil)
+        }
+    }
+    
+    /// Return `true` if no rows are into the stack.
+    public var isEmpty: Bool {
+        return rows.isEmpty
+    }
+    
     /// Get the first row of the stack, if any.
     open var firstRow: ScrollStackRow? {
         return rows.first
@@ -583,7 +602,7 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         }
         
         rows.forEach {
-            $0.askForCutomizedSizeOfContentView()
+            $0.askForCutomizedSizeOfContentView(animated: animated)
         }
         
         UIView.execute(animated: animated, {

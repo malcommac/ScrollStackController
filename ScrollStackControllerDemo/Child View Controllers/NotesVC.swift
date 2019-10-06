@@ -43,8 +43,8 @@ public class NotesVC: UIViewController, ScrollStackContainableController {
         super.updateViewConstraints()
      }
     
-    public func reloadContentFromStackViewRow() {
-        
+    public func reloadContentFromStackView(stackView: ScrollStack, row: ScrollStackRow, animated: Bool) {
+
     }
     
     public override func viewDidLoad() {

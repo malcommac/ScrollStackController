@@ -23,8 +23,8 @@ public class WelcomeVC: UIViewController, ScrollStackContainableController {
         return .fitLayoutForAxis
     }
     
-    public func reloadContentFromStackViewRow() {
-        
+    public func reloadContentFromStackView(stackView: ScrollStack, row: ScrollStackRow, animated: Bool) {
+
     }
     
 }

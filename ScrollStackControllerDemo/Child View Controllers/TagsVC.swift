@@ -52,8 +52,8 @@ public class TagsVC: UIViewController, ScrollStackContainableController {
         return (isExpanded == false ? .fixed(170) : .fixed(170 + collectionView.contentSize.height + 20))
     }
     
-    public func reloadContentFromStackViewRow() {
-        
+    public func reloadContentFromStackView(stackView: ScrollStack, row: ScrollStackRow, animated: Bool) {
+
     }
     
     public override func viewDidLoad() {

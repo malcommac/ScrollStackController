@@ -176,7 +176,7 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         addSubview(contentView)
         addSubview(separatorView)
         
-        askForCutomizedSizeOfContentView()
+        askForCutomizedSizeOfContentView(animated: false)
         
         didUpdateContentViewContraints()
         didUpdateSeparatorViewContraintsIfNeeded()
@@ -247,7 +247,7 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
     
     // MARK: - Sizing the Controller
     
-    internal func askForCutomizedSizeOfContentView() {
+    internal func askForCutomizedSizeOfContentView(animated: Bool) {
         guard let customizableController = controller as? ScrollStackContainableController else {
             return // ignore, it's not implemented, use autolayout.
         }
@@ -264,6 +264,8 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         case .fitLayoutForAxis:
             setupRowSizeToFitLayout()
         }
+        
+        customizableController.reloadContentFromStackView(stackView: stackView!, row: self, animated: animated)
     }
     
     private func setupRowToFixedValue(_ value: CGFloat) {

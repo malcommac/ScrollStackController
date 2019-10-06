@@ -52,7 +52,7 @@ public protocol ScrollStackContainableController: UIViewController {
     func scrollStackRowSizeForAxis(_ axis: NSLayoutConstraint.Axis, row: ScrollStackRow, in stackView: ScrollStack) -> ScrollStack.ControllerSize?
     
     /// Method is called when you call a `reloadRow` function on a row where this controller is contained in.
-    func reloadContentFromStackViewRow()
+    func reloadContentFromStackView(stackView: ScrollStack, row: ScrollStackRow, animated: Bool)
     
 }
 

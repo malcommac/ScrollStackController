@@ -16,7 +16,11 @@ You can think of it as `UITableView` but with several differences:
 - System Requirements
 - How to use it
 	- Adding Rows
-	- Removing Rows
+	- Removing / Replacing Rows
+	- Move Rows
+	- Hide / Show Rows
+	- Reload Rows
+	- Sizing Rows
 
 ### Main Features
 
@@ -66,6 +70,23 @@ Each row managed by `ScrollStack` is a subclass of `ScrollStackRow`: it strongly
 
 You don't need to handle lifecycle of your rows/view controller until they are part of the rows inside the stack.
 
+To get the list of rows of the stack you can use the `rows` property.
+
+```swift
+// Standard methods
+let allRows = scrollStack.rows
+let isEmpty = scrollStack.isEmpty // true if it does not contains row
+let notHiddenRows = scrollStack.rows.filter { !$0.isHidden }
+
+// By Vibility
+let currentlyVisibleRows = scrollStack.visibleRows // only currently visible rows (partially or enterly)
+let enterlyVisibleRows = scrollStack.enterlyVisibleRows // only enterly visible rows into the stack
+
+// Shortcuts
+let firstRow = scrollStack.firstRow
+let lastRow = scrollStack.lastRow
+```
+
 Let's take a look below.
 
 #### Adding Rows
@@ -94,6 +115,96 @@ The following code add a rows with the view of each view controller passed:
    stackView.addRows(controllers: [welcomeVC, notesVC, tagsVC, galleryVC], animated: false)
 ```
 
-As you noted there is not need to keep a strong reference to any view controller; they are automatically strong referenced by each row created to add them into the stack.
+As you noticed there is not need to keep a strong reference to any view controller; they are automatically strong referenced by each row created to add them into the stack.
 
-#### Removing Rows
+#### Removing / Replacing Rows
+
+A similar set of APIs are used to remove existing rows from the stack:
+
+- `removeAllRows(animated:)`: to remove all rows of the stack.
+- `removeRow(index:animated:) -> UIViewController?`: to remove a specific row at given index. It returns a reference to removed view controller.
+- `removeRows(indexes:animated:) -> [UIViewController]?`: to remove rows at specified indexes from the stack. Removed managed `UIViewController` instances are returned.
+- `replaceRow(index:withRow:animated:completion:)`: replace an existing row with a new row which manage new passed view controller.
+
+An example:
+
+```swift
+let newVC: UIViewController = ...
+stackView.replaceRow(index: 1, withRow: galleryVC, animated: true) {
+	print("Gallery controller is now in place!!")
+}
+```
+
+#### Move Rows
+
+If you need to adjust the hierarchy of the stack by moving a row from a position to another you can use:
+
+- `moveRow(index:to:animated:completion:)`: move a row at passed inside to another index (both of indexes must be valid).
+
+The following method move the first row at a random position, by animating the transition:
+
+```swift
+let randomDst = Int.random(in: 1..<stackView.rows.count)
+stackView.moveRow(index: 0, to: randomDst, animated: true, completion: nil)
+```
+
+#### Hide / Show Rows
+
+`ScrollStack` uses the power of `UIStackView`: you can show and hide rows easily with a gorgeous animation by using one of the following methods:
+
+- `setRowHidden(index:isHidden:animated:completion:)`: hide or show a row at index.
+- `setRowsHidden(indexes:isHidden:animated:completion:)`: hide or show multiple rows at specified indexes.
+
+Example:
+
+```swift
+stackView.setRowsHidden(indexes: [0,1,2], isHidden: true, animated: true)
+```
+
+Keep in mind: when you hide a rows the row still part of the stack and it's not removed, just hidden! If you get the list of rows by calling `rows` property of the `ScrollStack` you still see it.
+
+#### Reload Rows
+
+Reload rows method allows you to refresh the layout of the entire stack (using `layoutIfNeeded()`) while you have a chance to update a specific row's `contentView` (aka the view of the managed `UIViewController`).
+
+There are three methods:
+
+- `reloadRow(index:animated:completion:)`: reload a specific row at index.
+- `reloadRows(indexes:animated:completion:)`: reload a specific set of rows.
+- `reloadAllRows(animated:completion:)`: reload all rows.
+
+If your `UIViewController` implements `ScrollStackContainableController` protocol you will get notified inside the class about this request, so you have the opportunity to refresh your data:
+
+Example:
+
+```swift
+class MyViewController: UIViewController {
+
+	private let scrollStackController = ScrollStackController()
+	
+	@IBAction func someAction() {
+		scrollStackController.stackView.reloadRow(0)
+	}
+
+}
+
+// Your row 0 manages the GalleryVC, so in your GalleryVC implementation:
+
+class GalleryVC: UIViewController, ScrollStackContainableController {
+
+    public func func reloadContentFromStackView(stackView: ScrollStack, row: ScrollStackRow, animated: Bool) {
+		// update your UI
+	}
+	
+}
+```
+
+#### Sizing Rows
+
+You can control the size of your `UIViewController` inside a row of a `ScrollStack` in two ways:
+
+- Creating contrains in your `UIViewController`'s view with Autolayout.
+- Implementing `ScrollStackContainableController` protocol in your `UIViewController` class and return a non `nil` value in `scrollStackRowSizeForAxis(:row:in:) -> ScrollStack.ControllerSize?` delegate method.
+
+In both case `ScrollStack` class will use only one dimension depending by the active scroll axis to layout the view controller content into the stack (if scroll axis is `horizontal` you can control only the `height` of the row, if it's `vertical` only the `width`. The other dimension will be the same of the scroll stack itself.
+

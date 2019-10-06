@@ -65,8 +65,8 @@ public class PricingVC: UIViewController, ScrollStackContainableController {
         viewDidLayoutSubviews()
     }
     
-    public func reloadContentFromStackViewRow() {
-        
+    public func reloadContentFromStackView(stackView: ScrollStack, row: ScrollStackRow, animated: Bool) {
+
     }
     
     @IBAction public func addFee() {

@@ -35,8 +35,8 @@ public class GalleryVC: UIViewController, ScrollStackContainableController {
         reloadData()
     }
     
-    public func reloadContentFromStackViewRow() {
-        
+    public func reloadContentFromStackView(stackView: ScrollStack, row: ScrollStackRow, animated: Bool) {
+
     }
 
     private func reloadData() {
