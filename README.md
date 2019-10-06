@@ -18,6 +18,8 @@ You can think of it as `UITableView` but with several differences:
 - **Powered by AutoLayout since the beginning**; it uses a combination of UIScrollView + UIStackView to offer an animation friendly controller ideal for fixed and dynamic row sizing.
 - **You don't need to struggle yourself with view recycling**: suppose you have a layout composed by several different screens. There is no need of view recycling but it cause a more difficult managment of the layout. With a simpler and safer APIs set `ScrollStackView` is the ideal way to implement such layouts.
 
+<a name="index"/>
+
 ## Table of Contents
 
 - [Main Features](#mainfeatures)
@@ -37,9 +39,10 @@ You can think of it as `UITableView` but with several differences:
 	- [Rows Separator](#rowsseparator)
 	- [Tap On Rows](#taponrows)
 - [Installation](#installation)
-- A[uthor & License](#authorlicense)
+- [Author & License](#authorlicense)
 
 <a name="mainfeatures"/>
+
 ### Main Features
 
 
@@ -54,13 +57,17 @@ You can think of it as `UITableView` but with several differences:
 | 🐦 	| Fully made in Swift 5 from Swift ❥ lovers 	|
 
 <a name="systemrequirements"/>
+
 ### System Requirements
 
 - iOS 9+
 - Xcode 10+
 - Swift 5+
 
+[↑ Back To Top](#index)
+
 <a name="whentousescrollstackcontrollerandwhennot"/>
+
 ### When to use `ScrollStackController` and when not
 
 ##### Yes
@@ -79,7 +86,10 @@ If you have a long list of rows you may experience delays.
 
 So, `ScrollStackController` is generally not appropriate for screens that contain many views of the same type, all showing similar data (in these cases you should use `UITableView` or `UICollectionView`).
 
+[↑ Back To Top](#index)
+
 <a name="howtouseit"/>
+
 ### How to use it
 
 The main class of the package is `ScrollStack`, a subclass of `UIScrollView`. It manages the layout of each row, animations and keep a strong reference to your rows.
@@ -128,7 +138,10 @@ let lastRow = scrollStack.lastRow
 
 Let's take a look below.
 
+[↑ Back To Top](#index)
+
 <a name="addingrows"/>
+
 #### Adding Rows
 
 `ScrollStack` provides a comprehensive set of methods for managing rows, including inserting rows at the beginning and end, inserting rows above or below other rows.
@@ -157,7 +170,10 @@ The following code add a rows with the view of each view controller passed:
 
 As you noticed there is not need to keep a strong reference to any view controller; they are automatically strong referenced by each row created to add them into the stack.
 
+[↑ Back To Top](#index)
+
 <a name="removingreplacingrows"/>
+
 #### Removing / Replacing Rows
 
 A similar set of APIs are used to remove existing rows from the stack:
@@ -176,7 +192,10 @@ stackView.replaceRow(index: 1, withRow: galleryVC, animated: true) {
 }
 ```
 
+[↑ Back To Top](#index)
+
 <a name="moverows"/>
+
 #### Move Rows
 
 If you need to adjust the hierarchy of the stack by moving a row from a position to another you can use:
@@ -190,7 +209,10 @@ let randomDst = Int.random(in: 1..<stackView.rows.count)
 stackView.moveRow(index: 0, to: randomDst, animated: true, completion: nil)
 ```
 
+[↑ Back To Top](#index)
+
 <a name="hideshowrows"/>
+
 #### Hide / Show Rows
 
 `ScrollStack` uses the power of `UIStackView`: you can show and hide rows easily with a gorgeous animation by using one of the following methods:
@@ -206,7 +228,10 @@ stackView.setRowsHidden(indexes: [0,1,2], isHidden: true, animated: true)
 
 Keep in mind: when you hide a rows the row still part of the stack and it's not removed, just hidden! If you get the list of rows by calling `rows` property of the `ScrollStack` you still see it.
 
+[↑ Back To Top](#index)
+
 <a name="reloadrows"/>
+
 #### Reload Rows
 
 Reload rows method allows you to refresh the layout of the entire stack (using `layoutIfNeeded()`) while you have a chance to update a specific row's `contentView` (aka the view of the managed `UIViewController`).
@@ -243,7 +268,10 @@ class GalleryVC: UIViewController, ScrollStackContainableController {
 }
 ```
 
+[↑ Back To Top](#index)
+
 <a name="sizingrows"/>
+
 #### Sizing Rows
 
 You can control the size of your `UIViewController` inside a row of a `ScrollStack` in two ways:
@@ -260,7 +288,10 @@ Each of the following cases is covered inside the demo application:
 - Growing row based on `UITextView`'s content in [NotesVC](https://github.com/malcommac/ScrollStackController/blob/master/ScrollStackControllerDemo/Child%20View%20Controllers/NotesVC.swift)
 - Growing row based on `UITableView`'s content in [PricingVC](https://github.com/malcommac/ScrollStackController/blob/master/ScrollStackControllerDemo/Child%20View%20Controllers/PricingVC.swift)
 
+[↑ Back To Top](#index)
+
 <a name="fixedrowsize"/>
+
 #### Fixed Row Size
 
 If your view controller has a fixed size you can just return it as follows:
@@ -285,7 +316,10 @@ class GalleryVC: UIViewController, ScrollStackContainableController {
 If your stack support single axis you can obivously avoid switch condition.
 When you will add this view controller in a scroll stack it will be sized as you requested (any height/width constraint already in place will be removed).
 
+[↑ Back To Top](#index)
+
 <a name="fittinglayoutrowsize"/>
+
 #### Fitting Layout Row Size
 
 Sometimes you may want to have the content view sized by fitting the contents of the view controller's view. In these cases you can use `. fitLayoutForAxis`.
@@ -300,7 +334,10 @@ public func scrollStackRowSizeForAxis(_ axis: NSLayoutConstraint.Axis, row: Scro
 
 `ScrollStack` will use the `systemLayoutSizeFitting()` method on your view controller's view to get the best size to fit the content.
 
+[↑ Back To Top](#index)
+
 <a name="collapsiblerows"/>
+
 #### Collapsible Rows
 
 Sometimes you may want to create collapsible rows.
@@ -336,7 +373,10 @@ In your main view controller you may call this:
 
 And your rows will perform a great animation to resize its content.
 
+[↑ Back To Top](#index)
+
 <a name="workingwithdynamicuicollectionviewuitableviewuitextview"/>
+
 #### Working with dynamic UICollectionView/UITableView/UITextView
 
 There are some special cases where you may need to resize the row according to the changing content in your view controller's view.
@@ -375,7 +415,10 @@ public class PricingVC: UIViewController, ScrollStackContainableController {
 
 In this way as you add new value to the table the size of the row in stack view will grown.
 
+[↑ Back To Top](#index)
+
 <a name="rowsseparator"/>
+
 #### Rows Separator
 
 Each row managed by `ScrollStack` is of a subview class of type `ScrollStackRow`. It has a strong referenced to managed `UIViewController` but also have a subview on bottom called `ScrollStackSeparator`.
@@ -391,7 +434,10 @@ Moreover you can set these values directly on `ScrollStack` controller in order 
 
 `ScrollStack` also have a property called `autoHideLastRowSeparator` to hide the last separator of the stack automatically.
 
+[↑ Back To Top](#index)
+
 <a name="taponrows"/>
+
 #### Tap On Rows
 
 By default rows are not tappable but if you need to implement some sort of tap features like in `UITableView` you can add it by setting a default callback for `onTap` property on `ScrollStackRow` instances.
@@ -426,7 +472,10 @@ class GalleryVC: UIViewController, ScrollStackRowHighlightable {
 
 Transition between highlights state will be animated automatically.
 
+[↑ Back To Top](#index)
+
 <a name="installation"/>
+
 ### Installation
 
 `ScrollStackContainer` can be installed with CocoaPods by adding pod 'ScrollStackContainer' to your Podfile.
@@ -437,8 +486,10 @@ pod 'ScrollStackContainer'
 
 It also supports `Swift Package Maneger` aka SPM.
 
+[↑ Back To Top](#index)
 
 <a name="authorlicense"/>
+
 ### Author & License
 
 `ScrollStackContainer` is developed and maintained by:
@@ -449,4 +500,7 @@ I fully welcome contributions, new features, feature requests, bug reports, and 
 
 `ScrollStackContainer` is released under the MIT License.
 It was originally inspired by [`AloeStackView`](https://github.com/airbnb/AloeStackView) by Airbnb.
+
+[↑ Back To Top](#index)
+
 
