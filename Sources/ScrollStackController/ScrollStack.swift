@@ -456,6 +456,18 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
     
     // MARK: - Row Appearance
     
+    /// Return the first row which manages a controller of given type.
+    ///
+    /// - Parameter type: type of controller to get
+    open func firstRowForControllerOfType<T: UIViewController>(_ type: T.Type) -> ScrollStackRow? {
+        return rows.first {
+            if let _ = $0.controller as? T {
+                return true
+            }
+            return false
+        }
+    }
+    
     /// Return the row associated with passed `UIViewController` instance and its index into the `rows` array.
     ///
     /// - Parameter controller: target controller.

@@ -43,8 +43,8 @@ public class PricingVC: UIViewController, ScrollStackContainableController {
     }
     
     override public func updateViewConstraints() {
-       pricingTableHeightConstraint.constant = pricingTable.contentSize.height
-        view.height(constant: nil)
+        pricingTableHeightConstraint.constant = pricingTable.contentSize.height // the size of the table as the size of its content
+        view.height(constant: nil) // cancel any height constraint already in place in the view
         super.updateViewConstraints()
     }
     
