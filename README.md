@@ -90,7 +90,16 @@ So, `ScrollStackController` is generally not appropriate for screens that contai
 
 The main class of the package is `ScrollStack`, a subclass of `UIScrollView`. It manages the layout of each row, animations and keep a strong reference to your rows.
 
-However usually you don't want to intantiate this control directly but by calling the `ScrollStackController` class.
+This is an overview of the architecture:
+
+![](./architecture.png)
+
+- `ScrollStackContainer`: is a subclass of `UIViewController`. You would to use it and add as a child controller of your view controller. This allows you to manage any child-controllers related events for each row you will add to the stack controller.
+- `ScrollStack`: the view of the `ScrollStackContainer` is a `ScrollStack`, a subclass of `UIScrollView` with an `UIStackView` which allows you to manage the layout of the stack.
+- Each row is a `ScrollStackRow`, which is a subclass of `UIView`. Inside there are two views, the `contentView` (a reference to managed `UIViewController`'s `view`) and the `separatorView`
+- Separator view are subclass of `ScrollStackSeparator` class.
+
+As we said, usually you don't want to intantiate a `ScrollStack` control directly but by using the `ScrollStackController` class.
 It's a view controller which allows you to get the child view controller's managment for free, so when you add/remove a row to the stack you will get the standard UIViewController events for free!
 
 This is an example of initialization in a view controller:
