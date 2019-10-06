@@ -59,8 +59,8 @@ extension GalleryVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     }
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = collectionView.bounds.size
-        return size
+        //let size = collectionView.bounds.size
+        return CGSize(width: 310, height: collectionView.bounds.size.height) // fix here
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
