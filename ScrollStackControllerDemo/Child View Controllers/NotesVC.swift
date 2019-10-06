@@ -40,7 +40,7 @@ public class NotesVC: UIViewController, ScrollStackContainableController {
         self.textViewHeightConstraint.constant = newSize.height
         
         view.height(constant: nil)
-         super.updateViewConstraints()
+        super.updateViewConstraints()
      }
     
     public func reloadContentFromStackViewRow() {
@@ -49,10 +49,10 @@ public class NotesVC: UIViewController, ScrollStackContainableController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        view.height(constant: nil)
         textView.isScrollEnabled = false
         textView.delegate = self
-        view.height(constant: nil)
     }
     
 
