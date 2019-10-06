@@ -54,6 +54,7 @@ You can think of it as `UITableView` but with several differences:
 	- [Set Row Insets](#setrowinsets)
 	- [Change ScrollStack scrolling axis](#changescrollaxis)
 	- [Subscribe to Events](#rowevents)
+- [Example App](#exampleapp)
 - [Installation](#installation)
 - [System Requirements](#systemrequirements)
 - [Author & License](#authorlicense)
@@ -74,6 +75,8 @@ If you have a long list of rows you may experience delays.
 
 So, `ScrollStackController` is generally not appropriate for screens that contain many views of the same type, all showing similar data (in these cases you should use `UITableView` or `UICollectionView`).
 
+![](./Resources/demomovie.mp4)
+
 [↑ Back To Top](#index)
 
 <a name="howtouseit"/>
@@ -84,7 +87,7 @@ The main class of the package is `ScrollStack`, a subclass of `UIScrollView`. It
 
 This is an overview of the architecture:
 
-![](./architecture.png)
+![](./Resources/architecture.png)
 
 - `ScrollStackController `: is a subclass of `UIViewController`. You would to use it and add as a child controller of your view controller. This allows you to manage any child-controllers related events for each row you will add to the stack controller.
 - `ScrollStack`: the view of the `ScrollStackController ` is a `ScrollStack`, a subclass of `UIScrollView` with an `UIStackView` which allows you to manage the layout of the stack. You can access to it via `scrollStack` property of the controller.
@@ -563,6 +566,8 @@ class ViewController: ScrollStackController, ScrollStackControllerDelegate {
 - `hidden`: row is invisible and hidden.
 - `offscreen`: row is not hidden but currently offscreen due to scroll position.
 
+[↑ Back To Top](#index)
+
 <a name="systemrequirements"/>
 
 ### System Requirements
@@ -570,6 +575,16 @@ class ViewController: ScrollStackController, ScrollStackControllerDelegate {
 - iOS 11+
 - Xcode 10+
 - Swift 5+
+
+[↑ Back To Top](#index)
+
+<a name="exampleapp"/>
+
+### Example App
+
+`ScrollStackController` comes with a demo application which show how easy you can create complex scrollable layoyut and some of the major features of the library.
+
+You should look at it in order to implement your own layout, create dynamically sized rows and dispatch events.
 
 [↑ Back To Top](#index)
 
