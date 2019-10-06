@@ -543,7 +543,13 @@ You can also subscribe events for events about row visibility state changes by s
 Example:
 
 ```swift
-class ViewController: UIViewController, ScrollStackControllerDelegate {
+class ViewController: ScrollStackController, ScrollStackControllerDelegate {
+	
+  func viewDidLoad() {
+    super.viewDidLoad()
+    
+    self.stackView.stackDelegate = self
+  }
 	
   func scrollStackDidScroll(_ stackView: ScrollStack, offset: CGPoint) {
     // stack did scroll
