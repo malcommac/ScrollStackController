@@ -96,7 +96,7 @@ This is an overview of the architecture:
 
 - `ScrollStackContainer`: is a subclass of `UIViewController`. You would to use it and add as a child controller of your view controller. This allows you to manage any child-controllers related events for each row you will add to the stack controller.
 - `ScrollStack`: the view of the `ScrollStackContainer` is a `ScrollStack`, a subclass of `UIScrollView` with an `UIStackView` which allows you to manage the layout of the stack.
-- Each row is a `ScrollStackRow`, which is a subclass of `UIView`. Inside there are two views, the `contentView` (a reference to managed `UIViewController`'s `view`) and the `separatorView`
+- Each row is a `ScrollStackRow`, which is a subclass of `UIView`. Inside there are two views, the `contentView` (a reference to managed `UIViewController`'s `view`) and the `separatorView`. A row strongly reference managed view controller, so you don't need to keep a strong reference by your own.
 - Separator view are subclass of `ScrollStackSeparator` class.
 
 As we said, usually you don't want to intantiate a `ScrollStack` control directly but by using the `ScrollStackController` class.
@@ -120,7 +120,7 @@ class MyViewController: UIViewController {
 Now you are ready to use the `ScrollStack` control inside the `stackController` class.
 `ScrollStack` have an extensible rich set of APIs to manage your layout: add, remove, move, hide or show your rows, including insets and separator management.
 
-Each row managed by `ScrollStack` is a subclass of `ScrollStackRow`: it strongly reference a parent `UIViewController` class where you content is placed. `UIViewController`'s `view` will be the `contentView` of the row.
+Each row managed by `ScrollStack` is a subclass of `ScrollStackRow`: it strongly reference a parent `UIViewController` class where you content is placed. `UIViewController`'s `view` will be the `contentView` of the row itself.
 
 You don't need to handle lifecycle of your rows/view controller until they are part of the rows inside the stack.
 
