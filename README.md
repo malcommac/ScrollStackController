@@ -18,12 +18,23 @@ You can think of it as `UITableView` but with several differences:
 - **Powered by AutoLayout since the beginning**; it uses a combination of `UIScrollView + UIStackView` to offer an animation friendly controller ideal for fixed and dynamic row sizing.
 - **You don't need to struggle yourself with view recycling**: suppose you have a layout composed by several different screens. There is no need of view recycling but it cause a more difficult managment of the layout. With a simpler and safer APIs set `ScrollStackView` is the ideal way to implement such layouts.
 
+### Main Features
+
+
+|  	| Features Highlights 	|
+|---	|---------------------------------------------------------------------------------	|
+| 🕺 	| Create complex layout without the boilerplate required by view recyling of `UICollectionView` or `UITableView`. 	|
+| 🧩 	| Simplify your architecture by thinking each screen as a separate-indipendent `UIVIewController`. 	|
+| 🌈 	| Animate show/hide and resize of rows easily! 	|
+| ⏱ 	| Compact code base, less than 1k LOC with no external dependencies. 	|
+| 🎯 	| Easy to use and extensible APIs set. 	|
+| 🧬 	| It uses standard UIKit components at its core. No magic, just a combination of `UIScrollView`+`UIStackView`. 	|
+| 🐦 	| Fully made in Swift 5 from Swift ❥ lovers 	|
+
 <a name="index"/>
 
 ## Table of Contents
 
-- [Main Features](#mainfeatures)
-- [System Requirements](#systemrequirements)
 - [When to use `ScrollStackController` and when not](#whentousescrollstackcontrollerandwhennot)
 - [How to use it](#howtouseit)
 	- [Adding Rows](#addingrows)
@@ -43,32 +54,8 @@ You can think of it as `UITableView` but with several differences:
 	- [Change ScrollStack scrolling axis](#changescrollaxis)
 	- [Subscribe to Events](#rowevents)
 - [Installation](#installation)
+- [System Requirements](#systemrequirements)
 - [Author & License](#authorlicense)
-
-<a name="mainfeatures"/>
-
-### Main Features
-
-
-|  	| Features Highlights 	|
-|---	|---------------------------------------------------------------------------------	|
-| 🕺 	| Create complex layout without the boilerplate required by view recyling of `UICollectionView` or `UITableView`. 	|
-| 🧩 	| Simplify your architecture by thinking each screen as a separate-indipendent `UIVIewController`. 	|
-| 🌈 	| Animate show/hide and resize of rows easily! 	|
-| ⏱ 	| Compact code base, less than 1k LOC with no external dependencies. 	|
-| 🎯 	| Easy to use and extensible APIs set. 	|
-| 🧬 	| It uses standard UIKit components at its core. No magic, just a combination of `UIScrollView`+`UIStackView`. 	|
-| 🐦 	| Fully made in Swift 5 from Swift ❥ lovers 	|
-
-<a name="systemrequirements"/>
-
-### System Requirements
-
-- iOS 11+
-- Xcode 10+
-- Swift 5+
-
-[↑ Back To Top](#index)
 
 <a name="whentousescrollstackcontrollerandwhennot"/>
 
@@ -574,6 +561,16 @@ class ViewController: ScrollStackController, ScrollStackControllerDelegate {
 - `entire`: row is entirely visible.
 - `hidden`: row is invisible and hidden.
 - `offscreen`: row is not hidden but currently offscreen due to scroll position.
+
+<a name="systemrequirements"/>
+
+### System Requirements
+
+- iOS 11+
+- Xcode 10+
+- Swift 5+
+
+[↑ Back To Top](#index)
 
 <a name="installation"/>
 
