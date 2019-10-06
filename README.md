@@ -263,7 +263,7 @@ class MyViewController: UIViewController {
 	private let scrollStackController = ScrollStackController()
 	
 	@IBAction func someAction() {
-		scrollStackController.stackView.reloadRow(0)
+		scrollStackController.scrollStack.reloadRow(0)
 	}
 
 }
