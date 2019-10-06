@@ -530,11 +530,11 @@ You can listen when a row is removed or added into the stack view by subscribing
 
 ```swift
 scrollStackView.onChangeRow = { (row, isRemoved) in
-	if isRemoved {
-		print("Row \(row.index) was removed"
-	} else {
-		print("A new row is added at index: \(row.index)")
-	}
+  if isRemoved {
+    print("Row at index \(row.index) was removed"
+  } else {
+    print("A new row is added at index: \(row.index). It manages \(type(of: row.controller))")
+  }
 }
 ```
 
@@ -545,20 +545,27 @@ Example:
 ```swift
 class ViewController: UIViewController, ScrollStackControllerDelegate {
 	
-	 func scrollStackDidScroll(_ stackView: ScrollStack, offset: CGPoint) {
-	 	// stack did scroll
-	 }
+  func scrollStackDidScroll(_ stackView: ScrollStack, offset: CGPoint) {
+    // stack did scroll
+  }
     
-    func scrollStackRowDidBecomeVisible(_ stackView: ScrollStack, row: ScrollStackRow, index: Int, state: ScrollStack.RowVisibility) {
-    	// Row did become partially or entirely visible.
-    }
+  func scrollStackRowDidBecomeVisible(_ stackView: ScrollStack, row: ScrollStackRow, index: Int, state: ScrollStack.RowVisibility) {
+    // Row did become partially or entirely visible.
+  }
     
-    func scrollStackRowDidBecomeHidden(_ stackView: ScrollStack, row: ScrollStackRow, index: Int, state: ScrollStack.RowVisibility) {
-		// Row did become partially or entirely invisible.
-	}
+  func scrollStackRowDidBecomeHidden(_ stackView: ScrollStack, row: ScrollStackRow, index: Int, state: ScrollStack.RowVisibility) {
+    // Row did become partially or entirely invisible.
+  }
 	
 }
 ```
+
+`ScrollStack.RowVisibility` is an enum with the following cases:
+
+- `partial`: row is partially visible.
+- `entire`: row is entirely visible.
+- `hidden`: row is invisible and hidden.
+- `offscreen`: row is not hidden but currently offscreen due to scroll position.
 
 <a name="installation"/>
 
