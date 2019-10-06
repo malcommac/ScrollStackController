@@ -2,15 +2,11 @@ Pod::Spec.new do |s|
   s.name         = "ScrollStackController"
   s.version      = "1.0.0"
   s.summary      = "Create complex scrollable layout using UIViewController and simplify your code"
-  s.description  = <<-DESC
-    Your description here.
-  DESC
   s.homepage     = "https://github.com/malcommac/ScrollStackController"
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author             = { "Daniele Margutti" => "hello@danielemargutti.com" }
   s.social_media_url   = "http://www.twitter.com/danielemargutti"
   s.ios.deployment_target = "11.0"
-  s.tvos.deployment_target = "9.0"
   s.source       = { :git => ".git", :tag => s.version.to_s }
   s.frameworks  = "Foundation", "UIKit"
   s.source_files = 'Sources/**/*.swift'

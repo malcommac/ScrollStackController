@@ -1,5 +1,5 @@
 # ScrollStackController
-Create complex scrollable layout using UIViewController and simplify your code!
+Create complex scrollable layout using `UIViewController` and simplify your code!
 
 [![Version](https://img.shields.io/cocoapods/v/OwlKit.svg?style=flat)](http://cocoadocs.org/docsets/ScrollStackController) 
 [![License](https://img.shields.io/cocoapods/l/OwlKit.svg?style=flat)](http://cocoadocs.org/docsets/ScrollStackController) 
@@ -14,8 +14,8 @@ ScrollStackController is a class you can use to create complex layouts using scr
 
 You can think of it as `UITableView` but with several differences:
 
-- **Each row is a different `UIViewController` you can manage independently**: no more massimove controllers, a much cleaner layout.
-- **Powered by AutoLayout since the beginning**; it uses a combination of UIScrollView + UIStackView to offer an animation friendly controller ideal for fixed and dynamic row sizing.
+- **Each row is a different `UIViewController` you can manage independently**: no more massive controllers, a much cleaner and maintainable architecture.
+- **Powered by AutoLayout since the beginning**; it uses a combination of `UIScrollView + UIStackView` to offer an animation friendly controller ideal for fixed and dynamic row sizing.
 - **You don't need to struggle yourself with view recycling**: suppose you have a layout composed by several different screens. There is no need of view recycling but it cause a more difficult managment of the layout. With a simpler and safer APIs set `ScrollStackView` is the ideal way to implement such layouts.
 
 <a name="index"/>
@@ -60,7 +60,7 @@ You can think of it as `UITableView` but with several differences:
 
 ### System Requirements
 
-- iOS 9+
+- iOS 11+
 - Xcode 10+
 - Swift 5+
 
