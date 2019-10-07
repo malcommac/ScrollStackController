@@ -614,7 +614,10 @@ I fully welcome contributions, new features, feature requests, bug reports, and 
 
 `ScrollStackController` is released under the MIT License.
 
-It was originally inspired by [`AloeStackView`](https://github.com/airbnb/AloeStackView) by Airbnb.
+The following library was originally inspired by two great works:
+
+- [`AloeStackView`](https://github.com/airbnb/AloeStackView) by the engineering team at AirBnb
+- [`ScrollingStackViewController`](https://github.com/justeat/ScrollingStackViewController) by the engineering team at JustEat
 
 [↑ Back To Top](#index)
 
