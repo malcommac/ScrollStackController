@@ -1,11 +1,12 @@
 # ScrollStackController
 Create complex scrollable layout using `UIViewController` and simplify your code!
 
-[![Version](https://img.shields.io/cocoapods/v/OwlKit.svg?style=flat)](http://cocoadocs.org/docsets/ScrollStackController) 
-[![License](https://img.shields.io/cocoapods/l/OwlKit.svg?style=flat)](http://cocoadocs.org/docsets/ScrollStackController) 
-[![Platform](https://img.shields.io/cocoapods/p/OwlKit.svg?style=flat)](http://cocoadocs.org/docsets/ScrollStackController)
-[![CI Status](https://travis-ci.org/malcommac/OwlKit.svg)](https://travis-ci.org/malcommac/ScrollStackController) 
-![Twitter Follow](https://img.shields.io/twitter/follow/danielemargutti.svg?label=Follow&style=flat-square)
+[![Version](https://img.shields.io/cocoapods/v/ScrollStackController.svg?style=flat)](http://cocoadocs.org/docsets/ScrollStackController) 
+[![Platform](https://img.shields.io/cocoapods/p/ScrollStackController.svg?style=flat)](http://cocoadocs.org/docsets/ScrollStackController)
+[![License](https://img.shields.io/cocoapods/l/ScrollStackController.svg?style=flat)](http://cocoadocs.org/docsets/ScrollStackController) 
+[![danielemargutti.com](https://img.shields.io/badge/HomePage-danielemargutti.com-brightgreen)
+](https://www.danielemargutti.com)
+[![Twitter Follow](https://img.shields.io/twitter/follow/danielemargutti?label=Follow%20Me&style=social)](https://twitter.com/danielemargutti)
 
 ScrollStackController was created and maintaned by [Daniele Margutti](https://twitter.com/danielemargutti) › [Web Site](https://www.danielemargutti.com)
 
@@ -17,31 +18,6 @@ You can think of it as `UITableView` but with several differences:
 - **Each row is a different `UIViewController` you can manage independently**: no more massive controllers, a much cleaner and maintainable architecture.
 - **Powered by AutoLayout since the beginning**; it uses a combination of `UIScrollView + UIStackView` to offer an animation friendly controller ideal for fixed and dynamic row sizing.
 - **You don't need to struggle yourself with view recycling**: suppose you have a layout composed by several different screens. There is no need of view recycling but it cause a more difficult managment of the layout. With a simpler and safer APIs set `ScrollStackView` is the ideal way to implement such layouts.
-
-<a name="index"/>
-
-## Table of Contents
-
-- [Main Features](#mainfeatures)
-- [System Requirements](#systemrequirements)
-- [When to use `ScrollStackController` and when not](#whentousescrollstackcontrollerandwhennot)
-- [How to use it](#howtouseit)
-	- [Adding Rows](#addingrows)
-	- [Removing / Replacing Rows](#removingreplacingrows)
-	- [Move Rows](#moverows)
-	- [Hide / Show Rows](#hideshowrows)
-	- [Reload Rows](#reloadrows)
-	- [Sizing Rows](#sizingrows)
-		- [Fixed Row Size](#fixedrowsize)
-		- [Fitting Layout Row Size](#fittinglayoutrowsize)
-		- [Collapsible Rows](#collapsiblerows)
-		- [Working with dynamic UICollectionView/UITableView/UITextView](#workingwithdynamicuicollectionviewuitableviewuitextview)
-	- [Rows Separator](#rowsseparator)
-	- [Tap On Rows](#taponrows)
-- [Installation](#installation)
-- [Author & License](#authorlicense)
-
-<a name="mainfeatures"/>
 
 ### Main Features
 
@@ -56,15 +32,32 @@ You can think of it as `UITableView` but with several differences:
 | 🧬 	| It uses standard UIKit components at its core. No magic, just a combination of `UIScrollView`+`UIStackView`. 	|
 | 🐦 	| Fully made in Swift 5 from Swift ❥ lovers 	|
 
-<a name="systemrequirements"/>
+<a name="index"/>
 
-### System Requirements
+## Table of Contents
 
-- iOS 11+
-- Xcode 10+
-- Swift 5+
-
-[↑ Back To Top](#index)
+- [When to use `ScrollStackController` and when not](#whentousescrollstackcontrollerandwhennot)
+- [How to use it](#howtouseit)
+	- [Adding Rows](#addingrows)
+	- [Removing / Replacing Rows](#removingreplacingrows)
+	- [Move Rows](#moverows)
+	- [Hide / Show Rows](#hideshowrows)
+	- [Reload Rows](#reloadrows)
+	- [Sizing Rows](#sizingrows)
+		- [Fixed Row Size](#fixedrowsize)
+		- [Fitting Layout Row Size](#fittinglayoutrowsize)
+		- [Collapsible Rows](#collapsiblerows)
+		- [Working with dynamic UICollectionView/UITableView/UITextView](#workingwithdynamicuicollectionviewuitableviewuitextview)
+	- [Rows Separator](#rowsseparator)
+	- [Tap On Rows](#taponrows)
+	- [Get the row/controller](#utilsmethods)
+	- [Set Row Insets](#setrowinsets)
+	- [Change ScrollStack scrolling axis](#changescrollaxis)
+	- [Subscribe to Events](#rowevents)
+- [Example App](#exampleapp)
+- [Installation](#installation)
+- [System Requirements](#systemrequirements)
+- [Author & License](#authorlicense)
 
 <a name="whentousescrollstackcontrollerandwhennot"/>
 
@@ -82,6 +75,8 @@ If you have a long list of rows you may experience delays.
 
 So, `ScrollStackController` is generally not appropriate for screens that contain many views of the same type, all showing similar data (in these cases you should use `UITableView` or `UICollectionView`).
 
+![Demo Project](https://media.giphy.com/media/fAi3hyXNalzd4SkVgI/giphy.gif)
+
 [↑ Back To Top](#index)
 
 <a name="howtouseit"/>
@@ -90,7 +85,16 @@ So, `ScrollStackController` is generally not appropriate for screens that contai
 
 The main class of the package is `ScrollStack`, a subclass of `UIScrollView`. It manages the layout of each row, animations and keep a strong reference to your rows.
 
-However usually you don't want to intantiate this control directly but by calling the `ScrollStackController` class.
+This is an overview of the architecture:
+
+![](./Resources/architecture.png)
+
+- `ScrollStackController `: is a subclass of `UIViewController`. You would to use it and add as a child controller of your view controller. This allows you to manage any child-controllers related events for each row you will add to the stack controller.
+- `ScrollStack`: the view of the `ScrollStackController ` is a `ScrollStack`, a subclass of `UIScrollView` with an `UIStackView` which allows you to manage the layout of the stack. You can access to it via `scrollStack` property of the controller.
+- Each row is a `ScrollStackRow`, which is a subclass of `UIView`. Inside there are two views, the `contentView` (a reference to managed `UIViewController`'s `view`) and the `separatorView`. A row strongly reference managed view controller, so you don't need to keep a strong reference by your own.
+- Separator view are subclass of `ScrollStackSeparator` class.
+
+As we said, usually you don't want to intantiate a `ScrollStack` control directly but by using the `ScrollStackController` class.
 It's a view controller which allows you to get the child view controller's managment for free, so when you add/remove a row to the stack you will get the standard UIViewController events for free!
 
 This is an example of initialization in a view controller:
@@ -102,6 +106,8 @@ class MyViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        stackController.view.frame = contentView.bounds
         contentView.addSubview(stackController.view)
     }
     
@@ -111,7 +117,7 @@ class MyViewController: UIViewController {
 Now you are ready to use the `ScrollStack` control inside the `stackController` class.
 `ScrollStack` have an extensible rich set of APIs to manage your layout: add, remove, move, hide or show your rows, including insets and separator management.
 
-Each row managed by `ScrollStack` is a subclass of `ScrollStackRow`: it strongly reference a parent `UIViewController` class where you content is placed. `UIViewController`'s `view` will be the `contentView` of the row.
+Each row managed by `ScrollStack` is a subclass of `ScrollStackRow`: it strongly reference a parent `UIViewController` class where you content is placed. `UIViewController`'s `view` will be the `contentView` of the row itself.
 
 You don't need to handle lifecycle of your rows/view controller until they are part of the rows inside the stack.
 
@@ -183,7 +189,7 @@ An example:
 
 ```swift
 let newVC: UIViewController = ...
-stackView.replaceRow(index: 1, withRow: galleryVC, animated: true) {
+stackView.replaceRow(index: 1, withRow: newVC, animated: true) {
 	print("Gallery controller is now in place!!")
 }
 ```
@@ -248,7 +254,7 @@ class MyViewController: UIViewController {
 	private let scrollStackController = ScrollStackController()
 	
 	@IBAction func someAction() {
-		scrollStackController.stackView.reloadRow(0)
+		scrollStackController.scrollStack.reloadRow(0)
 	}
 
 }
@@ -470,14 +476,126 @@ Transition between highlights state will be animated automatically.
 
 [↑ Back To Top](#index)
 
+<a name="utilsmethods"/>
+
+### Get the row/controller
+
+**Get the (first) row which manage a specific view controller type**
+You can get the first row which manage a specific view controller class using `firstRowForControllerOfType<T: UIViewController>(:) -> ScrollStackRow?` function.
+
+```swift
+let tagsVC = scrollStack.firstRowForControllerOfType(TagsVC.self) // TagsVC instance
+```
+
+**Get the row which manage a specific controller instance**
+To get the row associated with a specific controller you can use `rowForController()` function:
+
+```swift
+let row = scrollStack.rowForController(tagsVC) // ScrollStackRow
+```
+
+<a name="setrowinsets"/>
+
+### Set Row Insets
+
+To set an insets for a specific row you can use `setRowInsets()` function:
+
+```example
+let newInsets: UIEdgeInsets = ...
+scrollStack.setRowInsets(index: 0, insets: newInsets)
+```
+
+You can also use `setRowsInsets()` to set multiple rows.
+
+Moreover by setting `.rowInsets` in your `ScrollStack` class you can set a default insets value for new row added.
+
+<a name="changescrollaxis"/>
+
+### Change ScrollStack scrolling axis
+
+In order to change the axis of scroll for your `ScrollStack` instances you can set the `axis` property to `horizontal` or `vertical.
+
+<a name="rowevents"/>
+
+### Subscribe to Row Events
+
+You can listen when a row is removed or added into the stack view by subscribing the `onChangeRow` property.
+
+```swift
+scrollStackView.onChangeRow = { (row, isRemoved) in
+  if isRemoved {
+    print("Row at index \(row.index) was removed"
+  } else {
+    print("A new row is added at index: \(row.index). It manages \(type(of: row.controller))")
+  }
+}
+```
+
+You can also subscribe events for events about row visibility state changes by setting the `stackDelegate`. Your destination object must therefore conforms to the `ScrollStackControllerDelegate ` protocol:
+
+Example:
+
+```swift
+class ViewController: ScrollStackController, ScrollStackControllerDelegate {
+	
+  func viewDidLoad() {
+    super.viewDidLoad()
+    
+    self.scrollStack.stackDelegate = self
+  }
+	
+  func scrollStackDidScroll(_ stackView: ScrollStack, offset: CGPoint) {
+    // stack did scroll
+  }
+    
+  func scrollStackRowDidBecomeVisible(_ stackView: ScrollStack, row: ScrollStackRow, index: Int, state: ScrollStack.RowVisibility) {
+    // Row did become partially or entirely visible.
+  }
+    
+  func scrollStackRowDidBecomeHidden(_ stackView: ScrollStack, row: ScrollStackRow, index: Int, state: ScrollStack.RowVisibility) {
+    // Row did become partially or entirely invisible.
+  }
+	
+}
+```
+
+`ScrollStack.RowVisibility` is an enum with the following cases:
+
+- `partial`: row is partially visible.
+- `entire`: row is entirely visible.
+- `hidden`: row is invisible and hidden.
+- `offscreen`: row is not hidden but currently offscreen due to scroll position.
+
+[↑ Back To Top](#index)
+
+<a name="systemrequirements"/>
+
+### System Requirements
+
+- iOS 11+
+- Xcode 10+
+- Swift 5+
+
+[↑ Back To Top](#index)
+
+<a name="exampleapp"/>
+
+### Example App
+
+`ScrollStackController` comes with a demo application which show how easy you can create complex scrollable layoyut and some of the major features of the library.
+
+You should look at it in order to implement your own layout, create dynamically sized rows and dispatch events.
+
+[↑ Back To Top](#index)
+
 <a name="installation"/>
 
 ### Installation
 
-`ScrollStackContainer` can be installed with CocoaPods by adding pod 'ScrollStackContainer' to your Podfile.
+`ScrollStackController` can be installed with CocoaPods by adding pod 'ScrollStackController' to your Podfile.
 
 ```ruby
-pod 'ScrollStackContainer'
+pod 'ScrollStackController'
 ```
 
 It also supports `Swift Package Maneger` aka SPM.
@@ -488,15 +606,18 @@ It also supports `Swift Package Maneger` aka SPM.
 
 ### Author & License
 
-`ScrollStackContainer` is developed and maintained by:
+`ScrollStackController` is developed and maintained by:
 
 - Daniele Margutti ([danielemargutti.com](http://www.danielemargutti.com) - [@danielemargutti](http://www.twitter.com/danielemargutti) on twitter)
 
 I fully welcome contributions, new features, feature requests, bug reports, and fixes. Also PR are accepted!
 
-`ScrollStackContainer` is released under the MIT License.
+`ScrollStackController` is released under the MIT License.
 
-It was originally inspired by [`AloeStackView`](https://github.com/airbnb/AloeStackView) by Airbnb.
+The following library was originally inspired by two great works:
+
+- [`AloeStackView`](https://github.com/airbnb/AloeStackView) by the engineering team at AirBnb
+- [`ScrollingStackViewController`](https://github.com/justeat/ScrollingStackViewController) by the engineering team at JustEat
 
 [↑ Back To Top](#index)
 

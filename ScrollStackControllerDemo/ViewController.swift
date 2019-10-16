@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     private var stackController = ScrollStackViewController()
     
     public var stackView: ScrollStack {
-        return stackController.stackView
+        return stackController.scrollStack
     }
     
     
@@ -83,7 +83,7 @@ class ViewController: UIViewController {
 extension ViewController: TagsVCProtocol {
     
     func toggleTags() {
-        let index = stackView.rowForController(tagsVC)!.index
+        let index = stackView.gitrowForController(tagsVC)!.index
         tagsVC.isExpanded = !tagsVC.isExpanded
         stackView.reloadRow(index: index, animated: true)
     }
