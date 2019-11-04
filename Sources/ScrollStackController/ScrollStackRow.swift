@@ -63,6 +63,9 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
     /// It's automatically managed when you change the axis of the parent stackview.
     internal var separatorAxis: NSLayoutConstraint.Axis = .horizontal {
         didSet {
+            guard separatorAxis != oldValue else {
+                return
+            }
             didUpdateSeparatorViewContraintsIfNeeded()
             didUpdateSeparatorAxis()
             didUpdateSeparatorInsets()
