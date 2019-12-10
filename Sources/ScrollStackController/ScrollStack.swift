@@ -615,6 +615,7 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         
         rows.forEach {
             $0.askForCutomizedSizeOfContentView(animated: animated)
+            ($0.controller as? ScrollStackContainableController)?.reloadContentFromStackView(stackView: self, row: $0, animated: animated)
         }
         
         UIView.execute(animated: animated, {
