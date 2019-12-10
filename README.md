@@ -129,7 +129,7 @@ let allRows = scrollStack.rows
 let isEmpty = scrollStack.isEmpty // true if it does not contains row
 let notHiddenRows = scrollStack.rows.filter { !$0.isHidden }
 
-// By Vibility
+// By Visibility
 let currentlyVisibleRows = scrollStack.visibleRows // only currently visible rows (partially or enterly)
 let enterlyVisibleRows = scrollStack.enterlyVisibleRows // only enterly visible rows into the stack
 

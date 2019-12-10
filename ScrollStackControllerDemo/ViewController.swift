@@ -83,7 +83,7 @@ class ViewController: UIViewController {
 extension ViewController: TagsVCProtocol {
     
     func toggleTags() {
-        let index = stackView.gitrowForController(tagsVC)!.index
+        let index = stackView.rowForController(tagsVC)!.index
         tagsVC.isExpanded = !tagsVC.isExpanded
         stackView.reloadRow(index: index, animated: true)
     }

@@ -267,8 +267,6 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         case .fitLayoutForAxis:
             setupRowSizeToFitLayout()
         }
-        
-        customizableController.reloadContentFromStackView(stackView: stackView!, row: self, animated: animated)
     }
     
     private func setupRowToFixedValue(_ value: CGFloat) {
