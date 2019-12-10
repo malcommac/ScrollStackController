@@ -225,6 +225,17 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         fatalError("Initialization from IB not supported yet!")
     }
     
+    // MARK: - Set Rows
+    
+    /// Remove all existing rows and setup the new rows.
+    ///
+    /// - Parameter controllers: controllers to set.
+    @discardableResult
+    open func setRows(controllers: [UIViewController]) -> [ScrollStackRow] {
+        removeAllRows(animated: false)
+        return addRows(controllers: controllers)
+    }
+    
     // MARK: - Insert Rows
     /// Insert a new row to manage passed controller instance.
     ///
