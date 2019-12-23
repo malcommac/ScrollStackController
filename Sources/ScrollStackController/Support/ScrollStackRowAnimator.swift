@@ -55,7 +55,7 @@ public protocol ScrollStackRowAnimatable {
 
 // MARK: - ScrollStackRowAnimatable Extension
 
-public extension ScrollStackRowAnimatable where Self: UIView {
+public extension ScrollStackRowAnimatable where Self: UIViewController {
     
     var animationInfo: ScrollStackAnimationInfo {
         return ScrollStackAnimationInfo()
@@ -116,7 +116,7 @@ internal class ScrollStackRowAnimator {
     
     /// Target row if animatable.
     private var animatableRow: ScrollStackRowAnimatable? {
-        return targetRow.contentView as? ScrollStackRowAnimatable
+        return targetRow.controller as? ScrollStackRowAnimatable
     }
     
     // MARK: - Initialization

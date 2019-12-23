@@ -24,7 +24,34 @@ public class WelcomeVC: UIViewController, ScrollStackContainableController {
     }
     
     public func reloadContentFromStackView(stackView: ScrollStack, row: ScrollStackRow, animated: Bool) {
+        
+    }
+    
+}
 
+extension WelcomeVC: ScrollStackRowAnimatable {
+    
+    public var animationInfo: ScrollStackAnimationInfo {
+        return ScrollStackAnimationInfo(duration: 1, delay: 0, springDamping: 0.8)
+    }
+
+    public func animateTransition(toHide: Bool) {
+        switch toHide {
+            case true:
+                self.view.transform = CGAffineTransform(translationX: -100, y: 0)
+                self.view.alpha = 0
+            
+            case false:
+                self.view.transform = .identity
+                self.view.alpha = 1
+        }
+    }
+    
+    public func willBeginAnimationTransition(toHide: Bool) {
+        if toHide == false {
+            self.view.transform = CGAffineTransform(translationX: -100, y: 0)
+            self.view.alpha = 0
+        }
     }
     
 }
