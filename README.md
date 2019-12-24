@@ -2,15 +2,15 @@
 <img src="./Resources/logo.png" width=300px alt="ScrollStackController" title="ScrollStackController">
 </p>
 
-# ScrollStackController
-Create complex scrollable layout using `UIViewController` and simplify your code!
-
 [![Version](https://img.shields.io/cocoapods/v/ScrollStackController.svg?style=flat)](http://cocoadocs.org/docsets/ScrollStackController) 
 [![Platform](https://img.shields.io/cocoapods/p/ScrollStackController.svg?style=flat)](http://cocoadocs.org/docsets/ScrollStackController)
 [![License](https://img.shields.io/cocoapods/l/ScrollStackController.svg?style=flat)](http://cocoadocs.org/docsets/ScrollStackController) 
 [![danielemargutti.com](https://img.shields.io/badge/HomePage-danielemargutti.com-brightgreen)
 ](https://www.danielemargutti.com)
 [![Twitter Follow](https://img.shields.io/twitter/follow/danielemargutti?label=Follow%20Me&style=social)](https://twitter.com/danielemargutti)
+
+# ScrollStackController
+Create complex scrollable layout using UIViewController and simplify your code!
 
 ScrollStackController was created and maintaned by [Daniele Margutti](https://twitter.com/danielemargutti) › [Web Site](https://www.danielemargutti.com)
 
