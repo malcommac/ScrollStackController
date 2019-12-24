@@ -1,3 +1,7 @@
+<p align="center" >
+<img src="./Resources/logo.png" width=300px alt="ScrollStackController" title="ScrollStackController">
+</p>
+
 # ScrollStackController
 Create complex scrollable layout using `UIViewController` and simplify your code!
 
