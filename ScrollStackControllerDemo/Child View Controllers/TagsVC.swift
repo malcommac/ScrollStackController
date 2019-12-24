@@ -49,7 +49,8 @@ public class TagsVC: UIViewController, ScrollStackContainableController {
     }
     
     public func scrollStackRowSizeForAxis(_ axis: NSLayoutConstraint.Axis, row: ScrollStackRow, in stackView: ScrollStack) -> ScrollStack.ControllerSize? {
-        return (isExpanded == false ? .fixed(170) : .fixed(170 + collectionView.contentSize.height + 20))
+        collectionView.layoutIfNeeded()
+        return (isExpanded == false ? .fixed(130) : .fixed(130 + collectionView.contentSize.height + 20))
     }
     
     public func reloadContentFromStackView(stackView: ScrollStack, row: ScrollStackRow, animated: Bool) {

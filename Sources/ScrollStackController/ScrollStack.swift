@@ -209,7 +209,7 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
     internal var onChangeRow: ((_ row: ScrollStackRow, _ isRemoved: Bool) -> Void)?
        
     /// Innert stack view.
-    private let stackView = UIStackView()
+    public let stackView = UIStackView()
     
     /// Constraints to manage the main axis set.
     private var axisConstraint: NSLayoutConstraint?
@@ -446,10 +446,11 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
             return
         }
         
-        row.layoutIfNeeded()
-        UIView.execute({
+        let coordinator = ScrollStackRowAnimator(row: row, toHidden: isHidden, internalHandler: {
             row.isHidden = isHidden
-        }, completion: completion)
+            row.layoutIfNeeded()
+        })
+        coordinator.execute()
     }
     
     /// Hide/Show selected rows.

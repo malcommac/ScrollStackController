@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -165,8 +165,8 @@
         <!--GalleryVC-->
         <scene sceneID="F2C-MH-Lwo">
             <objects>
-                <viewController storyboardIdentifier="GalleryVC" id="hnx-R5-b6N" customClass="GalleryVC" customModule="ScrollStackControllerDemo" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="aW5-uU-IfU">
+                <viewController storyboardIdentifier="GalleryVC" automaticallyAdjustsScrollViewInsets="NO" id="hnx-R5-b6N" customClass="GalleryVC" customModule="ScrollStackControllerDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aW5-uU-IfU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -233,20 +233,20 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Ljh-hs-c0p" firstAttribute="leading" secondItem="aW5-uU-IfU" secondAttribute="leading" id="8d4-tt-Why"/>
-                            <constraint firstItem="mC8-c9-Zzg" firstAttribute="trailing" secondItem="RUx-J8-XfL" secondAttribute="trailing" constant="20" id="A4m-CU-QMF"/>
-                            <constraint firstItem="6ap-K6-pdY" firstAttribute="leading" secondItem="mC8-c9-Zzg" secondAttribute="leading" constant="20" id="K5f-cB-XOt"/>
+                            <constraint firstAttribute="trailing" secondItem="RUx-J8-XfL" secondAttribute="trailing" constant="20" id="A4m-CU-QMF"/>
+                            <constraint firstItem="6ap-K6-pdY" firstAttribute="leading" secondItem="aW5-uU-IfU" secondAttribute="leading" constant="20" id="K5f-cB-XOt"/>
                             <constraint firstAttribute="trailing" secondItem="Ljh-hs-c0p" secondAttribute="trailing" id="Rkb-0X-cdc"/>
                             <constraint firstItem="RUx-J8-XfL" firstAttribute="top" secondItem="Ljh-hs-c0p" secondAttribute="bottom" id="SIu-4b-U25"/>
                             <constraint firstItem="Ljh-hs-c0p" firstAttribute="top" secondItem="aW5-uU-IfU" secondAttribute="top" id="Wc3-fz-JMb"/>
                             <constraint firstItem="6ap-K6-pdY" firstAttribute="top" secondItem="Ljh-hs-c0p" secondAttribute="bottom" constant="25" id="ctQ-DZ-iaQ"/>
                             <constraint firstItem="nm5-iZ-3Pg" firstAttribute="centerX" secondItem="aW5-uU-IfU" secondAttribute="centerX" id="hWN-E2-vnV"/>
-                            <constraint firstItem="mC8-c9-Zzg" firstAttribute="bottom" secondItem="6ap-K6-pdY" secondAttribute="bottom" constant="40" id="jSU-H5-HbN"/>
-                            <constraint firstItem="mC8-c9-Zzg" firstAttribute="bottom" secondItem="nm5-iZ-3Pg" secondAttribute="bottom" constant="5" id="lXH-Ev-aez"/>
-                            <constraint firstItem="RUx-J8-XfL" firstAttribute="leading" secondItem="mC8-c9-Zzg" secondAttribute="leading" id="mGT-er-lXh"/>
-                            <constraint firstItem="mC8-c9-Zzg" firstAttribute="trailing" secondItem="6ap-K6-pdY" secondAttribute="trailing" constant="20" id="mJt-La-Uf9"/>
+                            <constraint firstAttribute="bottom" secondItem="6ap-K6-pdY" secondAttribute="bottom" constant="40" id="jSU-H5-HbN"/>
+                            <constraint firstAttribute="bottom" secondItem="nm5-iZ-3Pg" secondAttribute="bottom" constant="5" id="lXH-Ev-aez"/>
+                            <constraint firstItem="RUx-J8-XfL" firstAttribute="leading" secondItem="aW5-uU-IfU" secondAttribute="leading" id="mGT-er-lXh"/>
+                            <constraint firstAttribute="trailing" secondItem="6ap-K6-pdY" secondAttribute="trailing" constant="20" id="mJt-La-Uf9"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="mC8-c9-Zzg"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="414" height="300"/>
                     <connections>
@@ -261,8 +261,8 @@
         <!--PricingVC-->
         <scene sceneID="kBy-Qa-xED">
             <objects>
-                <viewController storyboardIdentifier="PricingVC" id="NGL-k5-NO2" customClass="PricingVC" customModule="ScrollStackControllerDemo" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="raD-Cn-Lxm">
+                <viewController storyboardIdentifier="PricingVC" automaticallyAdjustsScrollViewInsets="NO" id="NGL-k5-NO2" customClass="PricingVC" customModule="ScrollStackControllerDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="raD-Cn-Lxm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="500"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -275,7 +275,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JeH-9Q-dwx">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JeH-9Q-dwx">
                                 <rect key="frame" x="20" y="65" width="374" height="416"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
@@ -357,21 +357,21 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="28w-2C-4iv" firstAttribute="leading" secondItem="lJC-JP-jKy" secondAttribute="leading" id="8jT-JS-yqO"/>
-                            <constraint firstItem="JeH-9Q-dwx" firstAttribute="leading" secondItem="lJC-JP-jKy" secondAttribute="leading" constant="20" id="Ds0-Fj-zhl"/>
+                            <constraint firstItem="28w-2C-4iv" firstAttribute="leading" secondItem="raD-Cn-Lxm" secondAttribute="leading" id="8jT-JS-yqO"/>
+                            <constraint firstItem="JeH-9Q-dwx" firstAttribute="leading" secondItem="raD-Cn-Lxm" secondAttribute="leading" constant="20" id="Ds0-Fj-zhl"/>
                             <constraint firstItem="7t1-rd-O3f" firstAttribute="centerY" secondItem="VuP-9P-clJ" secondAttribute="centerY" constant="20" id="FE2-PO-o4x"/>
                             <constraint firstItem="VuP-9P-clJ" firstAttribute="top" secondItem="raD-Cn-Lxm" secondAttribute="top" id="Imu-a6-fAy"/>
-                            <constraint firstItem="lJC-JP-jKy" firstAttribute="trailing" secondItem="28w-2C-4iv" secondAttribute="trailing" constant="20" id="P6a-ep-Nfn"/>
+                            <constraint firstAttribute="trailing" secondItem="28w-2C-4iv" secondAttribute="trailing" constant="20" id="P6a-ep-Nfn"/>
                             <constraint firstItem="JeH-9Q-dwx" firstAttribute="top" secondItem="VuP-9P-clJ" secondAttribute="bottom" constant="36" id="bv2-S2-EfZ"/>
                             <constraint firstItem="28w-2C-4iv" firstAttribute="top" secondItem="VuP-9P-clJ" secondAttribute="bottom" constant="1" id="f2r-ot-eku"/>
-                            <constraint firstItem="lJC-JP-jKy" firstAttribute="trailing" secondItem="JeH-9Q-dwx" secondAttribute="trailing" constant="20" id="hIP-dQ-2Xc"/>
+                            <constraint firstAttribute="trailing" secondItem="JeH-9Q-dwx" secondAttribute="trailing" constant="20" id="hIP-dQ-2Xc"/>
                             <constraint firstAttribute="trailing" secondItem="7t1-rd-O3f" secondAttribute="trailing" constant="20" id="lYz-6U-OXk"/>
                             <constraint firstItem="VuP-9P-clJ" firstAttribute="leading" secondItem="raD-Cn-Lxm" secondAttribute="leading" id="ucB-Rh-nOG"/>
-                            <constraint firstItem="lJC-JP-jKy" firstAttribute="bottom" secondItem="JeH-9Q-dwx" secondAttribute="bottom" constant="19" id="wj3-cZ-XiP"/>
-                            <constraint firstItem="lJC-JP-jKy" firstAttribute="trailing" secondItem="VuP-9P-clJ" secondAttribute="trailing" id="yJj-71-IUL"/>
+                            <constraint firstAttribute="bottom" secondItem="JeH-9Q-dwx" secondAttribute="bottom" constant="19" id="wj3-cZ-XiP"/>
+                            <constraint firstAttribute="trailing" secondItem="VuP-9P-clJ" secondAttribute="trailing" id="yJj-71-IUL"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="lJC-JP-jKy"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="414" height="500"/>
                     <connections>
@@ -386,8 +386,8 @@
         <!--NotesVC-->
         <scene sceneID="USO-QK-qOl">
             <objects>
-                <viewController storyboardIdentifier="NotesVC" id="4vT-OX-T2a" customClass="NotesVC" customModule="ScrollStackControllerDemo" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="oOa-lu-BFQ">
+                <viewController storyboardIdentifier="NotesVC" automaticallyAdjustsScrollViewInsets="NO" id="4vT-OX-T2a" customClass="NotesVC" customModule="ScrollStackControllerDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="oOa-lu-BFQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -420,19 +420,19 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="fJq-9Q-Uxy" firstAttribute="trailing" secondItem="DU2-iB-oS6" secondAttribute="trailing" constant="20" id="87B-x7-yMO"/>
-                            <constraint firstItem="fJq-9Q-Uxy" firstAttribute="bottom" secondItem="XPV-g6-62j" secondAttribute="bottom" constant="8" id="8sQ-iM-AOU"/>
+                            <constraint firstAttribute="trailing" secondItem="DU2-iB-oS6" secondAttribute="trailing" constant="20" id="87B-x7-yMO"/>
+                            <constraint firstAttribute="bottom" secondItem="XPV-g6-62j" secondAttribute="bottom" constant="8" id="8sQ-iM-AOU"/>
                             <constraint firstItem="8TV-lU-mvz" firstAttribute="top" secondItem="oOa-lu-BFQ" secondAttribute="top" id="B0Q-Ik-7SX"/>
                             <constraint firstItem="8TV-lU-mvz" firstAttribute="leading" secondItem="oOa-lu-BFQ" secondAttribute="leading" id="Jne-y5-PGW"/>
-                            <constraint firstItem="DU2-iB-oS6" firstAttribute="leading" secondItem="fJq-9Q-Uxy" secondAttribute="leading" id="Lju-rz-zDY"/>
+                            <constraint firstItem="DU2-iB-oS6" firstAttribute="leading" secondItem="oOa-lu-BFQ" secondAttribute="leading" id="Lju-rz-zDY"/>
                             <constraint firstItem="XPV-g6-62j" firstAttribute="top" secondItem="8TV-lU-mvz" secondAttribute="bottom" constant="18" id="chq-EK-llq"/>
-                            <constraint firstItem="XPV-g6-62j" firstAttribute="leading" secondItem="fJq-9Q-Uxy" secondAttribute="leading" constant="15" id="nTW-ch-ggY"/>
+                            <constraint firstItem="XPV-g6-62j" firstAttribute="leading" secondItem="oOa-lu-BFQ" secondAttribute="leading" constant="15" id="nTW-ch-ggY"/>
                             <constraint firstAttribute="trailing" secondItem="8TV-lU-mvz" secondAttribute="trailing" constant="20" id="qHi-Xj-haA"/>
-                            <constraint firstItem="fJq-9Q-Uxy" firstAttribute="trailing" secondItem="XPV-g6-62j" secondAttribute="trailing" constant="10" id="rdr-yM-GLE"/>
+                            <constraint firstAttribute="trailing" secondItem="XPV-g6-62j" secondAttribute="trailing" constant="10" id="rdr-yM-GLE"/>
                             <constraint firstItem="DU2-iB-oS6" firstAttribute="top" secondItem="8TV-lU-mvz" secondAttribute="bottom" constant="-5" id="vox-0W-10t"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="fJq-9Q-Uxy"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <size key="freeformSize" width="414" height="300"/>
                     <connections>
                         <outlet property="textView" destination="XPV-g6-62j" id="lCW-Zf-KC7"/>
@@ -446,8 +446,8 @@
         <!--TagsVC-->
         <scene sceneID="W0p-QS-jfS">
             <objects>
-                <viewController storyboardIdentifier="TagsVC" id="1Ap-wi-SGJ" customClass="TagsVC" customModule="ScrollStackControllerDemo" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="dZN-dE-Enp">
+                <viewController storyboardIdentifier="TagsVC" automaticallyAdjustsScrollViewInsets="NO" id="1Ap-wi-SGJ" customClass="TagsVC" customModule="ScrollStackControllerDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dZN-dE-Enp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -536,23 +536,23 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="07k-I9-iAh" firstAttribute="leading" secondItem="N9x-T6-Cli" secondAttribute="leading" constant="20" id="54C-zU-Mai"/>
-                            <constraint firstItem="N9x-T6-Cli" firstAttribute="trailing" secondItem="07k-I9-iAh" secondAttribute="trailing" constant="20" id="7pH-kL-R7f"/>
-                            <constraint firstItem="N9x-T6-Cli" firstAttribute="trailing" secondItem="rkG-3X-s7i" secondAttribute="trailing" constant="20" id="N7J-ug-a5F"/>
+                            <constraint firstItem="07k-I9-iAh" firstAttribute="leading" secondItem="dZN-dE-Enp" secondAttribute="leading" constant="20" id="54C-zU-Mai"/>
+                            <constraint firstAttribute="trailing" secondItem="07k-I9-iAh" secondAttribute="trailing" constant="20" id="7pH-kL-R7f"/>
+                            <constraint firstAttribute="trailing" secondItem="rkG-3X-s7i" secondAttribute="trailing" constant="20" id="N7J-ug-a5F"/>
                             <constraint firstItem="rkG-3X-s7i" firstAttribute="top" secondItem="PXE-1E-oq8" secondAttribute="bottom" id="Q9u-7V-fRB"/>
-                            <constraint firstItem="N9x-T6-Cli" firstAttribute="trailing" secondItem="hEu-BP-BEf" secondAttribute="trailing" constant="20" id="TMR-JB-tA9"/>
-                            <constraint firstItem="rkG-3X-s7i" firstAttribute="leading" secondItem="N9x-T6-Cli" secondAttribute="leading" id="VSI-Zx-Nui"/>
+                            <constraint firstAttribute="trailing" secondItem="hEu-BP-BEf" secondAttribute="trailing" constant="20" id="TMR-JB-tA9"/>
+                            <constraint firstItem="rkG-3X-s7i" firstAttribute="leading" secondItem="dZN-dE-Enp" secondAttribute="leading" id="VSI-Zx-Nui"/>
                             <constraint firstItem="Pvd-nH-BQb" firstAttribute="centerX" secondItem="dZN-dE-Enp" secondAttribute="centerX" id="isB-2H-FPp"/>
-                            <constraint firstItem="PXE-1E-oq8" firstAttribute="leading" secondItem="N9x-T6-Cli" secondAttribute="leading" id="lCR-B8-Ec4"/>
+                            <constraint firstItem="PXE-1E-oq8" firstAttribute="leading" secondItem="dZN-dE-Enp" secondAttribute="leading" id="lCR-B8-Ec4"/>
                             <constraint firstItem="hEu-BP-BEf" firstAttribute="top" secondItem="Pvd-nH-BQb" secondAttribute="bottom" constant="20" id="oj6-gT-ivI"/>
                             <constraint firstItem="07k-I9-iAh" firstAttribute="top" secondItem="PXE-1E-oq8" secondAttribute="bottom" constant="25" id="s5i-zk-cs0"/>
-                            <constraint firstItem="N9x-T6-Cli" firstAttribute="trailing" secondItem="PXE-1E-oq8" secondAttribute="trailing" constant="20" id="tad-L3-w90"/>
+                            <constraint firstAttribute="trailing" secondItem="PXE-1E-oq8" secondAttribute="trailing" constant="20" id="tad-L3-w90"/>
                             <constraint firstItem="PXE-1E-oq8" firstAttribute="top" secondItem="dZN-dE-Enp" secondAttribute="top" id="ufn-3x-2ZS"/>
-                            <constraint firstItem="hEu-BP-BEf" firstAttribute="leading" secondItem="N9x-T6-Cli" secondAttribute="leading" constant="20" id="uhR-FS-S6k"/>
+                            <constraint firstItem="hEu-BP-BEf" firstAttribute="leading" secondItem="dZN-dE-Enp" secondAttribute="leading" constant="20" id="uhR-FS-S6k"/>
                             <constraint firstItem="Pvd-nH-BQb" firstAttribute="top" secondItem="07k-I9-iAh" secondAttribute="bottom" constant="15" id="vDc-QF-RcJ"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="N9x-T6-Cli"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <size key="freeformSize" width="414" height="300"/>
                     <connections>
                         <outlet property="collectionView" destination="hEu-BP-BEf" id="b49-r3-uUw"/>
@@ -566,8 +566,8 @@
         <!--WelcomeVC-->
         <scene sceneID="IWS-Mk-Sgf">
             <objects>
-                <viewController storyboardIdentifier="WelcomeVC" id="9iq-k6-Ybe" customClass="WelcomeVC" customModule="ScrollStackControllerDemo" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="vGS-WA-cdi">
+                <viewController storyboardIdentifier="WelcomeVC" automaticallyAdjustsScrollViewInsets="NO" id="9iq-k6-Ybe" customClass="WelcomeVC" customModule="ScrollStackControllerDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vGS-WA-cdi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="380"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -599,18 +599,18 @@ Set in the heart of the Culture Village, less than 15 minutes away from Dubai In
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="l8p-fx-9KR" firstAttribute="leading" secondItem="gjt-zv-2dH" secondAttribute="leading" id="1vw-ts-OOE"/>
+                            <constraint firstItem="l8p-fx-9KR" firstAttribute="leading" secondItem="vGS-WA-cdi" secondAttribute="leading" id="1vw-ts-OOE"/>
                             <constraint firstItem="l8p-fx-9KR" firstAttribute="top" secondItem="vGS-WA-cdi" secondAttribute="top" id="8CK-Li-WFf"/>
                             <constraint firstItem="Rss-mR-uXr" firstAttribute="top" secondItem="l8p-fx-9KR" secondAttribute="bottom" constant="8" id="8h1-wX-fDa"/>
-                            <constraint firstItem="gjt-zv-2dH" firstAttribute="trailing" secondItem="l8p-fx-9KR" secondAttribute="trailing" constant="20" id="Je7-SY-C5K"/>
-                            <constraint firstItem="gjt-zv-2dH" firstAttribute="bottom" secondItem="yga-BN-OeP" secondAttribute="bottom" constant="27" id="eW6-IF-ItW"/>
+                            <constraint firstAttribute="trailing" secondItem="l8p-fx-9KR" secondAttribute="trailing" constant="20" id="Je7-SY-C5K"/>
+                            <constraint firstAttribute="bottom" secondItem="yga-BN-OeP" secondAttribute="bottom" constant="27" id="eW6-IF-ItW"/>
                             <constraint firstItem="Rss-mR-uXr" firstAttribute="leading" secondItem="vGS-WA-cdi" secondAttribute="leading" constant="-9" id="hlI-T0-pbx"/>
-                            <constraint firstItem="yga-BN-OeP" firstAttribute="leading" secondItem="gjt-zv-2dH" secondAttribute="leading" constant="20" id="k0V-9U-OUI"/>
+                            <constraint firstItem="yga-BN-OeP" firstAttribute="leading" secondItem="vGS-WA-cdi" secondAttribute="leading" constant="20" id="k0V-9U-OUI"/>
                             <constraint firstAttribute="trailing" secondItem="yga-BN-OeP" secondAttribute="trailing" constant="20" id="kaZ-yH-hGp"/>
                             <constraint firstItem="yga-BN-OeP" firstAttribute="top" secondItem="Rss-mR-uXr" secondAttribute="bottom" constant="10" id="lIX-9H-hQc"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="gjt-zv-2dH"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <size key="freeformSize" width="414" height="380"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F9G-2M-1gE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

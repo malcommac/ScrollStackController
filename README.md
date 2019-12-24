@@ -26,7 +26,7 @@ You can think of it as `UITableView` but with several differences:
 |---	|---------------------------------------------------------------------------------	|
 | 🕺 	| Create complex layout without the boilerplate required by view recyling of `UICollectionView` or `UITableView`. 	|
 | 🧩 	| Simplify your architecture by thinking each screen as a separate-indipendent `UIVIewController`. 	|
-| 🌈 	| Animate show/hide and resize of rows easily! 	|
+| 🌈 	| Animate show/hide and resize of rows easily even with custom animations! 	|
 | ⏱ 	| Compact code base, less than 1k LOC with no external dependencies. 	|
 | 🎯 	| Easy to use and extensible APIs set. 	|
 | 🧬 	| It uses standard UIKit components at its core. No magic, just a combination of `UIScrollView`+`UIStackView`. 	|
@@ -42,6 +42,7 @@ You can think of it as `UITableView` but with several differences:
 	- [Removing / Replacing Rows](#removingreplacingrows)
 	- [Move Rows](#moverows)
 	- [Hide / Show Rows](#hideshowrows)
+	- [Hide / Show Rows with custom animations](#customanimations)
 	- [Reload Rows](#reloadrows)
 	- [Sizing Rows](#sizingrows)
 		- [Fixed Row Size](#fixedrowsize)
@@ -231,6 +232,63 @@ stackView.setRowsHidden(indexes: [0,1,2], isHidden: true, animated: true)
 Keep in mind: when you hide a rows the row still part of the stack and it's not removed, just hidden! If you get the list of rows by calling `rows` property of the `ScrollStack` you still see it.
 
 [↑ Back To Top](#index)
+
+<a name="customanimations"/>
+
+### Hide / Show Rows with custom animations
+
+You can easily show or hide rows with any custom transition; your view controller just need to be conform to the `ScrollStackRowAnimatable` protocol.  
+This protocol defines a set of animation infos (duration, delay, spring etc.) and two events you can override to perform actions:
+
+```swift
+public protocol ScrollStackRowAnimatable {
+    /// Animation main info.
+    var animationInfo: ScrollStackAnimationInfo { get }
+    
+    /// Animation will start to hide or show the row.
+    func willBeginAnimationTransition(toHide: Bool)
+    
+    /// Animation to hide/show the row did end.
+    func didEndAnimationTransition(toHide: Bool)
+    
+    /// Animation transition.
+    func animateTransition(toHide: Bool)
+}
+```
+
+So for example you can replicate the following animation:
+
+![](./Resources/custom_transition.gif)
+
+by using the following code:
+
+```swift
+extension WelcomeVC: ScrollStackRowAnimatable {
+    public var animationInfo: ScrollStackAnimationInfo {
+        return ScrollStackAnimationInfo(duration: 1, delay: 0, springDamping: 0.8)
+    }
+
+    public func animateTransition(toHide: Bool) {
+        switch toHide {
+            case true:
+                self.view.transform = CGAffineTransform(translationX: -100, y: 0)
+                self.view.alpha = 0
+            
+            case false:
+                self.view.transform = .identity
+                self.view.alpha = 1
+        }
+    }
+    
+    public func willBeginAnimationTransition(toHide: Bool) {
+        if toHide == false {
+            self.view.transform = CGAffineTransform(translationX: -100, y: 0)
+            self.view.alpha = 0
+        }
+    }
+    
+}
+```
 
 <a name="reloadrows"/>
 
