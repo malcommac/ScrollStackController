@@ -51,7 +51,7 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
     public static let defaultRowHighlightColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
     
     /// Cached content size for did change content size callback in scrollstack delegate.
-    private var cachedContentSize: CGSize?
+    private var cachedContentSize: CGSize = .zero
     
     // MARK: Public Properties
     
@@ -965,10 +965,9 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         
         stackDelegate.scrollStackDidUpdateLayout(self)
         
-        if let oldContentSize = cachedContentSize, oldContentSize != self.contentSize {
-            stackDelegate.scrollStackContentSizeDidChange(self, from: oldContentSize, to: contentSize)
+        if cachedContentSize != self.contentSize {
+            stackDelegate.scrollStackContentSizeDidChange(self, from: cachedContentSize, to: contentSize)
         }
-        
         cachedContentSize = self.contentSize
     }
     
