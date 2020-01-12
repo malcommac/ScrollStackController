@@ -8,7 +8,8 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, ScrollStackControllerDelegate {
+
 
     @IBOutlet public var contentView: UIView!
 
@@ -28,6 +29,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    func scrollStackRowDidUpdateLayout(_ stackView: ScrollStack) {
+        debugPrint("New content insets \(stackView.contentSize.height)")
+    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -35,6 +40,8 @@ class ViewController: UIViewController {
         stackController.view.frame = contentView.bounds
         contentView.addSubview(stackController.view)
         
+        
+        stackView.stackDelegate = self
         // Prepare content
         
         welcomeVC = WelcomeVC.create()
@@ -44,7 +51,6 @@ class ViewController: UIViewController {
         notesVC = NotesVC.create(delegate: self)
         
         stackView.addRows(controllers: [welcomeVC, notesVC, tagsVC, galleryVC,pricingVC], animated: false)
-
     }
     
     @IBAction public func addNewRow() {
@@ -78,6 +84,28 @@ class ViewController: UIViewController {
         let randomRow = Int.random(in: 0..<stackView.rows.count)
         stackView.scrollToRow(index: randomRow, at: .middle, animated: true)
     }
+    
+    
+    func scrollStackDidScroll(_ stackView: ScrollStack, offset: CGPoint) {
+        
+    }
+    
+    func scrollStackRowDidBecomeVisible(_ stackView: ScrollStack, row: ScrollStackRow, index: Int, state: ScrollStack.RowVisibility) {
+        
+    }
+    
+    func scrollStackRowDidBecomeHidden(_ stackView: ScrollStack, row: ScrollStackRow, index: Int, state: ScrollStack.RowVisibility) {
+        
+    }
+    
+    func scrollStackDidUpdateLayout(_ stackView: ScrollStack) {
+        
+    }
+    
+    func scrollStackContentSizeDidChange(_ stackView: ScrollStack, from oldValue: CGSize, to newValue: CGSize) {
+       // debugPrint("Content size did change from \(oldValue) to \(newValue)")
+    }
+    
 }
 
 extension ViewController: TagsVCProtocol {

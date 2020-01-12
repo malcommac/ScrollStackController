@@ -49,7 +49,10 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
     public static let defaultSeparatorColor = (UITableView().separatorColor ?? .clear)
     public static let defaultRowColor = UIColor.clear
     public static let defaultRowHighlightColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
-
+    
+    /// Cached content size for did change content size callback in scrollstack delegate.
+    private var cachedContentSize: CGSize?
+    
     // MARK: Public Properties
     
     /// The direction that rows are laid out in the stack view and scrolling works.
@@ -951,6 +954,22 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         }
         
         dispatchRowsVisibilityChangesTo(stackDelegate)
+    }
+    
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        guard let stackDelegate = stackDelegate else {
+            return
+        }
+        
+        stackDelegate.scrollStackDidUpdateLayout(self)
+        
+        if let oldContentSize = cachedContentSize, oldContentSize != self.contentSize {
+            stackDelegate.scrollStackContentSizeDidChange(self, from: oldContentSize, to: contentSize)
+        }
+        
+        cachedContentSize = self.contentSize
     }
     
 }
