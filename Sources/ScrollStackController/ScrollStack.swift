@@ -43,6 +43,8 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         right: UITableView().separatorInset.left
     )
     
+    private static let defaultRowPadding: UIEdgeInsets = .zero
+    
     public static let defaultSeparatorInset: UIEdgeInsets = UITableView().separatorInset
     public static let defaultSeparatorColor = (UITableView().separatorColor ?? .clear)
     public static let defaultRowColor = UIColor.clear
@@ -118,6 +120,15 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         didSet {
             rows.forEach { row in
                 row.rowInsets = rowInsets
+            }
+        }
+    }
+    
+    /// Padding for rows `contentView` (the view of the view controller handled by row).
+    open var rowPadding: UIEdgeInsets = ScrollStack.defaultRowPadding {
+        didSet {
+            rows.forEach { row in
+                row.rowPadding = rowPadding
             }
         }
     }
@@ -515,13 +526,31 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         safeRowAtIndex(rowIndex)?.rowInsets = insets
     }
     
-    /// Set the ints of the row's content related to the parent row cell.
+    /// Set the insets of the row's content related to the parent row cell.
     ///
     /// - Parameter row: target rows.
     /// - Parameter insets: new insets.
     open func setRowsInsets(indexes rowIndexes: [Int], insets: UIEdgeInsets) {
         rowIndexes.forEach {
             setRowInsets(index: $0, insets: insets)
+        }
+    }
+    
+    /// Set the padding of the row's content related to parent row cell.
+    ///
+    /// - Parameter row: target row.
+    /// - Parameter padding: new insets.
+    open func setRowPadding(index rowIndex: Int, padding: UIEdgeInsets) {
+        safeRowAtIndex(rowIndex)?.rowPadding = padding
+    }
+    
+    /// Set the padding of the row's content related to the parent row cell.
+    ///
+    /// - Parameter row: target rows.
+    /// - Parameter insets: new padding.
+    open func setRowPadding(indexes rowIndexes: [Int], padding: UIEdgeInsets) {
+        rowIndexes.forEach {
+            setRowPadding(index: $0, padding: padding)
         }
     }
     
