@@ -103,7 +103,7 @@ class ViewController: UIViewController, ScrollStackControllerDelegate {
     }
     
     func scrollStackContentSizeDidChange(_ stackView: ScrollStack, from oldValue: CGSize, to newValue: CGSize) {
-       // debugPrint("Content size did change from \(oldValue) to \(newValue)")
+        // debugPrint("Content size did change from \(oldValue) to \(newValue)")
     }
     
 }
