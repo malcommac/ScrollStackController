@@ -32,6 +32,8 @@
 
 import UIKit
 
+// MARK: - ScrollStackRow
+
 open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
     
     // MARK: Private Properties
@@ -52,12 +54,10 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
     }()
     
     /// Constraints to handle separator's insets changes.
-    private var separatorConstraints: (
-    top: NSLayoutConstraint,
-    bottom: NSLayoutConstraint,
-    leading: NSLayoutConstraint,
-    trailing: NSLayoutConstraint
-    )?
+    private var separatorConstraints: ConstraintsHolder?
+    
+    /// Constraints to handle content's view padding changes.
+    private var paddingConstraints: ConstraintsHolder?
     
     /// Location of the separator view.
     /// It's automatically managed when you change the axis of the parent stackview.
@@ -150,6 +150,13 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         }
     }
     
+    open var rowPadding: UIEdgeInsets {
+        didSet {
+            paddingConstraints?.updateInsets(rowPadding)
+            layoutIfNeeded()
+        }
+    }
+    
     open override var isHidden: Bool {
         didSet {
             guard isHidden != oldValue else {
@@ -162,6 +169,7 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
     internal init(controller: UIViewController, stackView: ScrollStack) {
         self.stackView = stackView
         self.controller = controller
+        self.rowPadding = stackView.rowPadding
         super.init(frame: .zero)
          
         clipsToBounds = true
@@ -198,6 +206,7 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         }
         
         rowInsets = stackView.rowInsets
+        rowPadding = stackView.rowPadding
         rowBackgroundColor = stackView.rowBackgroundColor
         rowHighlightColor = stackView.rowHighlightColor
         
@@ -212,40 +221,42 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
     // MARK: Manage Separator
     
     private func didUpdateContentViewContraints() {
-        let bottomConstraint = contentView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
+        let bottomConstraint = contentView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: rowPadding.bottom)
         bottomConstraint.priority = UILayoutPriority(rawValue: UILayoutPriority.required.rawValue - 1)
+
+        paddingConstraints = ConstraintsHolder(
+            top: contentView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: rowPadding.top),
+            bottom: bottomConstraint,
+            left: contentView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor, constant: rowPadding.left),
+            right: contentView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: rowPadding.right)
+        )
         
-        NSLayoutConstraint.activate([
-            contentView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-            contentView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
-            bottomConstraint
-        ])
+        paddingConstraints?.activateAll()
     }
     
     private func didUpdateSeparatorViewContraintsIfNeeded() {
         if separatorConstraints == nil {
-            separatorConstraints = (
+            separatorConstraints = ConstraintsHolder(
                 top: separatorView.topAnchor.constraint(equalTo: topAnchor),
                 bottom: separatorView.bottomAnchor.constraint(equalTo: bottomAnchor),
-                leading: separatorView.leadingAnchor.constraint(equalTo: leadingAnchor),
-                trailing: separatorView.trailingAnchor.constraint(equalTo: trailingAnchor)
+                left: separatorView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                right: separatorView.trailingAnchor.constraint(equalTo: trailingAnchor)
             )
         }
     }
     
     private func didUpdateSeparatorAxis() {
-        separatorConstraints?.top.isActive = (separatorAxis == .vertical)
-        separatorConstraints?.bottom.isActive = true
-        separatorConstraints?.leading.isActive = (separatorAxis == .horizontal)
-        separatorConstraints?.trailing.isActive = true
+        separatorConstraints?.top?.isActive = (separatorAxis == .vertical)
+        separatorConstraints?.bottom?.isActive = true
+        separatorConstraints?.left?.isActive = (separatorAxis == .horizontal)
+        separatorConstraints?.right?.isActive = true
     }
     
     private func didUpdateSeparatorInsets() {
-        separatorConstraints?.top.constant = separatorInsets.top
-        separatorConstraints?.bottom.constant = (separatorAxis == .horizontal ? 0 : -separatorInsets.bottom)
-        separatorConstraints?.leading.constant = separatorInsets.left
-        separatorConstraints?.trailing.constant = (separatorAxis == .vertical ? 0 : -separatorInsets.right)
+        separatorConstraints?.top?.constant = separatorInsets.top
+        separatorConstraints?.bottom?.constant = (separatorAxis == .horizontal ? 0 : -separatorInsets.bottom)
+        separatorConstraints?.left?.constant = separatorInsets.left
+        separatorConstraints?.right?.constant = (separatorAxis == .vertical ? 0 : -separatorInsets.right)
     }
     
     // MARK: - Sizing the Controller
@@ -367,6 +378,35 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
             contentView.isHighlightable {
             contentView.setIsHighlighted(false)
         }
+    }
+    
+}
+
+// MARK: - ConstraintsHolder
+
+fileprivate class ConstraintsHolder {
+    var top: NSLayoutConstraint?
+    var left: NSLayoutConstraint?
+    var bottom: NSLayoutConstraint?
+    var right: NSLayoutConstraint?
+    
+    init(top: NSLayoutConstraint?, bottom: NSLayoutConstraint?,
+         left: NSLayoutConstraint?, right: NSLayoutConstraint?) {
+        self.top = top
+        self.bottom = bottom
+        self.left = left
+        self.right = right
+    }
+    
+    func activateAll() {
+        [top, left, bottom, right].forEach { $0?.isActive = true }
+    }
+    
+    func updateInsets(_ insets: UIEdgeInsets) {
+        top?.constant = insets.top
+        bottom?.constant = insets.bottom
+        left?.constant = insets.left
+        right?.constant = insets.right
     }
     
 }

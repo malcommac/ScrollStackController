@@ -82,6 +82,19 @@ public protocol ScrollStackControllerDelegate: class {
     /// - Parameter state: state of the row.
     func scrollStackRowDidBecomeHidden(_ stackView: ScrollStack, row: ScrollStackRow, index: Int, state: ScrollStack.RowVisibility)
     
+    
+    /// This function is called when layout is updated (added, removed, hide or show one or more rows).
+    /// - Parameter stackView: target stack view.
+    func scrollStackDidUpdateLayout(_ stackView: ScrollStack)
+    
+    /// This function is called when content size of the stack did change (remove/add, hide/show rows).
+    ///
+    /// - Parameters:
+    ///   - stackView: target stack view
+    ///   - oldValue: old content size.
+    ///   - newValue: new content size.
+    func scrollStackContentSizeDidChange(_ stackView: ScrollStack, from oldValue: CGSize, to newValue: CGSize)
+    
 }
 
 // MARK: - ScrollStackRowHighlightable
