@@ -717,6 +717,9 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
                 return
             }
             
+            // remove row
+            row.removeFromSuperview()
+
             // When removing a cell the cell above is the only cell whose separator visibility
             // will be affected, so we need to update its visibility.
             self.updateRowSeparatorVisibility(previousRow)
