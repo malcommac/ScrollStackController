@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "ScrollStackController"
-  s.version      = "1.2.2"
+  s.version      = "1.2.3"
   s.summary      = "Create complex scrollable layout using UIViewController and simplify your code"
   s.homepage     = "https://github.com/malcommac/ScrollStackController"
   s.license      = { :type => "MIT", :file => "LICENSE" }
