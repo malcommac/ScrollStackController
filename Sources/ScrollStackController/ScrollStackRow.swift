@@ -153,7 +153,6 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
     open var rowPadding: UIEdgeInsets {
         didSet {
             paddingConstraints?.updateInsets(rowPadding)
-            layoutIfNeeded()
         }
     }
     
