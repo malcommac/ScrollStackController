@@ -153,6 +153,8 @@ public extension ScrollStack {
          case top
          case bottom
          case atIndex(Int)
+         case afterView(UIView)
+         case beforeView(UIView)
          case after(UIViewController)
          case before(UIViewController)
      }

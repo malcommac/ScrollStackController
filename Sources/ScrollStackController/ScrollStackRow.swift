@@ -36,7 +36,7 @@ import UIKit
 
 open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
     
-    // MARK: Private Properties
+    // MARK: - Private Properties
     
     /// Weak reference to the parent stack view.
     private weak var stackView: ScrollStack?
@@ -73,7 +73,7 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         }
     }
     
-    // MARK: Public Properties
+    // MARK: - Public Properties
     
     /// Return the index of the row into the parent stack.
     public var index: Int? {
@@ -99,16 +99,19 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
     }
     
     /// Parent controller.
+    /// This value maybe `nil` if you use just `view` and not controller as row.
+    ///
+    /// NOTE:
     /// This value is strongly retained so you don't need to
     /// save it anywhere in your parent controller in order to avoid releases.
-    public let controller: UIViewController
+    public let controller: UIViewController?
+        
+    /// Content view controller (if controller is used) or just the view addded.
+    ///
+    /// NOTE: This value is strongly retained.
+    public let contentView: UIView
     
-    /// Content view controller, is the managed controller's view added as subview of the cell.
-    public var contentView: UIView {
-        return controller.view
-    }
-    
-    // MARK: Manage Separator
+    // MARK: - Manage Separator
     
     /// Separator view object.
     public let separatorView = ScrollStackSeparator()
@@ -165,12 +168,36 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         }
     }
     
+    // MARK: - Initialization
+    
+    public required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    internal init(view: UIView, stackView: ScrollStack) {
+        self.stackView = stackView
+        self.controller = nil
+        self.contentView = view
+        self.rowPadding = stackView.rowPadding
+     
+        super.init(frame: .zero)
+        
+        setupPostInit()
+    }
+    
     internal init(controller: UIViewController, stackView: ScrollStack) {
         self.stackView = stackView
         self.controller = controller
+        self.contentView = controller.view
         self.rowPadding = stackView.rowPadding
         super.init(frame: .zero)
          
+        setupPostInit()
+    }
+    
+    // MARK: - Setup UI
+    
+    private func setupPostInit() {
         clipsToBounds = true
         insetsLayoutMarginsFromSafeArea = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -195,11 +222,7 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         applyParentStackAttributes()
     }
     
-    public required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    internal func applyParentStackAttributes() {
+    private func applyParentStackAttributes() {
         guard let stackView = self.stackView else {
             return
         }
@@ -217,7 +240,7 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         isSeparatorHidden = stackView.hideSeparators
     }
     
-    // MARK: Manage Separator
+    // MARK: - Manage Separator
     
     private func didUpdateContentViewContraints() {
         let bottomConstraint = contentView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: rowPadding.bottom)
@@ -267,7 +290,9 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         
         let currentAxis = stackView!.axis
         guard let bestSize = customizableController.scrollStackRowSizeForAxis(currentAxis, row: self, in: self.stackView!) else {
-            return // ignore, use autolayout in place for content view.
+            // ignore, use autolayout in place for content view or if you have used views instead of controllers.
+            // you need to set the heightAnchor in this case!
+            return
         }
         
         switch bestSize {
