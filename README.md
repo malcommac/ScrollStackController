@@ -30,6 +30,7 @@ You can think of it as `UITableView` but with several differences:
 |---	|---------------------------------------------------------------------------------	|
 | 🕺 	| Create complex layout without the boilerplate required by view recyling of `UICollectionView` or `UITableView`. 	|
 | 🧩 	| Simplify your architecture by thinking each screen as a separate-indipendent `UIVIewController`. 	|
+| 🧩 	| Support for lightweight mode to layout `UIView` without `UIViewController`. 	|
 | 🌈 	| Animate show/hide and resize of rows easily even with custom animations! 	|
 | ⏱ 	| Compact code base, less than 1k LOC with no external dependencies. 	|
 | 🎯 	| Easy to use and extensible APIs set. 	|
@@ -53,6 +54,7 @@ You can think of it as `UITableView` but with several differences:
 		- [Fitting Layout Row Size](#fittinglayoutrowsize)
 		- [Collapsible Rows](#collapsiblerows)
 		- [Working with dynamic UICollectionView/UITableView/UITextView](#workingwithdynamicuicollectionviewuitableviewuitextview)
+  - [Using plain UIViews instead of view controllers](#lightweightplainuiview)
 	- [Rows Separator](#rowsseparator)
 	- [Tap On Rows](#taponrows)
 	- [Get the row/controller](#utilsmethods)
@@ -499,6 +501,27 @@ Moreover you can set these values directly on `ScrollStack` controller in order 
 `ScrollStack` also have a property called `autoHideLastRowSeparator` to hide the last separator of the stack automatically.
 
 [↑ Back To Top](#index)
+
+<a name="lightweightplainuiview"/>
+
+### Using plain UIViews instead of view controllers
+
+Since version 1.3.x ScrollStack can also be used to layout plain `UIView` instances which not belong to a parent view controllers.  
+This is especially useful when you don't have a complex logic in your views and you want to use ScrollStack to make custom layout and keep your code lightweight.
+
+Using plain views is pretty easy; each row method supports both `UIView` or `UIViewController` as parameter.
+
+Since you are working with plain `UIView` instances in order to size it correctly you must set its `heightAnchor` or `widthAncor` (depending of your stack orientation) before adding it to the stack.
+As for controllers, `ScrollStack` keeps a strong reference to the managed view which is added as `contentView` of the parent `ScrollStackRow` instance as it happens for `UIViewController`'s `.view` property.
+
+This is a small example:
+
+```swift
+let myCustomView = UIView(frame: .zero)
+myCustomView.backgroundColor = .green
+myCustomView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+stackView.addRow(view: myCustomView)
+```
 
 <a name="taponrows"/>
 
