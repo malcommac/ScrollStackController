@@ -10,7 +10,7 @@
 [![Twitter Follow](https://img.shields.io/twitter/follow/danielemargutti?label=Follow%20Me&style=social)](https://twitter.com/danielemargutti)
 
 # ScrollStackController
-Create complex scrollable layout using UIViewController and simplify your code!
+Create complex scrollable layout using UIViewControllers or plain UIViews and simplify your code!
 
 ScrollStackController was created and maintaned by [Daniele Margutti](https://twitter.com/danielemargutti) › [Web Site](https://www.danielemargutti.com)
 
@@ -19,7 +19,8 @@ ScrollStackController is a class you can use to create complex layouts using scr
 
 You can think of it as `UITableView` but with several differences:
 
-- **Each row is a different `UIViewController` you can manage independently**: no more massive controllers, a much cleaner and maintainable architecture.
+- **Each row can a different `UIViewController` you can manage independently**: no more massive controllers, a much cleaner and maintainable architecture.
+- **You can still use plain `UIView` instances if need a lightweight solution**: this is especially useful when you are using ScrollStackController as layout-helper or your view don't have a complex logic and you can still use the main controller.
 - **Powered by AutoLayout since the beginning**; it uses a combination of `UIScrollView + UIStackView` to offer an animation friendly controller ideal for fixed and dynamic row sizing.
 - **You don't need to struggle yourself with view recycling**: suppose you have a layout composed by several different screens. There is no need of view recycling but it cause a more difficult managment of the layout. With a simpler and safer APIs set `ScrollStackView` is the ideal way to implement such layouts.
 
@@ -30,6 +31,7 @@ You can think of it as `UITableView` but with several differences:
 |---	|---------------------------------------------------------------------------------	|
 | 🕺 	| Create complex layout without the boilerplate required by view recyling of `UICollectionView` or `UITableView`. 	|
 | 🧩 	| Simplify your architecture by thinking each screen as a separate-indipendent `UIVIewController`. 	|
+| 🧩 	| Support for lightweight mode to layout `UIView` without `UIViewController`. 	|
 | 🌈 	| Animate show/hide and resize of rows easily even with custom animations! 	|
 | ⏱ 	| Compact code base, less than 1k LOC with no external dependencies. 	|
 | 🎯 	| Easy to use and extensible APIs set. 	|
@@ -49,16 +51,17 @@ You can think of it as `UITableView` but with several differences:
 	- [Hide / Show Rows with custom animations](#customanimations)
 	- [Reload Rows](#reloadrows)
 	- [Sizing Rows](#sizingrows)
-		- [Fixed Row Size](#fixedrowsize)
-		- [Fitting Layout Row Size](#fittinglayoutrowsize)
-		- [Collapsible Rows](#collapsiblerows)
-		- [Working with dynamic UICollectionView/UITableView/UITextView](#workingwithdynamicuicollectionviewuitableviewuitextview)
-	- [Rows Separator](#rowsseparator)
-	- [Tap On Rows](#taponrows)
-	- [Get the row/controller](#utilsmethods)
-	- [Set Row Insets](#setrowinsets)
-	- [Change ScrollStack scrolling axis](#changescrollaxis)
-	- [Subscribe to Events](#rowevents)
+      - [Fixed Row Size](#fixedrowsize)
+		  - [Fitting Layout Row Size](#fittinglayoutrowsize)
+		  - [Collapsible Rows](#collapsiblerows)
+		  - [Working with dynamic UICollectionView/UITableView/UITextView](#workingwithdynamicuicollectionviewuitableviewuitextview)
+  - [Using plain UIViews instead of view controllers](#lightweightplainuiview)
+  - [Rows Separator](#rowsseparator)
+  - [Tap On Rows](#taponrows)
+  - [Get the row/controller](#utilsmethods)
+  - [Set Row Insets](#setrowinsets)
+  - [Change ScrollStack scrolling axis](#changescrollaxis)
+  - [Subscribe to Events](#rowevents)
 - [Example App](#exampleapp)
 - [Installation](#installation)
 - [System Requirements](#systemrequirements)
@@ -499,6 +502,27 @@ Moreover you can set these values directly on `ScrollStack` controller in order 
 `ScrollStack` also have a property called `autoHideLastRowSeparator` to hide the last separator of the stack automatically.
 
 [↑ Back To Top](#index)
+
+<a name="lightweightplainuiview"/>
+
+### Using plain UIViews instead of view controllers
+
+Since version 1.3.x ScrollStack can also be used to layout plain `UIView` instances which not belong to a parent view controllers.  
+This is especially useful when you don't have a complex logic in your views and you want to use ScrollStack to make custom layout and keep your code lightweight.
+
+Using plain views is pretty easy; each row method supports both `UIView` or `UIViewController` as parameter.
+
+Since you are working with plain `UIView` instances in order to size it correctly you must set its `heightAnchor` or `widthAncor` (depending of your stack orientation) before adding it to the stack.
+As for controllers, `ScrollStack` keeps a strong reference to the managed view which is added as `contentView` of the parent `ScrollStackRow` instance as it happens for `UIViewController`'s `.view` property.
+
+This is a small example:
+
+```swift
+let myCustomView = UIView(frame: .zero)
+myCustomView.backgroundColor = .green
+myCustomView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+stackView.addRow(view: myCustomView)
+```
 
 <a name="taponrows"/>
 

@@ -50,6 +50,14 @@ class ViewController: UIViewController, ScrollStackControllerDelegate {
         pricingVC = PricingVC.create(delegate: self)
         notesVC = NotesVC.create(delegate: self)
         
+        /*
+         Plain UIView example
+         let plainView = UIView(frame: .zero)
+         plainView.backgroundColor = .green
+         plainView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+         stackView.addRow(view: plainView)
+        */
+        
         stackView.addRows(controllers: [welcomeVC, notesVC, tagsVC, galleryVC,pricingVC], animated: false)
     }
     
