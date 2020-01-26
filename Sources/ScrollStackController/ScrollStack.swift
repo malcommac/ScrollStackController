@@ -241,7 +241,7 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
     
     // MARK: - Set Rows
     
-    /// Remove all existing rows and setup the new rows.
+    /// Remove all existing rows and put in place the new list based upon passed controllers.
     ///
     /// - Parameter controllers: controllers to set.
     @discardableResult
@@ -250,7 +250,43 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         return addRows(controllers: controllers)
     }
     
+    /// Remove all existing rows and put in place the new list based upon passed views.
+    ///
+    /// - Parameter views: views to set.
+    open func setRows(views: [UIView]) -> [ScrollStackRow] {
+        removeAllRows(animated: false)
+        return addRows(views: views)
+    }
+    
     // MARK: - Insert Rows
+    
+    /// Insert a new to manage passed view without associated controller.
+    ///
+    /// - Parameters:
+    ///   - view: view to add. It will be added as contentView of the row.
+    ///   - location: location inside the stack of the new row.
+    ///   - animated: `true` to animate operation, by default is `false`.
+    ///   - completion: completion: optional completion callback to call at the end of insertion.
+    open func addRow(view: UIView, at location: InsertLocation = .bottom, animated: Bool = false, completion: (() -> Void)? = nil) -> ScrollStackRow? {
+        guard let index = indexForLocation(location) else {
+            return nil
+        }
+        
+        return createRowForView(view, insertAt: index, animated: animated, completion: completion)
+    }
+    
+    /// Add new rows for each passed view.
+    ///
+    /// - Parameter controllers: controllers to add as rows.
+    /// - Parameter location: location inside the stack of the new row.
+    /// - Parameter animated: `true` to animate operatio, by default is `false`.
+    open func addRows(views: [UIView], at location: InsertLocation = .bottom, animated: Bool = false) -> [ScrollStackRow] {
+        enumerateItems(views, insertAt: location) {
+            addRow(view: $0, at: location, animated: animated)
+        }
+    }
+    
+    
     /// Insert a new row to manage passed controller instance.
     ///
     /// - Parameter controller: controller to manage; it's `view` will be added as contentView of the row.
@@ -259,52 +295,22 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
     /// - Parameter completion: optional completion callback to call at the end of insertion.
     @discardableResult
     open func addRow(controller: UIViewController, at location: InsertLocation = .bottom, animated: Bool = false, completion: (() -> Void)? = nil) -> ScrollStackRow? {
-        switch location {
-        case .top:
-            return createRowForController(controller, insertAt: 0, animated: animated, completion: completion)
-            
-        case .bottom:
-            return createRowForController(controller, insertAt: rows.count, animated: animated, completion: completion)
-            
-        case .atIndex(let index):
-            return createRowForController(controller, insertAt: index, animated: animated, completion: completion)
-            
-        case .after(let afterController):
-            guard let index = rowForController(afterController)?.index else {
-                return nil
-            }
-            
-            let finalIndex = ((index + 1) >= rows.count ? rows.count : (index + 1))
-            return createRowForController(controller, insertAt: finalIndex, animated: animated, completion: completion)
-            
-        case .before(let beforeController):
-            guard let index = rowForController(beforeController)?.index else {
-                return nil
-            }
-            
-            return createRowForController(controller, insertAt: index, animated: animated, completion: completion)
-            
+        guard let index = indexForLocation(location) else {
+            return nil
         }
+        
+        return createRowForController(controller, insertAt: index, animated: animated, completion: completion)
     }
     
-    /// Add new rows for each passaed controllers.
+    /// Add new rows for each passed controllers.
     ///
     /// - Parameter controllers: controllers to add as rows.
     /// - Parameter location: location inside the stack of the new row.
     /// - Parameter animated: `true` to animate operatio, by default is `false`.
     @discardableResult
     open func addRows(controllers: [UIViewController], at location: InsertLocation = .bottom, animated: Bool = false) -> [ScrollStackRow] {
-        switch location {
-        case .top:
-            return controllers.reversed().compactMap( {
-                addRow(controller: $0, at: .top, animated: animated )
-            }).reversed() // double reversed() is to avoid strange behaviour when additing rows on tops.
-            
-        default:
-            return controllers.compactMap {
-                addRow(controller: $0, at: location, animated: animated)
-            }
-            
+        enumerateItems(controllers, insertAt: location) {
+            addRow(controller: $0, at: location, animated: animated)
         }
     }
     
@@ -373,37 +379,31 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         }
     }
     
-    /// Replace an existing row with another new controller.
+    /// Replace an existing row with another new row which manage passed view.
+    ///
+    /// - Parameters:
+    ///   - sourceIndex: row to replace.
+    ///   - view: view to use as `contentView` of the row.
+    ///   - animated: `true` to animate the transition.
+    ///   - completion: optional callback called at the end of the transition.
+    open func replaceRow(index sourceIndex: Int, withRow view: UIView, animated: Bool = false, completion: (() -> Void)? = nil) {
+        doReplaceRow(index: sourceIndex, createRow: { (index, animated) -> ScrollStackRow in
+            return self.createRowForView(view, insertAt: index, animated: animated)
+        }, animated: animated, completion: completion)
+    }
+    
+    /// Replace an existing row with another new row which manage passed controller.
     ///
     /// - Parameter row: row to replace.
     /// - Parameter controller: view controller to replace.
     /// - Parameter animated: `true` to animate the transition.
     /// - Parameter completion: optional callback called at the end of the transition.
     open func replaceRow(index sourceIndex: Int, withRow controller: UIViewController, animated: Bool = false, completion: (() -> Void)? = nil) {
-        guard sourceIndex >= 0, sourceIndex < rows.count else {
-            return
-        }
-        
-        let sourceRow = rows[sourceIndex]
-        
-        guard animated else {
-            removeRow(index: sourceRow.index!)
-            createRowForController(controller, insertAt: sourceIndex, animated: false)
-            return
-        }
-        
-        stackView.setNeedsLayout()
-        
-        UIView.execute({
-            sourceRow.isHidden = true
-        }) {
-            let newRow = self.createRowForController(controller, insertAt: sourceIndex, animated: false)
-            newRow.isHidden = true
-            UIView.execute({
-                newRow.isHidden = false
-            }, completion: completion)
-        }
+        doReplaceRow(index: sourceIndex, createRow: { (index, animated) in
+            return self.createRowForController(controller, insertAt: sourceIndex, animated: false)
+        }, animated: animated, completion: completion)
     }
+    
     
     /// Move the row at given index to another index.
     /// If one of the indexes is not valid nothing is made.
@@ -494,6 +494,19 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         }
     }
     
+    /// Return the row associated with passed `UIView` instance and its index into the `rows` array.
+    ///
+    /// - Parameter view: target view (the `contentView` of the associated `ScrollStackRow` instance).
+    open func rowForView(_ view: UIView) -> (index: Int, cell: ScrollStackRow)? {
+        guard let index = rows.firstIndex(where: {
+            $0.contentView == view
+        }) else {
+            return nil
+        }
+        
+        return (index, rows[index])
+    }
+    
     /// Return the row associated with passed `UIViewController` instance and its index into the `rows` array.
     ///
     /// - Parameter controller: target controller.
@@ -503,6 +516,7 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         }) else {
             return nil
         }
+        
         return (index, rows[index])
     }
     
@@ -626,6 +640,88 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
     
     // MARK: - Private Functions
     
+    private func doReplaceRow(index sourceIndex: Int, createRow handler: @escaping ((Int, Bool) -> ScrollStackRow), animated: Bool, completion: (() -> Void)? = nil) {
+        guard sourceIndex >= 0, sourceIndex < rows.count else {
+            return
+        }
+        
+        let sourceRow = rows[sourceIndex]
+        guard animated else {
+            removeRow(index: sourceRow.index!)
+            _ = handler(sourceIndex, false)
+            return
+        }
+        
+        stackView.setNeedsLayout()
+        
+        UIView.execute({
+            sourceRow.isHidden = true
+        }) {
+            let newRow = handler(sourceIndex, false)
+            newRow.isHidden = true
+            UIView.execute({
+                newRow.isHidden = false
+            }, completion: completion)
+        }
+    }
+    
+    /// Enumerate items to insert into the correct order based upon the location of destination.
+    ///
+    /// - Parameters:
+    ///   - list: list to enumerate.
+    ///   - location: insert location.
+    ///   - callback: callback to call on enumrate.
+    private func enumerateItems<T>(_ list: [T], insertAt location: InsertLocation, callback: ((T) -> ScrollStackRow?)) -> [ScrollStackRow] {
+        switch location {
+            case .top:
+                return list.reversed().compactMap(callback).reversed() // double reversed() is to avoid strange behaviour when additing rows on tops.
+            
+            default:
+                return list.compactMap(callback)
+            
+        }
+    }
+    
+    /// Return the destination index for passed location. `nil` if index is not valid.
+    ///
+    /// - Parameter location: location.
+    private func indexForLocation(_ location: InsertLocation) -> Int? {
+        switch location {
+            case .top:
+                return 0
+            
+            case .bottom:
+                return rows.count
+            
+            case .atIndex(let index):
+                return index
+            
+            case .after(let controller):
+                guard let index = rowForController(controller)?.index else {
+                    return nil
+                }
+                return ((index + 1) >= rows.count ? rows.count : (index + 1))
+            
+            case .afterView(let view):
+                guard let index = rowForView(view)?.index else {
+                    return nil
+                }
+                return ((index + 1) >= rows.count ? rows.count : (index + 1))
+            
+            case .before(let controller):
+                guard let index = rowForController(controller)?.index else {
+                    return nil
+                }
+                return index
+            
+            case .beforeView(let view):
+                guard let index = rowForView(view)?.index else {
+                    return nil
+                }
+                return index
+        }
+    }
+    
     /// Initial configuration of the control.
     private func setupUI() {
         backgroundColor = .white
@@ -730,6 +826,23 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         return removedController
     }
     
+    /// Create a new row to handle passed view and insert it at specified index.
+    ///
+    /// - Parameters:
+    ///   - view: view to use as `contentView` of the row.
+    ///   - index: position of the new row with controller's view.
+    ///   - animated: `true` to animate transition.
+    ///   - completion:  completion callback called when operation is finished.
+    @discardableResult
+    private func createRowForView(_ view: UIView, insertAt index: Int, animated: Bool, completion: (() -> Void)? = nil) -> ScrollStackRow {
+        // Identify any other cell with the same controller
+        let cellToRemove = rowForView(view)?.cell
+        
+        // Create the new container cell for this view.
+        let newRow = ScrollStackRow(view: view, stackView: self)
+        return createRow(newRow, at: index, cellToRemove: cellToRemove, animated: animated, completion: completion)
+    }
+    
     /// Create a new row to handle passed controller and insert it at specified index.
     ///
     /// - Parameter controller: controller to manage.
@@ -743,9 +856,16 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         
         // Create the new container cell for this controller's view
         let newRow = ScrollStackRow(controller: controller, stackView: self)
+        return createRow(newRow, at: index, cellToRemove: cellToRemove, animated: animated, completion: completion)
+    }
+    
+    /// Private implementation to add new row.
+    private func createRow(_ newRow: ScrollStackRow, at index: Int,
+                           cellToRemove: ScrollStackRow?,
+                           animated: Bool, completion: (() -> Void)? = nil) -> ScrollStackRow {
         onChangeRow?(newRow, false)
         stackView.insertArrangedSubview(newRow, at: index)
-                
+        
         // Remove any duplicate cell with the same view
         removeRowFromStackView(cellToRemove)
         

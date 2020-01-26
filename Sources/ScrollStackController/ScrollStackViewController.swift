@@ -76,7 +76,9 @@ open class ScrollStackViewController: UIViewController {
     // MARK: - Private Functions
     
     private func didAddOrRemoveRow(_ row: ScrollStackRow, isRemoved: Bool) {
-        let controller = row.controller
+        guard let controller = row.controller else {
+            return
+        }
         
         if isRemoved {
             controller.removeFromParent()
