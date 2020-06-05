@@ -823,7 +823,6 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
             self.prevVisibilityState.removeValue(forKey: row)
         })
 
-        self.stackDelegate?.scrollStackRowDidBecomeHidden(self, row: row, index: row.index!, state: .removed)
         return removedController
     }
     
