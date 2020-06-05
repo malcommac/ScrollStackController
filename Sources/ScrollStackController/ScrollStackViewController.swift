@@ -58,7 +58,7 @@ open class ScrollStackViewController: UIViewController {
         view = scrollStack
         // monitor remove or add of a row to manage the view controller's hierarchy
         scrollStack.onChangeRow = { [weak self] (row, isRemoved) in
-            guard let `self` = self else {
+            guard let self = self else {
                 return
             }
             self.didAddOrRemoveRow(row, isRemoved: isRemoved)

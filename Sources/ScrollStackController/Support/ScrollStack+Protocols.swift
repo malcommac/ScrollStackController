@@ -176,16 +176,18 @@ public extension ScrollStack {
     /// - `entire`: row is entirely visible.
     /// - `hidden`: row is invisible and hidden.
     /// - `offscreen`: row is not hidden but currently offscreen due to scroll position.
+    /// - `removed`: row is removed manually.
     enum RowVisibility {
         case hidden
         case partial
         case entire
         case offscreen
+        case removed
         
         /// Return if row is visible.
         public var isVisible: Bool {
             switch self {
-            case .hidden, .offscreen:
+            case .hidden, .offscreen, .removed:
                 return false
             default:
                 return true
