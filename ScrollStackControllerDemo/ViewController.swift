@@ -58,7 +58,7 @@ class ViewController: UIViewController, ScrollStackControllerDelegate {
          stackView.addRow(view: plainView)
         */
         
-        stackView.addRows(controllers: [welcomeVC, notesVC, tagsVC, galleryVC,pricingVC], animated: false)
+        stackView.addRows(controllers: [welcomeVC, notesVC, tagsVC, galleryVC, pricingVC], animated: false)
     }
     
     @IBAction public func addNewRow() {

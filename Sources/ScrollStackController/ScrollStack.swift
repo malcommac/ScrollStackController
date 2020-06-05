@@ -809,20 +809,21 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         // Animate visibility
         let removedController = row.controller
         animateCellVisibility(row, animated: animated, hide: true, completion: { [weak self] in
-            guard let `self` = self else {
-                return
-            }
+            guard let self = self else { return }
             
-            // remove row
-            row.removeFromSuperview()
+            self.onChangeRow?(row, true)
+
+            row.removeFromStackView()
 
             // When removing a cell the cell above is the only cell whose separator visibility
             // will be affected, so we need to update its visibility.
             self.updateRowSeparatorVisibility(previousRow)
             
-            self.onChangeRow?(row, true)
+            // Remove from the status
+            self.prevVisibilityState.removeValue(forKey: row)
         })
-                
+
+        self.stackDelegate?.scrollStackRowDidBecomeHidden(self, row: row, index: row.index!, state: .removed)
         return removedController
     }
     

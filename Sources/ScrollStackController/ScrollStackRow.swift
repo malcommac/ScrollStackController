@@ -104,12 +104,12 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
     /// NOTE:
     /// This value is strongly retained so you don't need to
     /// save it anywhere in your parent controller in order to avoid releases.
-    public let controller: UIViewController?
+    public private(set) var controller: UIViewController?
         
     /// Content view controller (if controller is used) or just the view addded.
     ///
     /// NOTE: This value is strongly retained.
-    public let contentView: UIView
+    public private(set) var contentView: UIView?
     
     // MARK: - Manage Separator
     
@@ -138,7 +138,7 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
     // MARK: Private Properties
     
     @objc private func handleTap(_ tapGestureRecognizer: UITapGestureRecognizer) {
-        guard contentView.isUserInteractionEnabled else {
+        guard contentView?.isUserInteractionEnabled ?? false else {
             return
         }
         onTap?(self)
@@ -196,8 +196,21 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
     }
     
     // MARK: - Setup UI
+
+    public func removeFromStackView() {
+        contentView?.removeFromSuperview()
+        contentView = nil
+        controller = nil
+        
+        stackView?.stackView.removeArrangedSubview(self)
+        removeFromSuperview()
+    }
     
     private func setupPostInit() {
+        guard let contentView = contentView else {
+            return
+        }
+        
         clipsToBounds = true
         insetsLayoutMarginsFromSafeArea = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -207,6 +220,10 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
     }
     
     internal func layoutUI() {
+        guard let contentView = contentView else {
+            return
+        }
+        
         contentView.removeFromSuperview()
         contentView.removeFromSuperview()
         
@@ -243,6 +260,10 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
     // MARK: - Manage Separator
     
     private func didUpdateContentViewContraints() {
+        guard let contentView = contentView else {
+            return
+        }
+        
         let bottomConstraint = contentView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: rowPadding.bottom)
         bottomConstraint.priority = UILayoutPriority(rawValue: UILayoutPriority.required.rawValue - 1)
 
@@ -305,7 +326,7 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
     }
     
     private func setupRowToFixedValue(_ value: CGFloat) {
-        guard let stackView = stackView else { return }
+        guard let stackView = stackView, let contentView = contentView else { return }
 
         if stackView.axis == .vertical {
             contentView.width(constant: nil)
@@ -317,8 +338,8 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
     }
     
     private func setupRowSizeToFitLayout()  {
-        guard let stackView = stackView else { return }
-        
+        guard let stackView = stackView, let contentView = contentView else { return }
+
         var bestSize: CGSize!
         if stackView.axis == .vertical {
             let maxAllowedSize = CGSize(width: stackView.bounds.size.width, height: CGFloat.greatestFiniteMagnitude)
@@ -355,7 +376,7 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
     
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        guard contentView.isUserInteractionEnabled else {
+        guard contentView?.isUserInteractionEnabled ?? false else {
             return
         }
         
@@ -367,7 +388,7 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
     
     open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
-        guard contentView.isUserInteractionEnabled, let touch = touches.first else {
+        guard contentView?.isUserInteractionEnabled ?? false, let touch = touches.first else {
             return
         }
         
@@ -382,7 +403,7 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
     
     open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
-        guard contentView.isUserInteractionEnabled else {
+        guard contentView?.isUserInteractionEnabled ?? false else {
             return
         }
         
@@ -394,7 +415,7 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
     
     open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        guard contentView.isUserInteractionEnabled else {
+        guard contentView?.isUserInteractionEnabled ?? false else {
             return
         }
         
