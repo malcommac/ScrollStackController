@@ -180,7 +180,7 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
     /// Hide automatically the last separator.
     open var autoHideLastRowSeparator = false {
         didSet {
-            updateRowSeparatorVisibility(lastRow)
+            updateRowsSeparatorVisibility()
         }
     }
     
@@ -803,9 +803,7 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         guard let row = row else {
             return nil
         }
-        
-        let previousRow = rowBeforeRow(row)
-        
+                
         // Animate visibility
         let removedController = row.controller
         animateCellVisibility(row, animated: animated, hide: true, completion: { [weak self] in
@@ -817,7 +815,7 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
 
             // When removing a cell the cell above is the only cell whose separator visibility
             // will be affected, so we need to update its visibility.
-            self.updateRowSeparatorVisibility(previousRow)
+            self.updateRowsSeparatorVisibility()
             
             // Remove from the status
             self.prevVisibilityState.removeValue(forKey: row)
@@ -883,31 +881,17 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
     }
     
     private func postInsertRow(_ row: ScrollStackRow, animated: Bool, completion: (() -> Void)? = nil) {
-        // Setup separator visibility for the new cell
-        updateRowSeparatorVisibility(row)
-        
-        // A cell can affect the visibility of the cell before it, e.g. if
-        // `automaticallyHidesLastSeparator` is true and a new cell is added as the last cell, so update
-        // the previous cell's separator visibility as well.
-        updateRowSeparatorVisibility(rowBeforeRow(row))
-        
-        // Animate visibility
-        animateCellVisibility(row, animated: animated, hide: false, completion: completion)
+        updateRowsSeparatorVisibility() // update visibility of the separators
+        animateCellVisibility(row, animated: animated, hide: false, completion: completion) // Animate visibility of the cell
     }
     
     /// Update the separator visibility.
     ///
     /// - Parameter row: row target.
-    private func updateRowSeparatorVisibility(_ row: ScrollStackRow?) {
-        guard let row = row, row === stackView.arrangedSubviews.last else {
-            return
-        }
-        
-        row.isSeparatorHidden = hideSeparators
-
-        let isLast = (row === rows.last)
-        if isLast && autoHideLastRowSeparator {
-            row.isSeparatorHidden = true
+    private func updateRowsSeparatorVisibility() {
+        let rows = stackView.arrangedSubviews as? [ScrollStackRow] ?? []
+        for (idx, row) in rows.enumerated() {
+            row.separatorView.isHidden = (idx == rows.last?.index ? true : row.isSeparatorHidden)
         }
     }
     

@@ -127,12 +127,15 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
     }
     
     open var isSeparatorHidden: Bool {
-        get {
-            return separatorView.isHidden
+        didSet {
+            separatorView.isHidden = isSeparatorHidden
         }
-        set {
-            separatorView.isHidden = newValue
-        }
+//        get {
+//            return separatorView.isHidden
+//        }
+//        set {
+//            separatorView.isHidden = newValue
+//        }
     }
     
     // MARK: Private Properties
@@ -179,6 +182,7 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         self.controller = nil
         self.contentView = view
         self.rowPadding = stackView.rowPadding
+        self.isSeparatorHidden = stackView.isSeparatorHidden
      
         super.init(frame: .zero)
         
@@ -190,6 +194,8 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         self.controller = controller
         self.contentView = controller.view
         self.rowPadding = stackView.rowPadding
+        self.isSeparatorHidden = stackView.isSeparatorHidden
+
         super.init(frame: .zero)
          
         setupPostInit()
@@ -237,6 +243,8 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         didUpdateSeparatorAxis()
         
         applyParentStackAttributes()
+        
+        separatorView.isHidden = isSeparatorHidden
     }
     
     private func applyParentStackAttributes() {
