@@ -50,6 +50,12 @@ class ViewController: UIViewController, ScrollStackControllerDelegate {
         pricingVC = PricingVC.create(delegate: self)
         notesVC = NotesVC.create(delegate: self)
         
+        /*stackView.isSeparatorHidden = false
+        stackView.separatorColor = .red
+        stackView.separatorThickness = 3
+        stackView.autoHideLastRowSeparator = true
+        */
+        
         /*
          Plain UIView example
          let plainView = UIView(frame: .zero)
@@ -58,13 +64,16 @@ class ViewController: UIViewController, ScrollStackControllerDelegate {
          stackView.addRow(view: plainView)
         */
         
-        stackView.addRows(controllers: [welcomeVC, notesVC, tagsVC, galleryVC, pricingVC], animated: false)
+        stackView.addRows(controllers: [welcomeVC, notesVC/*, tagsVC, galleryVC, pricingVC*/], animated: false)
     }
     
     @IBAction public func addNewRow() {
-        let galleryVC = GalleryVC.create()
-        stackView.scrollToTop()
-        stackView.addRow(controller: galleryVC, at: .top, animated: true)
+        stackView.addRows(controllers: [tagsVC, galleryVC, pricingVC], animated: false)
+
+        
+//        let galleryVC = GalleryVC.create()
+//        stackView.scrollToTop()
+//        stackView.addRow(controller: galleryVC, at: .top, animated: true)
     }
     
     @IBAction public func hideOrShowRandomRow() {
