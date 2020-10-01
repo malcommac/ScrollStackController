@@ -247,6 +247,13 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         separatorView.isHidden = isSeparatorHidden
     }
     
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        // called the event to update the height of the row.
+        askForCutomizedSizeOfContentView(animated: false)
+    }
+    
     private func applyParentStackAttributes() {
         guard let stackView = self.stackView else {
             return
