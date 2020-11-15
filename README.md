@@ -2,7 +2,7 @@
   <img src="banner.png" width=300px alt="ScrollStackController" title="ScrollStackController">
 </p>
 
-<p align="center"><strong>Easy scrollable complex layouts in UIKit</strong></p>
+<p align="center"><strong>Easy scrollable layouts in UIKit</strong></p>
 
 Create complex scrollable layout using UIViewControllers or plain UIViews and simplify your code!
 
