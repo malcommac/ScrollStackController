@@ -700,7 +700,7 @@ import PackageDescription
 
   let package = Package(name: "YourPackage",
     dependencies: [
-      .Package(url: "https://github.com/malcommac/SwiftLocation.git", majorVersion: 0),
+      .Package(url: "https://github.com/malcommac/ScrollStackController.git", majorVersion: 0),
     ]
   )
 ```
