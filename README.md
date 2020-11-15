@@ -38,7 +38,7 @@ If you are using SwiftLocation or any other of my creations please consider the 
 - [**Become a Sponsor**](https://github.com/sponsors/malcommac)
 
 - [Follow Me](https://github.com/malcommac)
-- 
+
 <a name="index"/>
 
 ## Table of Contents
@@ -693,7 +693,17 @@ You should look at it in order to implement your own layout, create dynamically 
 pod 'ScrollStackController'
 ```
 
-It also supports `Swift Package Maneger` aka SPM.
+It also supports `Swift Package Maneger` aka SPM in your `Package.swift`:
+
+```sh
+import PackageDescription
+
+  let package = Package(name: "YourPackage",
+    dependencies: [
+      .Package(url: "https://github.com/malcommac/SwiftLocation.git", majorVersion: 0),
+    ]
+  )
+```
 
 [↑ Back To Top](#index)
 
