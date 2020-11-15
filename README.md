@@ -1,20 +1,11 @@
 <p align="center" >
-<img src="./Resources/logo.png" width=300px alt="ScrollStackController" title="ScrollStackController">
+  <img src="banner.png" width=300px alt="ScrollStackController" title="ScrollStackController">
 </p>
 
-[![Version](https://img.shields.io/cocoapods/v/ScrollStackController.svg?style=flat)](http://cocoadocs.org/docsets/ScrollStackController) 
-[![Platform](https://img.shields.io/cocoapods/p/ScrollStackController.svg?style=flat)](http://cocoadocs.org/docsets/ScrollStackController)
-[![License](https://img.shields.io/cocoapods/l/ScrollStackController.svg?style=flat)](http://cocoadocs.org/docsets/ScrollStackController) 
-[![danielemargutti.com](https://img.shields.io/badge/HomePage-danielemargutti.com-brightgreen)
-](https://www.danielemargutti.com)
-[![Twitter Follow](https://img.shields.io/twitter/follow/danielemargutti?label=Follow%20Me&style=social)](https://twitter.com/danielemargutti)
+<p align="center"><strong>Easy scrollable complex layouts in UIKit</strong></p>
 
-# ScrollStackController
 Create complex scrollable layout using UIViewControllers or plain UIViews and simplify your code!
 
-ScrollStackController was created and maintaned by [Daniele Margutti](https://twitter.com/danielemargutti) › [Web Site](https://www.danielemargutti.com)
-
-## Introduction
 ScrollStackController is a class you can use to create complex layouts using scrollable `UIStackView` but where each row is handled by a separate `UIViewController`; this allows you to keep a great separation of concerns.
 
 You can think of it as `UITableView` but with several differences:
@@ -23,8 +14,6 @@ You can think of it as `UITableView` but with several differences:
 - **You can still use plain `UIView` instances if need a lightweight solution**: this is especially useful when you are using ScrollStackController as layout-helper or your view don't have a complex logic and you can still use the main controller.
 - **Powered by AutoLayout since the beginning**; it uses a combination of `UIScrollView + UIStackView` to offer an animation friendly controller ideal for fixed and dynamic row sizing.
 - **You don't need to struggle yourself with view recycling**: suppose you have a layout composed by several different screens. There is no need of view recycling but it cause a more difficult managment of the layout. With a simpler and safer APIs set `ScrollStackView` is the ideal way to implement such layouts.
-
-### Main Features
 
 
 |  	| Features Highlights 	|
@@ -38,6 +27,18 @@ You can think of it as `UITableView` but with several differences:
 | 🧬 	| It uses standard UIKit components at its core. No magic, just a combination of `UIScrollView`+`UIStackView`. 	|
 | 🐦 	| Fully made in Swift 5 from Swift ❥ lovers 	|
 
+## ❤️ Your Support
+
+*Hi fellow developer!*  
+You know, maintaing and developing tools consumes resources and time. While I enjoy making them **your support is foundamental to allow me continue its development**.  
+
+If you are using SwiftLocation or any other of my creations please consider the following options:
+
+- [**Make a donation with PayPal**](https://www.paypal.com/paypalme/danielemargutti/20)
+- [**Become a Sponsor**](https://github.com/sponsors/malcommac)
+
+- [Follow Me](https://github.com/malcommac)
+- 
 <a name="index"/>
 
 ## Table of Contents
@@ -698,21 +699,24 @@ It also supports `Swift Package Maneger` aka SPM.
 
 <a name="authorlicense"/>
 
-### Author & License
+**Consider ❤️ [support the development](#support) of this library!**
 
-`ScrollStackController` is developed and maintained by:
+## Contributing
 
-- Daniele Margutti ([danielemargutti.com](http://www.danielemargutti.com) - [@danielemargutti](http://www.twitter.com/danielemargutti) on twitter)
+- If you **need help** or you'd like to **ask a general question**, open an issue.
+- If you **found a bug**, open an issue.
+- If you **have a feature request**, open an issue.
+- If you **want to contribute**, submit a pull request.
 
-I fully welcome contributions, new features, feature requests, bug reports, and fixes. Also PR are accepted!
+## Copyright & Acknowledgements
 
-`ScrollStackController` is released under the MIT License.
+ScrollStackController is currently owned and maintained by Daniele Margutti.  
+You can follow me on Twitter [@danielemargutti](http://twitter.com/danielemargutti).  
+My web site is [https://www.danielemargutti.com](https://www.danielemargutti.com) 
 
-The following library was originally inspired by two great works:
+This software is licensed under [MIT License](LICENSE.md).
 
-- [`AloeStackView`](https://github.com/airbnb/AloeStackView) by the engineering team at AirBnb
-- [`ScrollingStackViewController`](https://github.com/justeat/ScrollingStackViewController) by the engineering team at JustEat
-
-[↑ Back To Top](#index)
-
+***Follow me on:***  
+- 💼 [Linkedin](https://www.linkedin.com/in/danielemargutti/)  
+- 🐦 [Twitter](https://twitter.com/danielemargutti)
 
