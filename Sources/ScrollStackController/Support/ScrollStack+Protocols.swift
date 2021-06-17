@@ -60,7 +60,7 @@ public protocol ScrollStackContainableController: UIViewController {
 
 /// You can implement the following delegate to receive events about row visibility changes during scroll of the stack.
 /// NOTE: No events are currently sent at the time of add/remove/move. A PR about is is accepted :-)
-public protocol ScrollStackControllerDelegate: class {
+public protocol ScrollStackControllerDelegate: AnyObject {
     
     /// Tells the delegate when the user scrolls the content view within the receiver.
     ///
