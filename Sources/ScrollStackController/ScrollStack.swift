@@ -253,6 +253,7 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
     /// Remove all existing rows and put in place the new list based upon passed views.
     ///
     /// - Parameter views: views to set.
+    @discardableResult
     open func setRows(views: [UIView]) -> [ScrollStackRow] {
         removeAllRows(animated: false)
         return addRows(views: views)
@@ -267,6 +268,7 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
     ///   - location: location inside the stack of the new row.
     ///   - animated: `true` to animate operation, by default is `false`.
     ///   - completion: completion: optional completion callback to call at the end of insertion.
+    @discardableResult
     open func addRow(view: UIView, at location: InsertLocation = .bottom, animated: Bool = false, completion: (() -> Void)? = nil) -> ScrollStackRow? {
         guard let index = indexForLocation(location) else {
             return nil
@@ -280,6 +282,7 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
     /// - Parameter controllers: controllers to add as rows.
     /// - Parameter location: location inside the stack of the new row.
     /// - Parameter animated: `true` to animate operatio, by default is `false`.
+    @discardableResult
     open func addRows(views: [UIView], at location: InsertLocation = .bottom, animated: Bool = false) -> [ScrollStackRow] {
         enumerateItems(views, insertAt: location) {
             addRow(view: $0, at: location, animated: animated)
