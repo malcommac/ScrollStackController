@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol PricingVCProtocol: class {
+public protocol PricingVCProtocol: AnyObject {
     func addFee()
 }
 

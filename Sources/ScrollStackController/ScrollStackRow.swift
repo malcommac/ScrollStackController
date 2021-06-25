@@ -352,9 +352,22 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         }
     }
     
+    private func removeFixedDimensionConstraintsIfNeeded(_ contentView: UIView) {
+        let fixedDimensions = contentView.constraints.filter({
+            $0.firstAttribute == .height || $0.firstAttribute == .width
+        })
+        contentView.removeConstraints(fixedDimensions)
+    }
+    
     private func setupRowSizeToFitLayout()  {
         guard let stackView = stackView, let contentView = contentView else { return }
-
+        
+        // If user changed the way of how the controller's view is resized
+        // (ie from fixed height to auto-dimension) we should need to remove
+        // attached constraints about height/width in order to leave the viww to
+        // auto resize according to its content.
+        removeFixedDimensionConstraintsIfNeeded(contentView)
+        
         var bestSize: CGSize!
         if stackView.axis == .vertical {
             let maxAllowedSize = CGSize(width: stackView.bounds.size.width, height: CGFloat.greatestFiniteMagnitude)

@@ -63,17 +63,13 @@ class ViewController: UIViewController, ScrollStackControllerDelegate {
          plainView.heightAnchor.constraint(equalToConstant: 300).isActive = true
          stackView.addRow(view: plainView)
         */
-        
-        stackView.addRows(controllers: [welcomeVC, notesVC/*, tagsVC, galleryVC, pricingVC*/], animated: false)
+        stackView.addRows(controllers: [welcomeVC, notesVC, tagsVC, galleryVC, pricingVC], animated: false)
     }
     
     @IBAction public func addNewRow() {
-        stackView.addRows(controllers: [tagsVC, galleryVC, pricingVC], animated: false)
-
-        
-//        let galleryVC = GalleryVC.create()
-//        stackView.scrollToTop()
-//        stackView.addRow(controller: galleryVC, at: .top, animated: true)
+        let galleryVC = GalleryVC.create()
+        stackView.scrollToTop()
+        stackView.addRow(controller: galleryVC, at: .top, animated: true)
     }
     
     @IBAction public func hideOrShowRandomRow() {
