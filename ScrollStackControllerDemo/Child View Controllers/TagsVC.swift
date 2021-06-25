@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol TagsVCProtocol: class {
+public protocol TagsVCProtocol: AnyObject {
     func toggleTags()
 }
 
