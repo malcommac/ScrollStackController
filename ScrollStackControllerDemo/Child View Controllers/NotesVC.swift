@@ -24,13 +24,7 @@ public class NotesVC: UIViewController, ScrollStackContainableController {
     }
     
     public func scrollStackRowSizeForAxis(_ axis: NSLayoutConstraint.Axis, row: ScrollStackRow, in stackView: ScrollStack) -> ScrollStack.ControllerSize? {
-        let size = CGSize(width: stackView.bounds.size.width, height: 9000)
-        var best = self.view.systemLayoutSizeFitting(size, withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow)
-        best.height += 20 // just some offset for UITextView insets
-        // NOTE:
-        // it's important to set both the height constraint and bottom safe constraints to safe area for textview,
-        // otherwise growing does not work.
-        return .fixed(best.height)
+        return .fitLayoutForAxis
     }
     
     
