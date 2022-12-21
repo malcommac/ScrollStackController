@@ -231,13 +231,10 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         }
         
         contentView.removeFromSuperview()
-        contentView.removeFromSuperview()
         
         addSubview(contentView)
         addSubview(separatorView)
-        
-        askForCutomizedSizeOfContentView(animated: false)
-        
+                
         didUpdateContentViewContraints()
         didUpdateSeparatorViewContraintsIfNeeded()
         didUpdateSeparatorAxis()
