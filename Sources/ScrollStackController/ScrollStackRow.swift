@@ -242,6 +242,7 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         applyParentStackAttributes()
         
         separatorView.isHidden = isSeparatorHidden
+        setNeedsUpdateConstraints()
     }
     
     open override func updateConstraints() {
