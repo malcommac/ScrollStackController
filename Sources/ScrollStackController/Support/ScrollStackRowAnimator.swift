@@ -116,7 +116,7 @@ internal class ScrollStackRowAnimator {
     
     /// Target row if animatable.
     private var animatableRow: ScrollStackRowAnimatable? {
-        return targetRow.controller as? ScrollStackRowAnimatable
+        return (targetRow.controller as? ScrollStackRowAnimatable) ?? (targetRow.contentView as? ScrollStackRowAnimatable)
     }
     
     // MARK: - Initialization

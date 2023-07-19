@@ -231,13 +231,10 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         }
         
         contentView.removeFromSuperview()
-        contentView.removeFromSuperview()
         
         addSubview(contentView)
         addSubview(separatorView)
-        
-        askForCutomizedSizeOfContentView(animated: false)
-        
+                
         didUpdateContentViewContraints()
         didUpdateSeparatorViewContraintsIfNeeded()
         didUpdateSeparatorAxis()
@@ -245,13 +242,12 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         applyParentStackAttributes()
         
         separatorView.isHidden = isSeparatorHidden
+        setNeedsUpdateConstraints()
     }
     
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        // called the event to update the height of the row.
+    open override func updateConstraints() {
         askForCutomizedSizeOfContentView(animated: false)
+        super.updateConstraints()
     }
     
     private func applyParentStackAttributes() {
