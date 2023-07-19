@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "ScrollStackController"
-  s.version      = "1.4.2"
+  s.version      = "1.5.0"
   s.summary      = "Create complex scrollable layout using UIViewController and simplify your code"
   s.homepage     = "https://github.com/malcommac/ScrollStackController"
   s.license      = { :type => "MIT", :file => "LICENSE" }
@@ -10,5 +10,5 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/malcommac/ScrollStackController.git", :tag => s.version.to_s }
   s.frameworks  = "Foundation", "UIKit"
   s.source_files = 'Sources/**/*.swift'
-  s.swift_versions = ['5.0', '5.1', '5.3', '5.4', '5.5']
+  s.swift_versions = ['5.0', '5.1', '5.3', '5.4', '5.5', '5.7', '5.8']
 end
