@@ -245,9 +245,10 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         setNeedsUpdateConstraints()
     }
     
-    open override func updateConstraints() {
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        // called the event to update the height of the row.
         askForCutomizedSizeOfContentView(animated: false)
-        super.updateConstraints()
     }
     
     private func applyParentStackAttributes() {
@@ -366,15 +367,24 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         
         var bestSize: CGSize!
         if stackView.axis == .vertical {
-            let maxAllowedSize = CGSize(width: stackView.bounds.size.width, height: CGFloat.greatestFiniteMagnitude)
-            bestSize = contentView.systemLayoutSizeFitting(maxAllowedSize, withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow)
+            let maxAllowedSize = CGSize(width: stackView.bounds.size.width, height: 0)
+            bestSize = contentView.systemLayoutSizeFitting(
+                maxAllowedSize,
+                withHorizontalFittingPriority: .required,
+                verticalFittingPriority: .fittingSizeLevel
+            )
         } else {
-            let maxAllowedSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: stackView.bounds.size.height)
-            bestSize = contentView.systemLayoutSizeFitting(maxAllowedSize, withHorizontalFittingPriority: .defaultLow, verticalFittingPriority: .required)
+            let maxAllowedSize = CGSize(width: 0, height: stackView.bounds.size.height)
+            bestSize = contentView.systemLayoutSizeFitting(
+                maxAllowedSize,
+                withHorizontalFittingPriority: .fittingSizeLevel,
+                verticalFittingPriority: .required
+            )
         }
         
         setupRowToFixedValue(bestSize.height)
     }
+    
     
     // MARK: - Handle Touch
     
