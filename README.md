@@ -32,6 +32,7 @@ You can think of it as `UITableView` but with several differences:
 | ⏱ 	| Compact code base, less than 1k LOC with no external dependencies. 	|
 | 🎯 	| Easy to use and extensible APIs set. 	|
 | 🧬 	| It uses standard UIKit components at its core. No magic, just a combination of `UIScrollView`+`UIStackView`. 	|
+| 🧨 	| Support SwiftUI's View and autosizing based upon View's content 	|
 | 🐦 	| Fully made in Swift 5 from Swift ❥ lovers 	|
 
 ## ❤️ Your Support
