@@ -130,12 +130,6 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         didSet {
             separatorView.isHidden = isSeparatorHidden
         }
-//        get {
-//            return separatorView.isHidden
-//        }
-//        set {
-//            separatorView.isHidden = newValue
-//        }
     }
     
     // MARK: Private Properties
@@ -367,14 +361,14 @@ open class ScrollStackRow: UIView, UIGestureRecognizerDelegate {
         
         var bestSize: CGSize!
         if stackView.axis == .vertical {
-            let maxAllowedSize = CGSize(width: stackView.bounds.size.width, height: 0)
+            let maxAllowedSize = CGSize(width: contentView.bounds.width, height: 0)
             bestSize = contentView.systemLayoutSizeFitting(
                 maxAllowedSize,
                 withHorizontalFittingPriority: .required,
                 verticalFittingPriority: .fittingSizeLevel
             )
         } else {
-            let maxAllowedSize = CGSize(width: 0, height: stackView.bounds.size.height)
+            let maxAllowedSize = CGSize(width: 0, height: contentView.bounds.height)
             bestSize = contentView.systemLayoutSizeFitting(
                 maxAllowedSize,
                 withHorizontalFittingPriority: .fittingSizeLevel,
