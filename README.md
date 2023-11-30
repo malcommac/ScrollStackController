@@ -1,8 +1,15 @@
-<p align="center" >
-  <img src="banner.png" width=300px alt="ScrollStackController" title="ScrollStackController">
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./Resources/scrollstack-dark.png" width="350">
+  <img alt="logo-library" src="./Resources/scrollstack-light.png" width="350">
+</picture>
 </p>
 
-<p align="center"><strong>Easy scrollable layouts in UIKit</strong></p>
+[![Swift](https://img.shields.io/badge/Swift-5.3_5.4_5.5_5.6-orange?style=flat-square)](https://img.shields.io/badge/Swift-5.3_5.4_5.5_5.6-Orange?style=flat-square)
+[![Platform](https://img.shields.io/badge/Platforms-iOS-4E4E4E.svg?colorA=28a745)](#installation)
+[![Swift Package Manager](https://img.shields.io/badge/Swift_Package_Manager-compatible-orange?style=flat-square)](https://img.shields.io/badge/Swift_Package_Manager-compatible-orange?style=flat-square)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/ScrollStackController.svg?style=flat-square)](https://img.shields.io/cocoapods/v/ScrollStackController.svg)
+
 
 Create complex scrollable layout using UIViewControllers or plain UIViews and simplify your code!
 
@@ -32,41 +39,43 @@ You can think of it as `UITableView` but with several differences:
 *Hi fellow developer!*  
 You know, maintaing and developing tools consumes resources and time. While I enjoy making them **your support is foundamental to allow me continue its development**.  
 
-If you are using SwiftLocation or any other of my creations please consider the following options:
+If you are using `ScrollStackController` or any other of my creations please consider the following options:
 
 - [**Make a donation with PayPal**](https://www.paypal.com/paypalme/danielemargutti/20)
 - [**Become a Sponsor**](https://github.com/sponsors/malcommac)
-
 - [Follow Me](https://github.com/malcommac)
 
 <a name="index"/>
 
 ## Table of Contents
 
-- [When to use `ScrollStackController` and when not](#whentousescrollstackcontrollerandwhennot)
-- [How to use it](#howtouseit)
-	- [Adding Rows](#addingrows)
-	- [Removing / Replacing Rows](#removingreplacingrows)
-	- [Move Rows](#moverows)
-	- [Hide / Show Rows](#hideshowrows)
-	- [Hide / Show Rows with custom animations](#customanimations)
-	- [Reload Rows](#reloadrows)
-	- [Sizing Rows](#sizingrows)
-      - [Fixed Row Size](#fixedrowsize)
-		  - [Fitting Layout Row Size](#fittinglayoutrowsize)
-		  - [Collapsible Rows](#collapsiblerows)
-		  - [Working with dynamic UICollectionView/UITableView/UITextView](#workingwithdynamicuicollectionviewuitableviewuitextview)
-  - [Using plain UIViews instead of view controllers](#lightweightplainuiview)
-  - [Rows Separator](#rowsseparator)
-  - [Tap On Rows](#taponrows)
-  - [Get the row/controller](#utilsmethods)
-  - [Set Row Insets](#setrowinsets)
-  - [Change ScrollStack scrolling axis](#changescrollaxis)
-  - [Subscribe to Events](#rowevents)
-- [Example App](#exampleapp)
-- [Installation](#installation)
-- [System Requirements](#systemrequirements)
-- [Author & License](#authorlicense)
+- [❤️ Your Support](#️-your-support)
+- [Table of Contents](#table-of-contents)
+  - [When to use `ScrollStackController` and when not](#when-to-use-scrollstackcontroller-and-when-not)
+  - [How to use it](#how-to-use-it)
+  - [Adding Rows](#adding-rows)
+  - [Removing / Replacing Rows](#removing--replacing-rows)
+  - [Move Rows](#move-rows)
+  - [Hide / Show Rows](#hide--show-rows)
+  - [Hide / Show Rows with custom animations](#hide--show-rows-with-custom-animations)
+  - [Reload Rows](#reload-rows)
+  - [Sizing Rows](#sizing-rows)
+  - [Fixed Row Size](#fixed-row-size)
+  - [Fitting Layout Row Size](#fitting-layout-row-size)
+  - [Collapsible Rows](#collapsible-rows)
+  - [Working with dynamic UICollectionView/UITableView/UITextView](#working-with-dynamic-uicollectionviewuitableviewuitextview)
+  - [Rows Separator](#rows-separator)
+  - [Using plain UIViews instead of view controllers](#using-plain-uiviews-instead-of-view-controllers)
+  - [Tap On Rows](#tap-on-rows)
+  - [Get the row/controller](#get-the-rowcontroller)
+  - [Set Row Insets](#set-row-insets)
+  - [Change ScrollStack scrolling axis](#change-scrollstack-scrolling-axis)
+  - [Subscribe to Row Events](#subscribe-to-row-events)
+  - [System Requirements](#system-requirements)
+  - [Example App](#example-app)
+  - [Installation](#installation)
+- [Contributing](#contributing)
+- [Copyright \& Acknowledgements](#copyright--acknowledgements)
 
 <a name="whentousescrollstackcontrollerandwhennot"/>
 
