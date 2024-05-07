@@ -892,7 +892,7 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
             
             /// Schedule a single `dispatchRowsVisibilityChangesTo(_:)` call.
             ///
-            /// In this way, when rows are created inside a for-loop, the delegate is called only once after the `ScrollStack` has been fully layed out.
+            /// In this way, when rows are created inside a for-loop, the delegate is called only once after the `ScrollStack` has been fully laid out.
             DispatchQueue.main.async(execute: rowVisibilityChangesDispatchWorkItem!)
         }
         
