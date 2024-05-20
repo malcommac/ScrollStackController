@@ -860,6 +860,8 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         return createRow(newRow, at: index, cellToRemove: cellToRemove, animated: animated, completion: completion)
     }
     
+    private var rowVisibilityChangesDispatchWorkItem: DispatchWorkItem?
+    
     /// Private implementation to add new row.
     private func createRow(_ newRow: ScrollStackRow, at index: Int,
                            cellToRemove: ScrollStackRow?,
@@ -878,7 +880,21 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
             }, completion: nil)
         }
         
-        scrollViewDidScroll(self)
+        if rowVisibilityChangesDispatchWorkItem == nil {
+            
+            rowVisibilityChangesDispatchWorkItem = DispatchWorkItem(block: { [weak self] in
+                if let stackDelegate = self?.stackDelegate {
+                    self?.dispatchRowsVisibilityChangesTo(stackDelegate)
+                }
+                
+                self?.rowVisibilityChangesDispatchWorkItem = nil
+            })
+            
+            /// Schedule a single `dispatchRowsVisibilityChangesTo(_:)` call.
+            ///
+            /// In this way, when rows are created inside a for-loop, the delegate is called only once after the `ScrollStack` has been fully laid out.
+            DispatchQueue.main.async(execute: rowVisibilityChangesDispatchWorkItem!)
+        }
         
         return newRow
     }
@@ -979,25 +995,27 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
     }
     
     private func dispatchRowsVisibilityChangesTo(_ delegate: ScrollStackControllerDelegate) {
-        delegate.scrollStackDidScroll(self, offset: contentOffset)
-        
         rows.enumerated().forEach { (idx, row) in
             let current = isRowVisible(index: idx)
-            if let previous = prevVisibilityState[row] {
-                switch (previous, current) {
-                case (.offscreen, .partial), // row will become invisible
-                     (.hidden, .partial),
-                     (.hidden, .entire):
-                    delegate.scrollStackRowDidBecomeVisible(self, row: row, index: idx, state: current)
-                    
-                case (.partial, .offscreen), // row will become visible
-                     (.partial, .hidden),
-                     (.entire, .hidden):
-                    delegate.scrollStackRowDidBecomeHidden(self, row: row, index: idx, state: current)
-
-                default:
-                    break
-                }
+            let previous = prevVisibilityState[row]
+            
+            switch (previous, current) {
+            case (.offscreen, .partial), // row will become visible
+                (nil, .entire),
+                (nil, .partial),
+                (.partial, .entire),
+                (.hidden, .partial),
+                (.hidden, .entire):
+                delegate.scrollStackRowDidBecomeVisible(self, row: row, index: idx, state: current)
+                
+            case (.partial, .offscreen), // row will become invisible
+                (.entire, .partial),
+                (.partial, .hidden),
+                (.entire, .hidden):
+                delegate.scrollStackRowDidBecomeHidden(self, row: row, index: idx, state: current)
+                
+            default:
+                break
             }
             
             // store previous state
@@ -1062,7 +1080,8 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         guard let stackDelegate = stackDelegate else {
             return
         }
-        
+        stackDelegate.scrollStackDidScroll(self, offset: contentOffset)
+
         dispatchRowsVisibilityChangesTo(stackDelegate)
     }
     
