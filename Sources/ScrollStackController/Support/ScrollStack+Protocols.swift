@@ -177,9 +177,9 @@ public extension ScrollStack {
     /// - `hidden`: row is invisible and hidden.
     /// - `offscreen`: row is not hidden but currently offscreen due to scroll position.
     /// - `removed`: row is removed manually.
-    enum RowVisibility {
+    enum RowVisibility: Equatable {
         case hidden
-        case partial
+        case partial(percentage: Double)
         case entire
         case offscreen
         case removed

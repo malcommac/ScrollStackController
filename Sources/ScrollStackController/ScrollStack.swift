@@ -794,7 +794,13 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
             return .offscreen
         }
         
-        return (bounds.contains(rowFrame) ? .entire : .partial)
+        if bounds.contains(rowFrame) {
+            return .entire
+        } else {
+            let intersection = bounds.intersection(rowFrame)
+            let intersectionPercentage = ((intersection.width * intersection.height) / (rowFrame.width * rowFrame.height)) * 100
+            return .partial(percentage: intersectionPercentage)
+        }
     }
     
     /// Remove passed row from stack view.
