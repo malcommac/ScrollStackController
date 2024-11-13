@@ -68,6 +68,11 @@ public protocol ScrollStackControllerDelegate: AnyObject {
     /// - Parameter offset: current scroll offset.
     func scrollStackDidScroll(_ stackView: ScrollStack, offset: CGPoint)
     
+    /// Tells the delegate when a scrolling animation in the scroll view concludes.
+    /// 
+    /// - Parameter stackView: The ScrollStack object that’s performing the scrolling animation.
+    func scrollStackDidEndScrollingAnimation(_ stackView: ScrollStack)
+    
     /// Row did become partially or entirely visible.
     ///
     /// - Parameter row: target row.

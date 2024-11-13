@@ -634,33 +634,37 @@ Example:
 
 ```swift
 class ViewController: ScrollStackController, ScrollStackControllerDelegate {
-	
-  func viewDidLoad() {
-    super.viewDidLoad()
-    
-    self.scrollStack.stackDelegate = self
-  }
-	
-  func scrollStackDidScroll(_ stackView: ScrollStack, offset: CGPoint) {
-    // stack did scroll
-  }
-    
-  func scrollStackRowDidBecomeVisible(_ stackView: ScrollStack, row: ScrollStackRow, index: Int, state: ScrollStack.RowVisibility) {
-    // Row did become partially or entirely visible.
-  }
-    
-  func scrollStackRowDidBecomeHidden(_ stackView: ScrollStack, row: ScrollStackRow, index: Int, state: ScrollStack.RowVisibility) {
-    // Row did become partially or entirely invisible.
-  }
 
-  func scrollStackDidUpdateLayout(_ stackView: ScrollStack) {
-    // This function is called when layout is updated (added, removed, hide or show one or more rows).
-  }
+    func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.scrollStack.stackDelegate = self
+    }
 
-  func scrollStackContentSizeDidChange(_ stackView: ScrollStack, from oldValue: CGSize, to newValue: CGSize) {
-    // This function is called when content size of the stack did change (remove/add, hide/show rows).
-  }
+    func scrollStackDidScroll(_ stackView: ScrollStack, offset: CGPoint) {
+        // Stack did scroll
+    }
+    
+      
+    func scrollStackDidEndScrollingAnimation(_ stackView: ScrollStack) {
+        // Scrolling animation has ended
+    }
 
+    func scrollStackRowDidBecomeVisible(_ stackView: ScrollStack, row: ScrollStackRow, index: Int, state: ScrollStack.RowVisibility) {
+        // Row did become partially or entirely visible.
+    }
+
+    func scrollStackRowDidBecomeHidden(_ stackView: ScrollStack, row: ScrollStackRow, index: Int, state: ScrollStack.RowVisibility) {
+        // Row did become partially or entirely invisible.
+    }
+
+    func scrollStackDidUpdateLayout(_ stackView: ScrollStack) {
+        // This function is called when layout is updated (added, removed, hide or show one or more rows).
+    }
+
+    func scrollStackContentSizeDidChange(_ stackView: ScrollStack, from oldValue: CGSize, to newValue: CGSize) {
+        // This function is called when content size of the stack did change (remove/add, hide/show rows).
+    }
 }
 ```
 

@@ -1091,6 +1091,14 @@ open class ScrollStack: UIScrollView, UIScrollViewDelegate {
         dispatchRowsVisibilityChangesTo(stackDelegate)
     }
     
+    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        guard let stackDelegate = stackDelegate else {
+            return
+        }
+        
+        stackDelegate.scrollStackDidEndScrollingAnimation(self)
+    }
+    
     open override func layoutSubviews() {
         super.layoutSubviews()
         
